@@ -1,6 +1,6 @@
 package swairlines.modelo;
 
-public class Funcionario {
+public abstract class Funcionario {
 	
 	private String nome;
 	private String sexo;
@@ -11,12 +11,7 @@ public class Funcionario {
 	private String telefoneCelular;
 	private String telefoneResidencial;
 	private String nacionalidade;
-	private String estadoCivil;
-	
-	
-	public Funcionario() {
-		
-	}	
+	private String estadoCivil;	
 	
 	public Funcionario(String nome, String sexo, String cpf, String rg,
 			String cargo, String dataDeNascimento, String telefoneCelular,

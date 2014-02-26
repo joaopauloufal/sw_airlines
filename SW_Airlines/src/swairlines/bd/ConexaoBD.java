@@ -21,8 +21,7 @@ public class ConexaoBD {
 			e.printStackTrace();
 		}				
 		
-	}
-	
+	}	
 	
 	public Connection abreConexao(){
         try {
@@ -59,8 +58,7 @@ public class ConexaoBD {
 		tabelaCliente();
 		tabelaFuncionario();
 		tabelaUsuario();
-		tabelaVoo();
-		
+		tabelaVoo();		
 		
 	}
 
@@ -102,14 +100,16 @@ public class ConexaoBD {
 
 	private void tabelaFuncionario() throws SQLException {
 		sql = "create table if not exists sw_airlines.funcionario("
-				+ " cpf varchar(15) not null,"
+				+ " cpf varchar(120) not null ,"
 				+ " nome varchar(80) not null,"
-				+ " sexo varchar(1) not null ,"
-				+ " data_de_nascimento date not null ,"
-				+ " estado_civil varchar(20) ,"
-				+ " nacionalidade varchar(25) ,"
-				+ " telefone_celular varchar(20) ,"
-				+ " telefone_residencial varchar(20) ,"
+				+ " sexo varchar(50) not null ,"
+				+ " rg varchar(80) not null ,"
+				+ " cargo varchar(50) not null ,"
+				+ " data_de_nascimento varchar(30) not null ,"
+				+ " estado_civil varchar(50) not null,"
+				+ " nacionalidade varchar(50) not null ,"
+				+ " telefone_celular varchar(40) not null ,"
+				+ " telefone_residencial varchar(40) not null,"
 				+ " rua varchar(80) not null ,"
 				+ " cidade varchar(80) not null ,"
 				+ " bairro varchar(80) not null ,"
@@ -145,10 +145,11 @@ public class ConexaoBD {
 	            + "DEFAULT CHARACTER SET = utf8;" ;
 		abreConexao();
 		executar(sql);
-		desconectar();
-		
+		desconectar();		
 		
 	}
+	
+	
 	
 
 }

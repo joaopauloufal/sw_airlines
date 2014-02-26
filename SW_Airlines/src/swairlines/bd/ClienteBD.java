@@ -32,13 +32,15 @@ public class ClienteBD {
 
 
 	}
-	public void exclui(Cliente c1){
+	public boolean exclui(Cliente c1){
 
 		try {
 			ConexaoBD cbd = new ConexaoBD();
 			cbd.executar("delete from sw_airlines.cliente where rg = '" + c1.getRg()+"';");
+			return true;
 		} catch (SQLException ex) {
 			Logger.getLogger(TelaCadCliente.class.getName()).log(Level.SEVERE, null, ex);
+			return false;
 		}
 	}
 	public void busca(){

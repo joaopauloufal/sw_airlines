@@ -3,7 +3,6 @@ package swairlines.bd;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import swairlines.gui.TelaCadFuncionario;
 import swairlines.modelo.Endereco;
 import swairlines.modelo.Funcionario;
@@ -14,7 +13,7 @@ public class FuncionarioBD {
 		try {
 			ConexaoBD cbd = new ConexaoBD();
 			cbd.executar("insert into sw_airlines.funcionario (cpf, nome, sexo, rg, cargo, data_de_nascimento, estado_civil, nacionalidade, telefone_celular, telefone_residencial, rua, cidade, bairro, numero, estado) " +
-					"values('" + f1.getNome() +"','" + f1.getCpf() +"','" + f1.getSexo() +"','" + f1.getRg() +"','" + f1.getCargo() +"','" + f1.getDataDeNascimento() +"','" + f1.getEstadoCivil() +"','" + f1.getNacionalidade() +"','" + f1.getTelefoneCelular() +"','" + f1.getTelefoneResidencial() + "','" + e1.getRua() + "','" + e1.getCidade() + "','" + e1.getBairro() + "','" + e1.getNumero() + "','" + e1.getEstado() + "');");
+					"values('" + f1.getCpf() +"','" + f1.getNome() +"','" + f1.getSexo() +"','" + f1.getRg() +"','" + f1.getCargo() +"','" + f1.getDataDeNascimento() +"','" + f1.getEstadoCivil() +"','" + f1.getNacionalidade() +"','" + f1.getTelefoneCelular() +"','" + f1.getTelefoneResidencial() + "','" + e1.getRua() + "','" + e1.getCidade() + "','" + e1.getBairro() + "','" + e1.getNumero() + "','" + e1.getEstado() + "');");
 			return true;
 		} catch (SQLException ex) {
 			Logger.getLogger(TelaCadFuncionario.class.getName()).log(Level.SEVERE, null, ex);

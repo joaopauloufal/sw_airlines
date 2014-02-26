@@ -6,12 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import swairlines.gui.TelaCadConta;
 import swairlines.modelo.ContaDeUsuario;
-
 
 public class UsuarioBD {
 

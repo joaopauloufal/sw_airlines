@@ -3,6 +3,8 @@ package swairlines.gui;
 import swairlines.bd.FuncionarioBD;
 import swairlines.modelo.Endereco;
 import swairlines.modelo.Funcionario;
+import swairlines.modelo.Gerente;
+import swairlines.modelo.Operador;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -25,7 +27,7 @@ public class TelaCadFuncionario extends Stage {
 	private TextField txtNome;
 	private TextField txtCpf;
 	private TextField txtRg;
-	private TextField txtCargo;
+	private ComboBox<String> listCargo;
 	private ComboBox<String> listSexo;
 	private TextField txtDataDeNascimento;
 	private ComboBox<String> listEstadoCivil;
@@ -82,9 +84,9 @@ public class TelaCadFuncionario extends Stage {
 		hbox3.getChildren().addAll(lblRg, txtRg);
 		
 		Label lblCargo = new Label("Cargo:");
-		txtCargo = new TextField();
-		txtCargo.setPrefColumnCount(20);
-		hbox4.getChildren().addAll(lblCargo, txtCargo);
+		listCargo = new ComboBox<String>();
+		listCargo.getItems().addAll("Gerente", "Operador");
+		hbox4.getChildren().addAll(lblCargo, listCargo);
 		
 		Label lblSexo = new Label("Sexo:");
 		listSexo = new ComboBox<String>();
@@ -144,11 +146,17 @@ public class TelaCadFuncionario extends Stage {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				Funcionario f1 = new Funcionario(txtNome.getText(), listSexo.getValue(), txtCpf.getText(), txtRg.getText(), txtCargo.getText(), txtDataDeNascimento.getText(), txtTelefoneCelular.getText(), txtTelefoneResidencial.getText(), txtNacionalidade.getText(), listEstadoCivil.getValue());
-				Endereco e1 = new Endereco(txtRua.getText(), txtCidade.getText(), txtBairro.getText(), txtNumero.getText(), txtEstado.getText());
-				
-				FuncionarioBD fbd = new FuncionarioBD();
-				fbd.insere(f1, e1);
+				if (listCargo.getValue().equals("Operador")) {
+					Funcionario f1 = new Operador(txtNome.getText(), listSexo.getValue(), txtCpf.getText(), txtRg.getText(), listCargo.getValue(), txtDataDeNascimento.getText(), txtTelefoneCelular.getText(), txtTelefoneResidencial.getText(), txtNacionalidade.getText(), listEstadoCivil.getValue());
+					Endereco e1 = new Endereco(txtRua.getText(), txtCidade.getText(), txtBairro.getText(), txtNumero.getText(), txtEstado.getText());
+					FuncionarioBD fbd = new FuncionarioBD();
+					fbd.insere(f1, e1);
+				} else if (listCargo.getValue().equals("Gerente")) {
+					Funcionario f1 = new Gerente(txtNome.getText(), listSexo.getValue(), txtCpf.getText(), txtRg.getText(), listCargo.getValue(), txtDataDeNascimento.getText(), txtTelefoneCelular.getText(), txtTelefoneResidencial.getText(), txtNacionalidade.getText(), listEstadoCivil.getValue());
+					Endereco e1 = new Endereco(txtRua.getText(), txtCidade.getText(), txtBairro.getText(), txtNumero.getText(), txtEstado.getText());
+					FuncionarioBD fbd = new FuncionarioBD();
+					fbd.insere(f1, e1);
+				}								
 				
 			}
 		});
@@ -162,8 +170,7 @@ public class TelaCadFuncionario extends Stage {
 	
 		gPane.getChildren().add(vbox1);
 		initModality(Modality.APPLICATION_MODAL);
-		show();
-		
+		show();		
 		
 		
 	}
