@@ -1,4 +1,4 @@
-package swairlines.app;
+package swairlines;
 
 import swairlines.gui.TelaLogin;
 import javafx.application.Application;

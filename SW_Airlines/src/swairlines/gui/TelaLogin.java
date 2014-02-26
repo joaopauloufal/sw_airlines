@@ -2,7 +2,7 @@ package swairlines.gui;
 
 import javax.swing.JOptionPane;
 
-import swairlines.app.Main;
+import swairlines.Main;
 import swairlines.bd.UsuarioBD;
 import swairlines.modelo.ContaDeUsuario;
 import javafx.event.ActionEvent;

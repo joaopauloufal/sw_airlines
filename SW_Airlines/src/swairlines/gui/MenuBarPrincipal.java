@@ -1,6 +1,6 @@
 package swairlines.gui;
 
-import swairlines.app.Main;
+import swairlines.Main;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Menu;
