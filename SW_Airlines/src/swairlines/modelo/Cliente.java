@@ -1,121 +1,127 @@
 package swairlines.modelo;
 
-import javafx.beans.property.SimpleStringProperty;
-
-
 public class Cliente {
 
-	private SimpleStringProperty nome;
-	private SimpleStringProperty cpfCnpj;
-	private SimpleStringProperty sexo;
-	private SimpleStringProperty rg;
-	private SimpleStringProperty dataDeNascimento;
-	private SimpleStringProperty estadoCivil;
-	private SimpleStringProperty nacionalidade;
-	private SimpleStringProperty telefoneCelular;
-	private SimpleStringProperty telefoneResidencial;
-	private SimpleStringProperty cartaoDeCredito;
+	private String nome;
+	private String cpfCnpj;
+	private String sexo;
+	private String rg;
+	private String dataDeNascimento;
+	private String estadoCivil;
+	private String nacionalidade;
+	private String telefoneCelular;
+	private String telefoneResidencial;
+	private String cartaoDeCredito;
+	private Endereco endereco;
 	
 	public Cliente(String nome, String cpfCnpj, String sexo, String rg, String dataDeNascimento, String estadoCivil, String nacionalidade,
 			String telefoneCelular, String telefoneResidencial, String cartaoDeCredito) {
 		
-		this.nome = new SimpleStringProperty(nome);
-		this.cpfCnpj = new SimpleStringProperty(cpfCnpj);
-		this.sexo = new SimpleStringProperty(sexo);
-		this.rg = new SimpleStringProperty(rg);
-		this.dataDeNascimento = new SimpleStringProperty(dataDeNascimento);
-		this.estadoCivil = new SimpleStringProperty(estadoCivil);
-		this.nacionalidade = new SimpleStringProperty(nacionalidade);
-		this.telefoneCelular = new SimpleStringProperty(telefoneCelular);
-		this.telefoneResidencial = new SimpleStringProperty(telefoneResidencial);
-		this.cartaoDeCredito = new SimpleStringProperty(cartaoDeCredito);
+		this.nome = nome;
+		this.cpfCnpj = cpfCnpj;
+		this.sexo = sexo;
+		this.rg = rg;
+		this.dataDeNascimento = dataDeNascimento;
+		this.estadoCivil = estadoCivil;
+		this.nacionalidade = nacionalidade;
+		this.telefoneCelular = telefoneCelular;
+		this.telefoneResidencial = telefoneResidencial;
+		this.cartaoDeCredito = cartaoDeCredito;
 		
 	}
 	
-	
+	public Cliente() {
+		
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
 
 	public String getNome() {
-		return nome.get();
+		return nome;
 	}
 	
 	public void setNome(String nome) {
-		this.nome.set(nome);
+		this.nome = nome;
 	}
 	
 	public String getCpfCnpj() {
-		return cpfCnpj.get();
+		return cpfCnpj;
 	}
 	
 	public void setCpfCnpj(String cpfCnpj) {
-		this.cpfCnpj.set(cpfCnpj);;
+		this.cpfCnpj = cpfCnpj;
 	}
 	
 	public String getSexo() {
-		return sexo.get();
+		return sexo;
 	}
 	
 	public void setSexo(String sexo) {
-		this.sexo.set(sexo);;
+		this.sexo = sexo;
 	}
 	
 	public String getRg() {
-		return rg.get();
+		return rg;
 	}
 	
 	public void setRg(String rg) {
-		this.rg.set(rg);;
+		this.rg = rg;
 	}
 	
 	public String getDataDeNascimento() {
-		return dataDeNascimento.get();
+		return dataDeNascimento;
 	}
 	
 	public void setDataDeNascimento(String dataDeNascimento) {
-		this.dataDeNascimento.set(dataDeNascimento);;
+		this.dataDeNascimento = dataDeNascimento;
 	}
 	
 	public String getEstadoCivil() {
-		return estadoCivil.get();
+		return estadoCivil;
 	}
 	
 	public void setEstadoCivil(String estadoCivil) {
-		this.estadoCivil.set(estadoCivil);;
+		this.estadoCivil = estadoCivil;
 	}
 	
 	public String getNacionalidade() {
-		return nacionalidade.get();
+		return nacionalidade;
 	}
 	
 	public void setNacionalidade(String nacionalidade) {
-		this.nacionalidade.set(nacionalidade);;
+		this.nacionalidade = nacionalidade;
 	}
 	
 	public String getTelefoneCelular() {
-		return telefoneCelular.get();
+		return telefoneCelular;
 	}
 	
 	public void setTelefoneCelular(String telefoneCelular) {
-		this.telefoneCelular.set(telefoneCelular);;
+		this.telefoneCelular = telefoneCelular;
 	}
 	
 	public String getTelefoneResidencial() {
-		return telefoneResidencial.get();
+		return telefoneResidencial;
 	}
 	
 	public void setTelefoneResidencial(String telefoneResidencial) {
-		this.telefoneResidencial.set(telefoneResidencial);;
+		this.telefoneResidencial = telefoneResidencial;
 	}
 	
 	public String getCartaoDeCredito() {
-		return cartaoDeCredito.get();
+		return cartaoDeCredito;
 	}
 	
 	public void setCartaoDeCredito(String cartaoDeCredito) {
-		this.cartaoDeCredito.set(cartaoDeCredito);
-	}
-
-	
-	
-	
+		this.cartaoDeCredito = cartaoDeCredito;
+	}	
 
 }

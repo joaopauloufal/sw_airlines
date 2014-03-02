@@ -11,8 +11,10 @@ public abstract class Funcionario {
 	private String telefoneCelular;
 	private String telefoneResidencial;
 	private String nacionalidade;
-	private String estadoCivil;	
-	
+	private String estadoCivil;
+	private ContaDeUsuario conta;
+	private Endereco endereco;
+
 	public Funcionario(String nome, String sexo, String cpf, String rg,
 			String cargo, String dataDeNascimento, String telefoneCelular,
 			String telefoneResidencial, String nacionalidade, String estadoCivil) {
@@ -27,6 +29,19 @@ public abstract class Funcionario {
 		this.telefoneResidencial = telefoneResidencial;
 		this.nacionalidade = nacionalidade;
 		this.estadoCivil = estadoCivil;
+	}
+	
+	public Funcionario() {
+		
+	}
+	
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
 
 	public String getNome() {
@@ -44,6 +59,7 @@ public abstract class Funcionario {
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
+	
 	public String getCpf() {
 		return cpf;
 	}
@@ -106,6 +122,14 @@ public abstract class Funcionario {
 	
 	public void setEstadoCivil(String estadoCivil) {
 		this.estadoCivil = estadoCivil;
+	}
+	
+	public ContaDeUsuario getConta() {
+		return conta;
+	}
+
+	public void setConta(ContaDeUsuario conta) {
+		this.conta = conta;
 	}
 		
 

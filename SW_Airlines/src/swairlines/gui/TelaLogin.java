@@ -3,8 +3,8 @@ package swairlines.gui;
 import javax.swing.JOptionPane;
 
 import swairlines.Main;
-import swairlines.bd.UsuarioBD;
 import swairlines.modelo.ContaDeUsuario;
+import swairlines.modelo.Gerente;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -38,9 +38,10 @@ public class TelaLogin extends BorderPane {
 
 			@Override
 			public void handle(ActionEvent event) {
-				ContaDeUsuario conta = new ContaDeUsuario(txtUsuario.getText(), txtSenha.getText());
-				UsuarioBD ubd = new UsuarioBD();
-				if (ubd.validarUsuarioBanco(conta)){
+				ContaDeUsuario conta = new ContaDeUsuario(txtUsuario.getText(), txtSenha.getText(), ContaDeUsuario.TIPO_CONTA_ADMIN);
+				Gerente gerente = new Gerente();
+				gerente.setConta(conta);
+				if (gerente.autenticar(conta)){
 					Main.alterarTela(new TelaPrincipal());
 				} else {
 					JOptionPane.showMessageDialog(null, "Usuário inexistente!", "Erro de autenticação", JOptionPane.ERROR_MESSAGE);
@@ -58,8 +59,7 @@ public class TelaLogin extends BorderPane {
 				
 			}
 			
-		});
-		
+		});		
 		
 		hbox1.getChildren().addAll(lblUsuario, txtUsuario);
 		hbox2.getChildren().addAll(lblSenha, txtSenha);
@@ -75,5 +75,4 @@ public class TelaLogin extends BorderPane {
 		
 	}	
 	
-
 }

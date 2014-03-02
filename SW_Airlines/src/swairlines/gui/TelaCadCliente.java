@@ -155,6 +155,16 @@ public class TelaCadCliente extends Stage {
 		hbox16.getChildren().addAll(btnCadastrar, btnCancelar);
 		hbox16.setAlignment(Pos.CENTER);
 		
+		btnCancelar.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				hide();
+				
+			}
+			
+		});
+		
 		vbox1.getChildren().addAll(hbox1, hbox2, hbox3, hbox4, hbox5, hbox6, hbox7, hbox8, hbox9, hbox10, hbox11, hbox12, hbox13, hbox14, hbox15, hbox16);
 		
 		GridPane.setConstraints(vbox1, 9, 4);

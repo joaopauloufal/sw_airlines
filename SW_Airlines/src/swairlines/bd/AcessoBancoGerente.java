@@ -20,8 +20,7 @@ public interface AcessoBancoGerente extends AcessoBancoOperador {
 	
 	public boolean insereContaDeUsuario(ContaDeUsuario c1);
 	public boolean excluiContaDeUsuario(ContaDeUsuario c1);
-	public void alteraContaDeUsuaio(ContaDeUsuario c1);
-	public ObservableList<ContaDeUsuario> buscaContasDeUsuario();
+	public void alteraContaDeUsuario(ContaDeUsuario c1);
 	
 
 }
