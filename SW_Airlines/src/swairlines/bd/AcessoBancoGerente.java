@@ -2,15 +2,14 @@ package swairlines.bd;
 
 import javafx.collections.ObservableList;
 import swairlines.modelo.ContaDeUsuario;
-import swairlines.modelo.Endereco;
 import swairlines.modelo.Funcionario;
 import swairlines.modelo.Voo;
 
 public interface AcessoBancoGerente extends AcessoBancoOperador {
 	
-	public boolean insereFuncionario(Funcionario f1, Endereco e1);
+	public boolean insereFuncionario(Funcionario f1);
 	public boolean excluiFuncionario(Funcionario f1);
-	public void alteraFuncionario(Funcionario f1, Endereco e1);
+	public void alteraFuncionario(Funcionario f1);
 	public ObservableList<Funcionario> buscaFuncionarios();
 	
 	public boolean insereVoo(Voo v1);

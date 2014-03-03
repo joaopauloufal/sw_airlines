@@ -6,13 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import swairlines.bd.AcessoBancoOperador;
+import swairlines.bd.Autenticavel;
 import swairlines.bd.ConexaoBD;
 import swairlines.gui.TelaCadCliente;
 
-public class Operador extends Funcionario implements AcessoBancoOperador {
+public class Operador extends Funcionario implements AcessoBancoOperador, Autenticavel {
 	
 	public Operador(String nome, String sexo, String cpf, String rg,
 			String cargo, String dataDeNascimento, String telefoneCelular,
@@ -25,11 +27,12 @@ public class Operador extends Funcionario implements AcessoBancoOperador {
 	}
 
 	@Override
-	public boolean insereCliente(Cliente cliente, Endereco e1) {
+	public boolean insereCliente(Cliente cliente) {
 		try {
 			ConexaoBD cbd = new ConexaoBD();
-			cbd.executar("insert into sw_airlines.cliente (rg, cpf_cnpj, nome, sexo, data_de_nascimento, estado_civil, nacionalidade, telefone_celular, telefone_residencial, cartao_de_credito, rua, cidade, bairro, numero, estado) " +
-					"values('" + cliente.getRg() +"','" + cliente.getCpfCnpj() +"','" + cliente.getNome() +"','" + cliente.getSexo() +"','" + cliente.getDataDeNascimento() +"','" + cliente.getEstadoCivil() +"','" + cliente.getNacionalidade() +"','" + cliente.getTelefoneCelular() +"','" + cliente.getTelefoneResidencial() +"','" + cliente.getCartaoDeCredito() +"','" + e1.getRua() + "','" + e1.getCidade() + "','" + e1.getBairro() + "','" + e1.getNumero() + "','" + e1.getEstado() + "');");
+			cbd.executar("INSERT INTO sw_airlines.cliente (rg, cpf_cnpj, nome, sexo, data_de_nascimento, estado_civil, nacionalidade, telefone_celular, telefone_residencial, cartao_de_credito, rua, cidade, bairro, numero, estado) " +
+					"VALUES('" + cliente.getRg() +"','" + cliente.getCpfCnpj() +"','" + cliente.getNome() +"','" + cliente.getSexo() +"','" + cliente.getDataDeNascimento() +"','" + cliente.getEstadoCivil() +"','" + cliente.getNacionalidade() +"','" + cliente.getTelefoneCelular() +"','" + cliente.getTelefoneResidencial() +"','" + cliente.getCartaoDeCredito() +"','" 
+					+ cliente.getEndereco().getRua() + "','" + cliente.getEndereco().getCidade() + "','" + cliente.getEndereco().getBairro() + "','" + cliente.getEndereco().getNumero() + "','" + cliente.getEndereco().getEstado() + "');");
 			return true;
 		} catch (SQLException ex) {
 			Logger.getLogger(TelaCadCliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -42,7 +45,7 @@ public class Operador extends Funcionario implements AcessoBancoOperador {
 
 		try {
 			ConexaoBD cbd = new ConexaoBD();
-			cbd.executar("delete from sw_airlines.cliente where rg = '" + cliente.getRg()+"';");
+			cbd.executar("DELETE FROM sw_airlines.cliente WHERE rg= '" + cliente.getRg()+"';");
 			return true;
 		} catch (SQLException ex) {
 			Logger.getLogger(TelaCadCliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -54,7 +57,8 @@ public class Operador extends Funcionario implements AcessoBancoOperador {
 	public void alteraCliente(Cliente cliente) {
 		try {
 			ConexaoBD cbd = new ConexaoBD();
-			cbd.executar("update sw_airlines.cliente set cpf_cnpj='" + cliente.getCpfCnpj() +"', nome='" + cliente.getNome() +"', sexo='" + cliente.getSexo() +"', data_de_nascimento='" + cliente.getDataDeNascimento() +"', estado_civil='" + cliente.getEstadoCivil() +"', nacionalidade='" + cliente.getNacionalidade() +"', telefone_celular='" + cliente.getTelefoneCelular() +"', telefone_residencial='" + cliente.getTelefoneResidencial() +"', cartao_de_credito='" + cliente.getCartaoDeCredito() +"' where rg='" + cliente.getRg() +"';");
+			cbd.executar("UPDATE sw_airlines.cliente SET cpf_cnpj='" + cliente.getCpfCnpj() +"', nome='" + cliente.getNome() +"', sexo='" + cliente.getSexo() +"', data_de_nascimento='" + cliente.getDataDeNascimento() +"', estado_civil='" + cliente.getEstadoCivil() +"', nacionalidade='" + cliente.getNacionalidade() +"', telefone_celular='" + cliente.getTelefoneCelular() +"', telefone_residencial='" + cliente.getTelefoneResidencial() +"', cartao_de_credito='" + cliente.getCartaoDeCredito()
+					+ "', rua='" + cliente.getEndereco().getRua() +", 'cidade='"+ cliente.getEndereco().getCidade() + ", 'bairro='"+ cliente.getEndereco().getBairro() + ", 'numero='" + cliente.getEndereco().getNumero() +", 'estado='" + cliente.getEndereco().getEstado() + "' WHERE rg='" + cliente.getRg() +"';");
 		} catch (SQLException ex) {
 			Logger.getLogger(TelaCadCliente.class.getName()).log(Level.SEVERE, null, ex);
 		}
@@ -83,6 +87,11 @@ public class Operador extends Funcionario implements AcessoBancoOperador {
 				cliente.setTelefoneCelular("telefone_celular");
 				cliente.setTelefoneResidencial("telefone_residencial");
 				cliente.setCartaoDeCredito("cartao_de_credito");
+				cliente.getEndereco().setRua("rua");
+				cliente.getEndereco().setCidade("cidade");
+				cliente.getEndereco().setBairro("bairro");
+				cliente.getEndereco().setNumero("numero");
+				cliente.getEndereco().setEstado("estado");
 				clientes.add(cliente);
 			}
 			

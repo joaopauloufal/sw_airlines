@@ -12,15 +12,15 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import swairlines.bd.AcessoBancoGerente;
+import swairlines.bd.Autenticavel;
 import swairlines.bd.ConexaoBD;
-import swairlines.gui.TelaCadCliente;
 import swairlines.gui.TelaCadConta;
 import swairlines.gui.TelaCadFuncionario;
 import swairlines.gui.TelaCadVoo;
 import swairlines.gui.TelaEditVoo;
 import swairlines.gui.TelaTabelaVoos;
 
-public class Gerente extends Funcionario implements AcessoBancoGerente {
+public class Gerente extends Operador implements AcessoBancoGerente, Autenticavel {
 	
 	public Gerente(String nome, String sexo, String cpf, String rg,
 			String cargo, String dataDeNascimento, String telefoneCelular,
@@ -32,82 +32,15 @@ public class Gerente extends Funcionario implements AcessoBancoGerente {
 		
 	}
 
-	@Override
-	public boolean insereCliente(Cliente cliente, Endereco e1) {
-		try {
-			ConexaoBD cbd = new ConexaoBD();
-			cbd.executar("insert into sw_airlines.cliente (rg, cpf_cnpj, nome, sexo, data_de_nascimento, estado_civil, nacionalidade, telefone_celular, telefone_residencial, cartao_de_credito, rua, cidade, bairro, numero, estado) " +
-					"values('" + cliente.getRg() +"','" + cliente.getCpfCnpj() +"','" + cliente.getNome() +"','" + cliente.getSexo() +"','" + cliente.getDataDeNascimento() +"','" + cliente.getEstadoCivil() +"','" + cliente.getNacionalidade() +"','" + cliente.getTelefoneCelular() +"','" + cliente.getTelefoneResidencial() +"','" + cliente.getCartaoDeCredito() +"','" + e1.getRua() + "','" + e1.getCidade() + "','" + e1.getBairro() + "','" + e1.getNumero() + "','" + e1.getEstado() + "');");
-			return true;
-		} catch (SQLException ex) {
-			Logger.getLogger(TelaCadCliente.class.getName()).log(Level.SEVERE, null, ex);
-			return false;
-		}
-	}
+
 
 	@Override
-	public boolean excluiCliente(Cliente cliente) {
+	public boolean insereFuncionario(Funcionario f1) {
 		try {
 			ConexaoBD cbd = new ConexaoBD();
-			cbd.executar("delete from sw_airlines.cliente where rg = '" + cliente.getRg()+"';");
-			return true;
-		} catch (SQLException ex) {
-			Logger.getLogger(TelaCadCliente.class.getName()).log(Level.SEVERE, null, ex);
-			return false;
-		}
-	}
-
-	@Override
-	public void alteraCliente(Cliente cliente) {
-		try {
-			ConexaoBD cbd = new ConexaoBD();
-			cbd.executar("update sw_airlines.cliente set cpf_cnpj='" + cliente.getCpfCnpj() +"', nome='" + cliente.getNome() +"', sexo='" + cliente.getSexo() +"', data_de_nascimento='" + cliente.getDataDeNascimento() +"', estado_civil='" + cliente.getEstadoCivil() +"', nacionalidade='" + cliente.getNacionalidade() +"', telefone_celular='" + cliente.getTelefoneCelular() +"', telefone_residencial='" + cliente.getTelefoneResidencial() +"', cartao_de_credito='" + cliente.getCartaoDeCredito() +"' where rg='" + cliente.getRg() +"';");
-		} catch (SQLException ex) {
-			Logger.getLogger(TelaCadCliente.class.getName()).log(Level.SEVERE, null, ex);
-		}
-	}
-
-	@Override
-	public ObservableList<Cliente> buscaClientes() {
-		ObservableList<Cliente> clientes;
-		clientes = FXCollections.observableArrayList();
-		try {
-			ConexaoBD cbd = new ConexaoBD();
-			Connection con = cbd.abreConexao();
-			PreparedStatement stm = con.prepareStatement("SELECT * FROM sw_airlines.cliente;");
-			ResultSet rs = stm.executeQuery();
-			
-			while (rs.next()) {
-				Cliente cliente = new Cliente();
-				cliente.setRg("rg");
-				cliente.setCpfCnpj("cpf_cnpj");
-				cliente.setNome("nome");
-				cliente.setSexo("sexo");
-				cliente.setDataDeNascimento("data_de_nascimnento");
-				cliente.setEstadoCivil("estado_civil");
-				cliente.setNacionalidade("nacionalidade");
-				cliente.setTelefoneCelular("telefone_celular");
-				cliente.setTelefoneResidencial("telefone_residencial");
-				cliente.setCartaoDeCredito("cartao_de_credito");
-				clientes.add(cliente);
-			}
-			
-			rs.close();
-			stm.close();
-			con.close();
-			return clientes;
-		} catch (SQLException e) {
-			Logger.getLogger(TelaCadCliente.class.getName()).log(Level.SEVERE, null, e);
-			return null;
-		}
-	}
-
-	@Override
-	public boolean insereFuncionario(Funcionario f1, Endereco e1) {
-		try {
-			ConexaoBD cbd = new ConexaoBD();
-			cbd.executar("insert into sw_airlines.funcionario (cpf, nome, sexo, rg, cargo, data_de_nascimento, estado_civil, nacionalidade, telefone_celular, telefone_residencial, rua, cidade, bairro, numero, estado) " +
-					"values('" + f1.getCpf() +"','" + f1.getNome() +"','" + f1.getSexo() +"','" + f1.getRg() +"','" + f1.getCargo() +"','" + f1.getDataDeNascimento() +"','" + f1.getEstadoCivil() +"','" + f1.getNacionalidade() +"','" + f1.getTelefoneCelular() +"','" + f1.getTelefoneResidencial() + "','" + e1.getRua() + "','" + e1.getCidade() + "','" + e1.getBairro() + "','" + e1.getNumero() + "','" + e1.getEstado() + "');");
+			cbd.executar("INSERT INTO sw_airlines.funcionario (cpf, nome, sexo, rg, cargo, data_de_nascimento, estado_civil, nacionalidade, telefone_celular, telefone_residencial, rua, cidade, bairro, numero, estado) " +
+					"VALUES('" + f1.getCpf() +"','" + f1.getNome() +"','" + f1.getSexo() +"','" + f1.getRg() +"','" + f1.getCargo() +"','" + f1.getDataDeNascimento() +"','" + f1.getEstadoCivil() +"','" + f1.getNacionalidade() +"','" + f1.getTelefoneCelular() +"','" + f1.getTelefoneResidencial() + "','" 
+					+ f1.getEndereco().getRua() + "','" + f1.getEndereco().getCidade() + "','" + f1.getEndereco().getBairro() + "','" + f1.getEndereco().getNumero() + "','" + f1.getEndereco().getEstado() + "');");
 			return true;
 		} catch (SQLException ex) {
 			Logger.getLogger(TelaCadFuncionario.class.getName()).log(Level.SEVERE, null, ex);
@@ -119,7 +52,7 @@ public class Gerente extends Funcionario implements AcessoBancoGerente {
 	public boolean excluiFuncionario(Funcionario f1) {
 		try {
 			ConexaoBD cbd = new ConexaoBD();
-			cbd.executar("delete from sw_airlines.funcionario where cpf = '" + f1.getCpf() +"';");
+			cbd.executar("DELETE FROM sw_airlines.funcionario WHERE cpf = '" + f1.getCpf() +"';");
 			return true;
 		} catch (SQLException ex) {
 			Logger.getLogger(TelaCadFuncionario.class.getName()).log(Level.SEVERE, null, ex);
@@ -128,10 +61,11 @@ public class Gerente extends Funcionario implements AcessoBancoGerente {
 	}
 
 	@Override
-	public void alteraFuncionario(Funcionario f1, Endereco e1) {
+	public void alteraFuncionario(Funcionario f1) {
 		try {
 			ConexaoBD cbd = new ConexaoBD();
-			cbd.executar("update sw_airlines.funcionario set cpf='" + f1.getCpf() +"' , nome='" + f1.getNome() +"', sexo='" + f1.getSexo() +"', rg='" + f1.getRg() +"', cargo='" + f1.getCargo() +"' ,data_de_nascimento='" + f1.getDataDeNascimento() +"', estado_civil='" + f1.getEstadoCivil() +"', nascionalidade='" + f1.getNacionalidade() +"', telefone_celular='" + f1.getTelefoneCelular() +"', telfone_residencial='" + f1.getTelefoneResidencial() +"' where cpf='" + f1.getCpf() +"';");
+			cbd.executar("UPDATE sw_airlines.funcionario set cpf='" + f1.getCpf() +"' , nome='" + f1.getNome() +"', sexo='" + f1.getSexo() +"', rg='" + f1.getRg() +"', cargo='" + f1.getCargo() +"' ,data_de_nascimento='" + f1.getDataDeNascimento() +"', estado_civil='" + f1.getEstadoCivil() +"', nacionalidade='" + f1.getNacionalidade() +"', telefone_celular='" + f1.getTelefoneCelular() +"', telefone_residencial='" + f1.getTelefoneResidencial() 
+					+", 'rua='" + f1.getEndereco().getRua() +", 'cidade='" + f1.getEndereco().getCidade() +", 'bairro='" + f1.getEndereco().getBairro() + ", 'numero='" + f1.getEndereco().getNumero() +", 'estado='"+ f1.getEndereco().getEstado() + "' WHERE cpf='" + f1.getCpf() +"';");
 		} catch (SQLException ex) {
 			Logger.getLogger(TelaCadFuncionario.class.getName()).log(Level.SEVERE, null, ex);
 		}
@@ -149,7 +83,7 @@ public class Gerente extends Funcionario implements AcessoBancoGerente {
 			ResultSet rs = stm.executeQuery();
 			
 			while (rs.next()){
-				Operador func = new Operador();
+				Funcionario func = new Operador();
 				func.setCpf("cpf");
 				func.setNome("nome");
 				func.setSexo("sexo");
@@ -160,6 +94,11 @@ public class Gerente extends Funcionario implements AcessoBancoGerente {
 				func.setNacionalidade("nacionalidade");
 				func.setTelefoneCelular("telefone_celular");
 				func.setTelefoneResidencial("telefone_residencial");
+				func.getEndereco().setRua("rua");
+				func.getEndereco().setCidade("cidade");
+				func.getEndereco().setBairro("bairro");
+				func.getEndereco().setNumero("numero");
+				func.getEndereco().setEstado("estado");
 				funcionarios.add(func);
 				
 			}
@@ -178,8 +117,8 @@ public class Gerente extends Funcionario implements AcessoBancoGerente {
 	public boolean insereVoo(Voo v1) {
 		try {
 			ConexaoBD cbd = new ConexaoBD();			
-			cbd.executar("insert into sw_airlines.voo (origem, destino, quantidadeDePassageiros, rota, horaPartida, horaChegada, dataPartida, dataChegada, tipo_voo) " +
-					"values('" + v1.getOrigem() +"','" + v1.getDestino() +"','" + v1.getQuantidadeDePassageiros() +"','" + v1.getRota() +"','" + v1.getHoraPartida() +"','" + v1.getHoraChegada() +"','" + v1.getDataPartida() + "','" + v1.getDataChegada() + "','" + v1.getTipoVoo() + "');");
+			cbd.executar("INSERT INTO sw_airlines.voo (origem, destino, quantidadeDePassageiros, rota, horaPartida, horaChegada, dataPartida, dataChegada, tipo_voo) " +
+					"VALUES('" + v1.getOrigem() +"','" + v1.getDestino() +"','" + v1.getQuantidadeDePassageiros() +"','" + v1.getRota() +"','" + v1.getHoraPartida() +"','" + v1.getHoraChegada() +"','" + v1.getDataPartida() + "','" + v1.getDataChegada() + "','" + v1.getTipoVoo() + "');");
 			return true;
 		} catch (SQLException ex) {
 			Logger.getLogger(TelaCadVoo.class.getName()).log(Level.SEVERE, null, ex);
@@ -191,7 +130,7 @@ public class Gerente extends Funcionario implements AcessoBancoGerente {
 	public boolean excluiVoo(Voo v1) {
 		try {
 			ConexaoBD cbd = new ConexaoBD();
-			cbd.executar("delete from sw_airlines.voo where id = '" + v1.getId() +"';");
+			cbd.executar("DELETE FROM sw_airlines.voo WHERE id= '" + v1.getId() +"';");
 			return true;
 
 		} catch (SQLException ex) {
@@ -204,7 +143,7 @@ public class Gerente extends Funcionario implements AcessoBancoGerente {
 	public boolean alteraVoo(Voo v1) {
 		try {
 			ConexaoBD cbd = new ConexaoBD();
-			cbd.executar("update sw_airlines.voo set origem='" + v1.getOrigem() +"', destino='" + v1.getDestino() + "', rota='" + v1.getRota() +"', horaPartida='" + v1.getHoraPartida() +"', horaChegada='" + v1.getHoraChegada() +"', dataPartida='" + v1.getDataPartida() + "', dataChegada='" + v1.getDataChegada() + "', tipo_voo='" + v1.getTipoVoo() + "' where id='" + v1.getId() +"';");
+			cbd.executar("UPDATE sw_airlines.voo SET origem='" + v1.getOrigem() +"', destino='" + v1.getDestino() + "', rota='" + v1.getRota() +"', horaPartida='" + v1.getHoraPartida() +"', horaChegada='" + v1.getHoraChegada() +"', dataPartida='" + v1.getDataPartida() + "', dataChegada='" + v1.getDataChegada() + "', tipo_voo='" + v1.getTipoVoo() + "' WHERE id='" + v1.getId() +"';");
 			return true;
 
 		} catch (SQLException ex) {
@@ -271,7 +210,7 @@ public class Gerente extends Funcionario implements AcessoBancoGerente {
 	public boolean insereContaDeUsuario(ContaDeUsuario c1) {
 		try {
 			ConexaoBD cbd = new ConexaoBD();
-			cbd.executar("insert into sw_airlines.usuario (login, senha, tipo_conta) values('" + c1.getLogin() +"','" + c1.getSenha() +"','" + c1.getTipoConta() +"');");
+			cbd.executar("INSERT INTO sw_airlines.usuario (login, senha, tipo_conta) VALUES('" + c1.getLogin() +"','" + c1.getSenha() +"','" + c1.getTipoConta() +"');");
 			return true;
 		} catch (SQLException ex) {
 			Logger.getLogger(TelaCadConta.class.getName()).log(Level.SEVERE, null, ex);
@@ -283,7 +222,7 @@ public class Gerente extends Funcionario implements AcessoBancoGerente {
 	public boolean excluiContaDeUsuario(ContaDeUsuario c1) {
 		try {
 			ConexaoBD cbd = new ConexaoBD();
-			cbd.executar("delete from sw_airlines.usuario where login = '" + c1.getLogin() +"';");
+			cbd.executar("DELETE FROM sw_airlines.usuario WHERE login= '" + c1.getLogin() +"';");
 			return true;
 		} catch (SQLException ex) {
 			Logger.getLogger(TelaCadConta.class.getName()).log(Level.SEVERE, null, ex);
@@ -295,7 +234,7 @@ public class Gerente extends Funcionario implements AcessoBancoGerente {
 	public void alteraContaDeUsuario(ContaDeUsuario c1) {
 		try {
 			ConexaoBD cbd = new ConexaoBD();
-			cbd.executar("update sw_airlines.usuario set senha='" + c1.getSenha() + "' where login='" + c1.getSenha() +"';");
+			cbd.executar("UPADATE sw_airlines.usuario SET senha='" + c1.getSenha() + "' WHERE login='" + c1.getSenha() +"';");
 		} catch (SQLException ex) {
 			Logger.getLogger(TelaCadConta.class.getName()).log(Level.SEVERE, null, ex);
 		}

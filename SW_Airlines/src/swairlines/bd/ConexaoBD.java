@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 public class ConexaoBD {
 	
-	private Connection c ;
+	private Connection c;
 	private String sql;
 	private Statement stm;
 	
@@ -53,7 +53,7 @@ public class ConexaoBD {
 	}
 	
 	public void criarBanco() throws SQLException {
-		sql = "create database IF NOT EXISTS sw_airlines DEFAULT CHARACTER SET utf8 ";
+		sql = "CREATE DATABASE IF NOT EXISTS sw_airlines DEFAULT CHARACTER SET utf8 ";
 		executar(sql);
 		tabelaCliente();
 		tabelaFuncionario();
@@ -63,7 +63,7 @@ public class ConexaoBD {
 	}
 
 	private void tabelaVoo() throws SQLException {
-		sql = "create table if not exists sw_airlines.voo("
+		sql = "CREATE TABLE IF NOT EXISTS sw_airlines.voo("
 				+ " id int not null auto_increment,"
 				+ " origem varchar(60) not null,"
 				+ " destino varchar(60) not null,"
@@ -83,7 +83,7 @@ public class ConexaoBD {
 	}
 
 	private void tabelaUsuario() throws SQLException {
-		sql = "create table if not exists sw_airlines.usuario("
+		sql = "CREATE TABLE IF NOT EXISTS sw_airlines.usuario("
 				+ " login varchar(30) not null,"
 				+ " senha varchar(30) not null,"
 				+ " tipo_conta varchar(30) not null,"
@@ -92,14 +92,14 @@ public class ConexaoBD {
 	            + " DEFAULT CHARACTER SET = utf8;" ;
 		abreConexao();
 		executar(sql);
-		sql = "insert ignore sw_airlines.usuario(login, senha, tipo_conta) "
-				+ "values('admin', '0000','Administrador');";
+		sql = "INSERT IGNORE sw_airlines.usuario(login, senha, tipo_conta) "
+				+ "VALUES('admin', '0000','Administrador');";
 		executar(sql);
 		desconectar();	
 	}
 
 	private void tabelaFuncionario() throws SQLException {
-		sql = "create table if not exists sw_airlines.funcionario("
+		sql = "CREATE TABLE IF NOT EXISTS sw_airlines.funcionario("
 				+ " cpf varchar(120) not null ,"
 				+ " nome varchar(80) not null,"
 				+ " sexo varchar(50) not null ,"
@@ -124,7 +124,7 @@ public class ConexaoBD {
 	}
 
 	private void tabelaCliente() throws SQLException {
-		sql = "create table if not exists sw_airlines.cliente("
+		sql = "CREATE TABLE IF NOT EXISTS sw_airlines.cliente("
 				+ "rg varchar(25) not null ,"
 				+ "cpf_cnpj varchar(25) not null ,"
 				+ "nome varchar(80) not null ,"

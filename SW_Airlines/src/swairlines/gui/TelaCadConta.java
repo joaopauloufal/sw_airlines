@@ -2,8 +2,8 @@ package swairlines.gui;
 
 import javax.swing.JOptionPane;
 
-import swairlines.bd.UsuarioBD;
 import swairlines.modelo.ContaDeUsuario;
+import swairlines.modelo.Gerente;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -70,8 +70,8 @@ public class TelaCadConta extends Stage {
 			public void handle(ActionEvent event) {
 				ContaDeUsuario c1 = new ContaDeUsuario(txtUsuario.getText(), txtSenha.getText(), listTipoConta.getValue());
 				if (c1.getSenha().equals(txtSenhaConfirmacao.getText())) {
-					UsuarioBD ubd = new UsuarioBD();
-					if(ubd.insere(c1)) {
+					Gerente gerente = new Gerente();
+					if(gerente.insereContaDeUsuario(c1)) {
 						JOptionPane.showMessageDialog(null, "Conta cadastrada com sucesso!");
 					} else {
 						JOptionPane.showMessageDialog(null, "Erro ao inserir!", "Erro", JOptionPane.ERROR_MESSAGE);

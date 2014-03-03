@@ -17,7 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import swairlines.bd.VooBD;
+import swairlines.modelo.Gerente;
 import swairlines.modelo.Voo;
 
 public class TelaEditVoo extends Stage {
@@ -111,8 +111,8 @@ public class TelaEditVoo extends Stage {
 			public void handle(ActionEvent event) {								
 					Voo v1 = new Voo(txtOrigem.getText(), txtDestino.getText(), txtRota.getText(), txtHoraPartida.getText(), txtHoraChegada.getText(), txtDataPartida.getText(), txtDataChegada.getText(), listTipoVoo.getValue());
 					v1.setId(Integer.parseInt(lblValorId.getText()));
-					VooBD vb1 = new VooBD();
-					if(vb1.altera(v1)){
+					Gerente gerente = new Gerente();
+					if(gerente.alteraVoo(v1)){
 						JOptionPane.showMessageDialog(null, "Voo atualizado com sucesso!");
 					} else {
 						JOptionPane.showMessageDialog(null, "Erro ao atualizar!","Erro", 0);

@@ -1,6 +1,5 @@
 package swairlines.gui;
 
-import swairlines.bd.FuncionarioBD;
 import swairlines.modelo.Endereco;
 import swairlines.modelo.Funcionario;
 import swairlines.modelo.Gerente;
@@ -146,23 +145,27 @@ public class TelaCadFuncionario extends Stage {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				if (listCargo.getValue().equals("Operador")) {
-					Funcionario f1 = new Operador(txtNome.getText(), listSexo.getValue(), txtCpf.getText(), txtRg.getText(), listCargo.getValue(), txtDataDeNascimento.getText(), txtTelefoneCelular.getText(), txtTelefoneResidencial.getText(), txtNacionalidade.getText(), listEstadoCivil.getValue());
-					Endereco e1 = new Endereco(txtRua.getText(), txtCidade.getText(), txtBairro.getText(), txtNumero.getText(), txtEstado.getText());
-					FuncionarioBD fbd = new FuncionarioBD();
-					fbd.insere(f1, e1);
-				} else if (listCargo.getValue().equals("Gerente")) {
-					Funcionario f1 = new Gerente(txtNome.getText(), listSexo.getValue(), txtCpf.getText(), txtRg.getText(), listCargo.getValue(), txtDataDeNascimento.getText(), txtTelefoneCelular.getText(), txtTelefoneResidencial.getText(), txtNacionalidade.getText(), listEstadoCivil.getValue());
-					Endereco e1 = new Endereco(txtRua.getText(), txtCidade.getText(), txtBairro.getText(), txtNumero.getText(), txtEstado.getText());
-					FuncionarioBD fbd = new FuncionarioBD();
-					fbd.insere(f1, e1);
-				}								
+				Gerente gerente = new Gerente();				
+				Funcionario f1 = new Operador(txtNome.getText(), listSexo.getValue(), txtCpf.getText(), txtRg.getText(), listCargo.getValue(), txtDataDeNascimento.getText(), txtTelefoneCelular.getText(), txtTelefoneResidencial.getText(), txtNacionalidade.getText(), listEstadoCivil.getValue());
+				Endereco e1 = new Endereco(txtRua.getText(), txtCidade.getText(), txtBairro.getText(), txtNumero.getText(), txtEstado.getText());
+				f1.setEndereco(e1);
+				gerente.insereFuncionario(f1);
 				
 			}
 		});
 		Button btnCancelar = new Button("Cancelar");
 		hbox16.getChildren().addAll(btnCadastrar, btnCancelar);
 		hbox16.setAlignment(Pos.CENTER);
+		
+		btnCancelar.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				hide();
+				
+			}
+			
+		});
 		
 		vbox1.getChildren().addAll(hbox1, hbox2, hbox3, hbox4, hbox5, hbox6, hbox7, hbox8, hbox9, hbox10, hbox11, hbox12, hbox13, hbox14, hbox15, hbox16);
 		

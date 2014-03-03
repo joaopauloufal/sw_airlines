@@ -7,7 +7,7 @@ public class TelaPrincipal extends BorderPane {
 	
 	public TelaPrincipal() {
 		VBox menuTopo = new VBox(30);
-		MenuBarPrincipal menuBarPrincipal = new MenuBarPrincipal();
+		MenuBarAdmin menuBarPrincipal = new MenuBarAdmin();
 		menuTopo.getChildren().add(menuBarPrincipal);
 		setTop(menuTopo);		
 		

@@ -1,6 +1,6 @@
 package swairlines.gui;
 
-import swairlines.bd.VooBD;
+import swairlines.modelo.Gerente;
 import swairlines.modelo.Voo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,8 +27,8 @@ public class TelaTabelaVoos extends BorderPane {
 	public TelaTabelaVoos() {
 		
 		dados = FXCollections.observableArrayList();
-		VooBD vb1 = new VooBD();
-		dados.addAll(vb1.busca());		
+		Gerente gerente = new Gerente();
+		dados.addAll(gerente.buscaVoos());		
 		
 		tableView.setEditable(true);		
 		
@@ -105,7 +105,7 @@ public class TelaTabelaVoos extends BorderPane {
 		VBox boxTable = new VBox();
 		boxTable.setPadding(new Insets(0, 10, 0, 10));
 		boxTable.getChildren().add(tableView);
-		boxTop.getChildren().addAll(new MenuBarPrincipal(), titulo, boxTable, hbox);
+		boxTop.getChildren().addAll(new MenuBarAdmin(), titulo, boxTable, hbox);
 		setTop(boxTop);
 		
 		tableView.setItems(dados);

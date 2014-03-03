@@ -28,9 +28,9 @@ public class ContaDeUsuario {
 	public ContaDeUsuario(String login, String senha, String tipoConta) {
 		this.login = login;
 		this.senha = senha;
-		if (tipoConta.equals(TIPO_CONTA_ADMIN)){
+		if (tipoConta.equals(ContaDeUsuario.TIPO_CONTA_ADMIN)){
 			this.tipoConta = ContaDeUsuario.TIPO_CONTA_ADMIN;
-		} else if (tipoConta.equals(TIPO_CONTA_OPERADOR)) {
+		} else  {
 			this.tipoConta = ContaDeUsuario.TIPO_CONTA_OPERADOR;
 		}
 	}

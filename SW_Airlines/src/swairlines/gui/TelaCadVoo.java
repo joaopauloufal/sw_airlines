@@ -2,7 +2,7 @@ package swairlines.gui;
 
 import javax.swing.JOptionPane;
 
-import swairlines.bd.VooBD;
+import swairlines.modelo.Gerente;
 import swairlines.modelo.Voo;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -93,10 +93,11 @@ public class TelaCadVoo extends Stage {
 		btnCadastrar.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
-			public void handle(ActionEvent event) {								
+			public void handle(ActionEvent event) {
+					Gerente gerente = new Gerente();
 					Voo v1 = new Voo(txtOrigem.getText(), txtDestino.getText(), txtRota.getText(), txtHoraPartida.getText(), txtHoraChegada.getText(), txtDataPartida.getText(), txtDataChegada.getText(), listTipoVoo.getValue());
-					VooBD vb1 = new VooBD();
-					if(vb1.insere(v1)){
+					gerente.insereVoo(v1);
+					if(gerente.insereVoo(v1)){
 						JOptionPane.showMessageDialog(null, "Voo cadastrado com sucesso!");
 					} else {
 						JOptionPane.showMessageDialog(null, "Erro ao cadastrar!","Erro", 0);

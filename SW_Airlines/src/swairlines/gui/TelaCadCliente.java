@@ -1,8 +1,8 @@
 package swairlines.gui;
 
-import swairlines.bd.ClienteBD;
 import swairlines.modelo.Cliente;
 import swairlines.modelo.Endereco;
+import swairlines.modelo.Gerente;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -143,10 +143,11 @@ public class TelaCadCliente extends Stage {
 			
 			@Override
 			public void handle(ActionEvent event) {
+				Gerente gerente = new Gerente();
 				Cliente c1  = new Cliente(txtNome.getText(), txtCpfCnpj.getText(), listSexo.getValue(), txtRg.getText(), txtDataDeNascimento.getText(), listEstadoCivil.getValue(), txtNacionalidade.getText(), txtTelefoneCelular.getText(), txtTelefoneResidencial.getText(), txtCartaoDeCredito.getText());
 				Endereco e1 = new Endereco(txtRua.getText(), txtCidade.getText(), txtBairro.getText(), txtNumero.getText(), txtEstado.getText());
-				ClienteBD cb1 = new ClienteBD();
-				cb1.insere(c1, e1);
+				c1.setEndereco(e1);
+				gerente.insereCliente(c1);
 				
 			}
 		});

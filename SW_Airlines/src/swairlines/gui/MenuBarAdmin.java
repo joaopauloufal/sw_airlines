@@ -7,9 +7,9 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 
-public class MenuBarPrincipal extends MenuBar {
+public class MenuBarAdmin extends MenuBar {
 	
-	public MenuBarPrincipal() {
+	public MenuBarAdmin() {
 		Menu menuArquivo = new Menu("Arquivo");
 		Menu menuCadastro = new Menu("Cadastro");
 		Menu menuEditar = new Menu("Editar");
