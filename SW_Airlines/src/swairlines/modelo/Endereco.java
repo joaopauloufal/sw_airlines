@@ -16,6 +16,10 @@ public class Endereco {
 		this.numero = numero;
 		this.estado = estado;
 	}
+	
+	public Endereco() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public String getRua() {
 		return rua;

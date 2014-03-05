@@ -10,16 +10,20 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import swairlines.bd.AcessoBancoOperador;
-import swairlines.bd.Autenticavel;
 import swairlines.bd.ConexaoBD;
 import swairlines.gui.TelaCadCliente;
 
-public class Operador extends Funcionario implements AcessoBancoOperador, Autenticavel {
+public class Operador extends Funcionario implements AcessoBancoOperador {
+	
+	private static final String TIPO_CONTA = "Operador";
 	
 	public Operador(String nome, String sexo, String cpf, String rg,
 			String cargo, String dataDeNascimento, String telefoneCelular,
-			String telefoneResidencial, String nacionalidade, String estadoCivil) {
-		super(nome, sexo, cpf, rg, cargo, dataDeNascimento, telefoneCelular, telefoneResidencial, nacionalidade, estadoCivil);
+			String telefoneResidencial, String nacionalidade, String estadoCivil, Endereco endereco) {
+		super(nome, sexo, cpf, rg, cargo, dataDeNascimento, telefoneCelular, telefoneResidencial, nacionalidade, estadoCivil, endereco);
+		this.getConta().setTipoConta(Operador.TIPO_CONTA);
+
+		
 	}
 	
 	public Operador() {
@@ -104,16 +108,6 @@ public class Operador extends Funcionario implements AcessoBancoOperador, Autent
 			return null;
 		}
 		
-	}
-
-	@Override
-	public boolean autenticar(ContaDeUsuario c1) {
-		for (ContaDeUsuario temp : c1.buscaContasDeUsuario()) {
-			if (temp.getLogin().equals(c1.getLogin()) && temp.getSenha().equals(c1.getSenha())){
-				return true;				
-			}
-		}		
-		return false;
 	}
 	
 

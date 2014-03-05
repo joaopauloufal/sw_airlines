@@ -12,7 +12,6 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import swairlines.bd.AcessoBancoGerente;
-import swairlines.bd.Autenticavel;
 import swairlines.bd.ConexaoBD;
 import swairlines.gui.TelaCadConta;
 import swairlines.gui.TelaCadFuncionario;
@@ -20,12 +19,15 @@ import swairlines.gui.TelaCadVoo;
 import swairlines.gui.TelaEditVoo;
 import swairlines.gui.TelaTabelaVoos;
 
-public class Gerente extends Operador implements AcessoBancoGerente, Autenticavel {
+public class Gerente extends Operador implements AcessoBancoGerente {
+	
+	private static final String TIPO_CONTA = "Administrador";
 	
 	public Gerente(String nome, String sexo, String cpf, String rg,
 			String cargo, String dataDeNascimento, String telefoneCelular,
-			String telefoneResidencial, String nacionalidade, String estadoCivil) {
-		super(nome, sexo, cpf, rg, cargo, dataDeNascimento, telefoneCelular, telefoneResidencial, nacionalidade, estadoCivil);
+			String telefoneResidencial, String nacionalidade, String estadoCivil, Endereco endereco) {
+		super(nome, sexo, cpf, rg, cargo, dataDeNascimento, telefoneCelular, telefoneResidencial, nacionalidade, estadoCivil, endereco);
+		this.getConta().setTipoConta(Gerente.TIPO_CONTA);
 	}
 	
 	public Gerente() {
@@ -84,29 +86,30 @@ public class Gerente extends Operador implements AcessoBancoGerente, Autenticave
 			
 			while (rs.next()){
 				Funcionario func = new Operador();
-				func.setCpf("cpf");
-				func.setNome("nome");
-				func.setSexo("sexo");
-				func.setRg("rg");
-				func.setCargo("cargo");
-				func.setDataDeNascimento("data_de_nascimento");
-				func.setEstadoCivil("estado_civil");
-				func.setNacionalidade("nacionalidade");
-				func.setTelefoneCelular("telefone_celular");
-				func.setTelefoneResidencial("telefone_residencial");
-				func.getEndereco().setRua("rua");
-				func.getEndereco().setCidade("cidade");
-				func.getEndereco().setBairro("bairro");
-				func.getEndereco().setNumero("numero");
-				func.getEndereco().setEstado("estado");
+				func.setCpf(rs.getString("cpf"));
+				func.setNome(rs.getString("nome"));
+				func.setSexo(rs.getString("sexo"));
+				func.setRg(rs.getString("rg"));
+				func.setCargo(rs.getString("cargo"));
+				func.setDataDeNascimento(rs.getString("data_de_nascimento"));
+				func.setEstadoCivil(rs.getString("estado_civil"));
+				func.setNacionalidade(rs.getString("nacionalidade"));
+				func.setTelefoneCelular(rs.getString("telefone_celular"));
+				func.setTelefoneResidencial(rs.getString("telefone_residencial"));
+				func.getEndereco().setRua(rs.getString("rua"));
+				func.getEndereco().setCidade(rs.getString("cidade"));
+				func.getEndereco().setBairro(rs.getString("bairro"));
+				func.getEndereco().setNumero(rs.getString("numero"));
+				func.getEndereco().setEstado(rs.getString("estado"));
 				funcionarios.add(func);
 				
 			}
+			
 			rs.close();
 			stm.close();
 			con.close();
 		} catch (SQLException e) {
-			Logger.getLogger(TelaCadFuncionario.class.getName()).log(Level.SEVERE, null, e);
+			Logger.getLogger(TelaCadFuncionario.class.getName()).log(Level.SEVERE, null, e);	
 			return null;
 		}
 		return funcionarios;
@@ -239,19 +242,7 @@ public class Gerente extends Operador implements AcessoBancoGerente, Autenticave
 			Logger.getLogger(TelaCadConta.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		
-	}
-	
-
-	@Override
-	public boolean autenticar(ContaDeUsuario c1) {
-		for (ContaDeUsuario temp : c1.buscaContasDeUsuario()) {
-			if (temp.getLogin().equals(c1.getLogin()) && temp.getSenha().equals(c1.getSenha())){
-				return true;
-				
-			}
-		}		
-		return false;
-	}		
+	}	
 	
 
 }

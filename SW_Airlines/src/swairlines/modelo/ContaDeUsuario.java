@@ -9,30 +9,31 @@ import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import swairlines.Main;
 import swairlines.bd.ConexaoBD;
 import swairlines.gui.TelaCadConta;
+import swairlines.gui.TelaPrincipal;
 
 public class ContaDeUsuario {
 	
 	private String login;
 	private String senha;
 	private String tipoConta;
-	public static final String TIPO_CONTA_ADMIN = "Administrador";
-	public static final String TIPO_CONTA_OPERADOR = "Operador";
 	
 	public ContaDeUsuario() {
 		
+	}
+	
+	public ContaDeUsuario(String login, String senha) {
+		this.login = login;
+		this.senha = senha;
 	}	
 
 
 	public ContaDeUsuario(String login, String senha, String tipoConta) {
 		this.login = login;
 		this.senha = senha;
-		if (tipoConta.equals(ContaDeUsuario.TIPO_CONTA_ADMIN)){
-			this.tipoConta = ContaDeUsuario.TIPO_CONTA_ADMIN;
-		} else  {
-			this.tipoConta = ContaDeUsuario.TIPO_CONTA_OPERADOR;
-		}
+		this.tipoConta = tipoConta;
 	}
 	
 	@Override
@@ -96,6 +97,17 @@ public class ContaDeUsuario {
 			Logger.getLogger(TelaCadConta.class.getName()).log(Level.SEVERE, null, ex);
 			return null;
 		}
+	}
+	
+	public boolean autenticar(ContaDeUsuario c1) {
+		for (ContaDeUsuario temp : c1.buscaContasDeUsuario()) {
+			if (temp.getLogin().equals(c1.getLogin()) && temp.getSenha().equals(c1.getSenha())){
+				Main.alterarTela(new TelaPrincipal());
+				return true;
+				
+			}
+		}		
+		return false;
 	}
 	
 	

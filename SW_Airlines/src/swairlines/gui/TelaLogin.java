@@ -2,10 +2,7 @@ package swairlines.gui;
 
 import javax.swing.JOptionPane;
 
-import swairlines.Main;
 import swairlines.modelo.ContaDeUsuario;
-import swairlines.modelo.Gerente;
-import swairlines.modelo.Operador;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -18,6 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class TelaLogin extends BorderPane {
+	
 	private TextField txtUsuario;
 	private PasswordField txtSenha;
 	
@@ -38,27 +36,13 @@ public class TelaLogin extends BorderPane {
 		btnLogin.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
-			public void handle(ActionEvent event) {
-				ContaDeUsuario conta = new ContaDeUsuario(txtUsuario.getText(), txtSenha.getText(), ContaDeUsuario.TIPO_CONTA_ADMIN);
-				if (conta.getTipoConta().equals(ContaDeUsuario.TIPO_CONTA_ADMIN)) {
-					Gerente gerente = new Gerente();
-					gerente.setConta(conta);
-					if (gerente.autenticar(conta)) {
-						Main.alterarTela(new TelaPrincipal());
-					} else {
-						JOptionPane.showMessageDialog(null, "Usuário inexistente!", "Erro de autenticação", JOptionPane.ERROR_MESSAGE);
-					}
-				} else {
-					Operador operador = new Operador();
-					operador.setConta(conta);
-					if (operador.autenticar(conta)) {
-						Main.alterarTela(new TelaPrincipal());
-					} else {
-						JOptionPane.showMessageDialog(null, "Usuário inexistente!", "Erro de autenticação", JOptionPane.ERROR_MESSAGE);
-					}
+			public void handle(ActionEvent event) {					
+				ContaDeUsuario conta = new ContaDeUsuario(txtUsuario.getText(), txtSenha.getText());
+				if (!conta.autenticar(conta)) {
+					JOptionPane.showMessageDialog(null, "Usuário Inexistente.", "Erro de Autenticação", JOptionPane.ERROR_MESSAGE);
 				}
 				
-			}
+			}			
 			
 		});
 		

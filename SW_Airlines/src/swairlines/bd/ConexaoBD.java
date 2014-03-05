@@ -64,17 +64,17 @@ public class ConexaoBD {
 
 	private void tabelaVoo() throws SQLException {
 		sql = "CREATE TABLE IF NOT EXISTS sw_airlines.voo("
-				+ " id int not null auto_increment,"
-				+ " origem varchar(60) not null,"
-				+ " destino varchar(60) not null,"
-				+ " quantidadeDePassageiros int not null,"
-				+ " rota varchar(60) not null,"
-				+ " horaPartida varchar(20) not null,"
-				+ " horaChegada varchar(20) not null,"
-				+ " dataPartida varchar(20) not null,"
-				+ " dataChegada varchar(20) not null,"
-				+ " tipo_voo varchar(80) not null,"
-				+ " primary key (id)) "
+				+ " id INT NOT NULL AUTO_INCREMENT,"
+				+ " origem VARCHAR(60) NOT NULL,"
+				+ " destino VARCHAR(60) NOT NULL,"
+				+ " quantidadeDePassageiros INT NOT NULL,"
+				+ " rota varchar(60) NOT NULL,"
+				+ " horaPartida VARCHAR(20) NOT NULL,"
+				+ " horaChegada VARCHAR(20) NOT NULL,"
+				+ " dataPartida VARCHAR(20) NOT NULL,"
+				+ " dataChegada VARCHAR(20) NOT NULL,"
+				+ " tipo_voo VARCHAR(80) NOT NULL,"
+				+ " PRIMARY KEY (id)) "
 	            + " ENGINE = InnoDB "
 	            + " DEFAULT CHARACTER SET = utf8;";
 		abreConexao();
@@ -84,23 +84,28 @@ public class ConexaoBD {
 
 	private void tabelaUsuario() throws SQLException {
 		sql = "CREATE TABLE IF NOT EXISTS sw_airlines.usuario("
-				+ " login varchar(30) not null,"
-				+ " senha varchar(30) not null,"
-				+ " tipo_conta varchar(30) not null,"
-				+ " primary key (login)) "
+				+ " login varchar(30) NOT NULL,"
+				+ " senha varchar(30) NOT NULL,"
+				+ " tipo_conta VARCHAR(30) NOT NULL,"
+				+ " cpf_func VARCHAR(120),"
+				+ " PRIMARY KEY (login),"
+				+ " INDEX fk_cpf_usuario (cpf_func),"
+				+ "	CONSTRAINT fk_cpf_usuario"
+				+ " FOREIGN KEY (cpf_func)"
+				+ " REFERENCES sw_airlines.funcionario (cpf)) "
 	            + " ENGINE = InnoDB "
-	            + " DEFAULT CHARACTER SET = utf8;" ;
+	            + " DEFAULT CHARACTER SET = utf8;";
 		abreConexao();
 		executar(sql);
-		sql = "INSERT IGNORE sw_airlines.usuario(login, senha, tipo_conta) "
-				+ "VALUES('admin', '0000','Administrador');";
+		sql = "INSERT IGNORE sw_airlines.usuario(login, senha, tipo_conta, cpf_func) "
+				+ "VALUES('admin', '0000','Administrador', null);";
 		executar(sql);
 		desconectar();	
 	}
 
 	private void tabelaFuncionario() throws SQLException {
 		sql = "CREATE TABLE IF NOT EXISTS sw_airlines.funcionario("
-				+ " cpf varchar(120) not null ,"
+				+ " cpf varchar(120) not null,"
 				+ " nome varchar(80) not null,"
 				+ " sexo varchar(50) not null ,"
 				+ " rg varchar(80) not null ,"

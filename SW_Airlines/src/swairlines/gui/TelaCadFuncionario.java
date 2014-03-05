@@ -145,10 +145,9 @@ public class TelaCadFuncionario extends Stage {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				Gerente gerente = new Gerente();				
-				Funcionario f1 = new Operador(txtNome.getText(), listSexo.getValue(), txtCpf.getText(), txtRg.getText(), listCargo.getValue(), txtDataDeNascimento.getText(), txtTelefoneCelular.getText(), txtTelefoneResidencial.getText(), txtNacionalidade.getText(), listEstadoCivil.getValue());
+				Gerente gerente = new Gerente();
 				Endereco e1 = new Endereco(txtRua.getText(), txtCidade.getText(), txtBairro.getText(), txtNumero.getText(), txtEstado.getText());
-				f1.setEndereco(e1);
+				Funcionario f1 = new Operador(txtNome.getText(), listSexo.getValue(), txtCpf.getText(), txtRg.getText(), listCargo.getValue(), txtDataDeNascimento.getText(), txtTelefoneCelular.getText(), txtTelefoneResidencial.getText(), txtNacionalidade.getText(), listEstadoCivil.getValue(), e1);
 				gerente.insereFuncionario(f1);
 				
 			}

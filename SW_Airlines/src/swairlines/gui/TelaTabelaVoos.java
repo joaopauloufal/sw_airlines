@@ -87,9 +87,7 @@ public class TelaTabelaVoos extends BorderPane {
 					Voo v1 = dados.get(tableView.getSelectionModel().getSelectedIndex());
 					TelaEditVoo tela = new TelaEditVoo(v1);
 					tela.setTitle("Editar Voo");
-				}
-				
-				
+				}				
 			}
 		});
 		
@@ -105,7 +103,7 @@ public class TelaTabelaVoos extends BorderPane {
 		VBox boxTable = new VBox();
 		boxTable.setPadding(new Insets(0, 10, 0, 10));
 		boxTable.getChildren().add(tableView);
-		boxTop.getChildren().addAll(new MenuBarAdmin(), titulo, boxTable, hbox);
+		boxTop.getChildren().addAll(new TelaPrincipal(), boxTable, hbox);
 		setTop(boxTop);
 		
 		tableView.setItems(dados);

@@ -3,7 +3,10 @@ package swairlines.gui;
 import javax.swing.JOptionPane;
 
 import swairlines.modelo.ContaDeUsuario;
+import swairlines.modelo.Funcionario;
 import swairlines.modelo.Gerente;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -27,8 +30,13 @@ public class TelaCadConta extends Stage {
 	private PasswordField txtSenha;
 	private PasswordField txtSenhaConfirmacao;
 	private ComboBox<String> listTipoConta;
+	private ComboBox<String> listCpfFuncionarios;
 	
 	public TelaCadConta() {
+		
+		ObservableList<String> funcionariosCpf;
+		funcionariosCpf = FXCollections.observableArrayList();
+		
 		
 		GridPane gPane = new GridPane();
 		gPane.setPadding(new Insets(10, 10, 10, 10));
@@ -40,6 +48,7 @@ public class TelaCadConta extends Stage {
 		HBox hbox3 = new HBox(20);
 		HBox hbox4 = new HBox(20);
 		HBox hbox5 = new HBox(20);
+		HBox hbox6 = new HBox(20);
 		VBox vbox1 = new VBox(15);
 		
 		Scene scene = new Scene(gPane, 450, 270, Color.SILVER);
@@ -62,6 +71,19 @@ public class TelaCadConta extends Stage {
 		Label lblSenhaConfirmacao = new Label("Confirme a senha:");
 		txtSenhaConfirmacao = new PasswordField();
 		hbox4.getChildren().addAll(lblSenhaConfirmacao, txtSenhaConfirmacao);
+		
+		Label lblCpfFuncionario = new Label("CPF do Funcionário:");
+		listCpfFuncionarios = new ComboBox<String>();
+		hbox6.getChildren().addAll(lblCpfFuncionario, listCpfFuncionarios);
+		
+		Gerente g = new Gerente();
+		
+		for (Funcionario f : g.buscaFuncionarios()) {
+			funcionariosCpf.add(f.getCpf());
+		}
+		
+		listCpfFuncionarios.getItems().addAll(funcionariosCpf);
+		
 				
 		Button btnCadastrar = new Button("Cadastrar");
 		btnCadastrar.setOnAction(new EventHandler<ActionEvent>() {
@@ -97,7 +119,7 @@ public class TelaCadConta extends Stage {
 		hbox5.getChildren().addAll(btnCadastrar, btnCancelar);
 		hbox5.setAlignment(Pos.CENTER);
 		
-		vbox1.getChildren().addAll(hbox1, hbox2, hbox3, hbox4, hbox5);
+		vbox1.getChildren().addAll(hbox1, hbox2, hbox3, hbox4, hbox6, hbox5);
 		
 		GridPane.setConstraints(vbox1, 9, 4);		
 		
