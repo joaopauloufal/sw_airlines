@@ -1,5 +1,6 @@
 package swairlines.gui;
 
+import swairlines.modelo.ContaDeUsuario;
 import swairlines.modelo.Funcionario;
 import swairlines.modelo.Gerente;
 import swairlines.modelo.Voo;
@@ -108,6 +109,10 @@ public class TelaTabelaVoos extends BorderPane {
 		setTop(boxTop);
 		
 		tableView.setItems(dados);
+		
+		if (f.getConta().getTipoConta().equals(ContaDeUsuario.TIPO_CONTA_OPERADOR)) {
+			btnEditarVoo.setVisible(false);
+		}
 		
 		
 	}

@@ -35,8 +35,7 @@ public class TelaCadConta extends Stage {
 	public TelaCadConta() {
 		
 		ObservableList<String> funcionariosCpf;
-		funcionariosCpf = FXCollections.observableArrayList();
-		
+		funcionariosCpf = FXCollections.observableArrayList();		
 		
 		GridPane gPane = new GridPane();
 		gPane.setPadding(new Insets(10, 10, 10, 10));
