@@ -90,15 +90,14 @@ public class TelaCadConta extends Stage {
 			
 			@Override
 			public void handle(ActionEvent event) {
+				Gerente gerente = new Gerente();
 				ContaDeUsuario c1 = new ContaDeUsuario(txtUsuario.getText(), txtSenha.getText(), listTipoConta.getValue(), listCpfFuncionarios.getValue());
 				if (c1.getSenha().equals(txtSenhaConfirmacao.getText())) {
-					Gerente gerente = new Gerente();
 					if (gerente.insereContaDeUsuario(c1)) {
 						JOptionPane.showMessageDialog(null, "Conta cadastrada com sucesso!");
 					} else {
 						JOptionPane.showMessageDialog(null, "Erro ao inserir!", "Erro", JOptionPane.ERROR_MESSAGE);
-					}
-					
+					}					
 					
 				} else {
 					JOptionPane.showMessageDialog(null, "A senha digitada não confere com a confirmação!", "Erro de Confirmação", JOptionPane.ERROR_MESSAGE);

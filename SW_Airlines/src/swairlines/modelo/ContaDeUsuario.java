@@ -20,6 +20,8 @@ public class ContaDeUsuario {
 	private String senha;
 	private String tipoConta;
 	private String cpfFuncionario;
+	public static final String TIPO_CONTA_ADMIN = "Administrador";
+	public static final String TIPO_CONTA_OPERADOR = "Operador";
 	
 	public ContaDeUsuario() {
 		
@@ -112,12 +114,22 @@ public class ContaDeUsuario {
 	
 	public boolean autenticar(ContaDeUsuario c1) {
 		for (ContaDeUsuario temp : c1.buscaContasDeUsuario()) {
-			if (temp.getLogin().equals(c1.getLogin()) && temp.getSenha().equals(c1.getSenha())){
-				Main.alterarTela(new TelaPrincipal());
-				return true;				
+			if (temp.getLogin().equals(c1.getLogin()) && temp.getSenha().equals(c1.getSenha())) {
+				if (temp.getTipoConta().equals(ContaDeUsuario.TIPO_CONTA_ADMIN)) {
+					Gerente gerente = new Gerente();
+					gerente.setConta(temp);
+					Main.alterarTela(new TelaPrincipal(gerente));
+					return true;
+				} else if (temp.getTipoConta().equals(ContaDeUsuario.TIPO_CONTA_OPERADOR)){
+					Operador operador = new Operador();
+					operador.setConta(temp);
+					Main.alterarTela(new TelaPrincipal(operador));
+					return true;
+				}												
 			}
-		}		
+		}
 		return false;
+		
 	}
 	
 	

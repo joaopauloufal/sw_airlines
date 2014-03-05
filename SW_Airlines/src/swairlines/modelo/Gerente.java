@@ -20,7 +20,7 @@ import swairlines.gui.TelaTabelaVoos;
 
 public class Gerente extends Operador implements AcessoBancoGerente {
 	
-	private static final String TIPO_CONTA = "Administrador";
+	public static final String TIPO_CONTA = "Administrador";
 	
 	public Gerente(String nome, String sexo, String cpf, String rg,
 			String cargo, String dataDeNascimento, String telefoneCelular,

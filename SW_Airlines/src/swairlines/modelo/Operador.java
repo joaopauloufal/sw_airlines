@@ -15,7 +15,7 @@ import swairlines.gui.TelaCadCliente;
 
 public class Operador extends Funcionario implements AcessoBancoOperador {
 	
-	private static final String TIPO_CONTA = "Operador";
+	public static final String TIPO_CONTA = "Operador";
 	
 	public Operador(String nome, String sexo, String cpf, String rg,
 			String cargo, String dataDeNascimento, String telefoneCelular,

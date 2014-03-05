@@ -1,5 +1,7 @@
 package swairlines.gui;
 
+import javax.swing.JOptionPane;
+
 import swairlines.modelo.Endereco;
 import swairlines.modelo.Funcionario;
 import swairlines.modelo.Gerente;
@@ -148,7 +150,11 @@ public class TelaCadFuncionario extends Stage {
 				Gerente gerente = new Gerente();
 				Endereco e1 = new Endereco(txtRua.getText(), txtCidade.getText(), txtBairro.getText(), txtNumero.getText(), txtEstado.getText());
 				Funcionario f1 = new Operador(txtNome.getText(), listSexo.getValue(), txtCpf.getText(), txtRg.getText(), listCargo.getValue(), txtDataDeNascimento.getText(), txtTelefoneCelular.getText(), txtTelefoneResidencial.getText(), txtNacionalidade.getText(), listEstadoCivil.getValue(), e1);
-				gerente.insereFuncionario(f1);
+				if (gerente.insereFuncionario(f1)) {
+					JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso!", "Cadastro Funcionário", JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(null, "Erro ao inserir.", "Erro", JOptionPane.ERROR_MESSAGE);
+				}
 				
 			}
 		});

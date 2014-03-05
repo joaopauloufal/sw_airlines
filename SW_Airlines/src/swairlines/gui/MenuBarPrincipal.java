@@ -1,19 +1,22 @@
 package swairlines.gui;
 
 import swairlines.Main;
+import swairlines.modelo.ContaDeUsuario;
+import swairlines.modelo.Funcionario;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 
-public class MenuBarAdmin extends MenuBar {
+public class MenuBarPrincipal extends MenuBar {
 	
-	public MenuBarAdmin() {
+	public MenuBarPrincipal(final Funcionario f) {
 		Menu menuArquivo = new Menu("Arquivo");
 		Menu menuCadastro = new Menu("Cadastro");
 		Menu menuEditar = new Menu("Editar");
 		Menu menuVoo = new Menu("Voo");
+		Menu menuCompra = new Menu("Compra");
 		Menu menuSobre = new Menu("Sobre");		
 		
 		MenuItem itemSair = new MenuItem("Sair");
@@ -34,10 +37,8 @@ public class MenuBarAdmin extends MenuBar {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				Main.alterarTela(new TelaLogin());
-				
-			}
-			
+				Main.alterarTela(new TelaLogin());				
+			}			
 		});		
 		
 		menuArquivo.getItems().addAll(itemLogout, itemSair);
@@ -75,7 +76,6 @@ public class MenuBarAdmin extends MenuBar {
 			public void handle(ActionEvent event) {				
 				TelaCadVoo tela = new TelaCadVoo();
 				tela.setTitle("Cadastrar Voo");				
-				
 			}
 			
 		});
@@ -103,12 +103,15 @@ public class MenuBarAdmin extends MenuBar {
 		listarVoos.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
-			public void handle(ActionEvent event) {			
-					Main.alterarTela(new TelaTabelaVoos());				
+			public void handle(ActionEvent event) {
+				Main.alterarTela(new TelaTabelaVoos(f));							
 				
 			}
 			
 		});
+		
+		MenuItem menuRealizarCompra = new MenuItem("Realizar Compra Passagem...");
+		menuCompra.getItems().addAll(menuRealizarCompra);
 		
 		MenuItem itemEditarVoo = new MenuItem("Editar Voo...");
 		
@@ -116,16 +119,24 @@ public class MenuBarAdmin extends MenuBar {
 
 			@Override
 			public void handle(ActionEvent event) {
-				// Para fazer
-				
+				// Para fazer				
 				
 			}
 			
-		});
+		});				
 		
 		menuVoo.getItems().addAll(listarVoos, itemChecarDisponibilidade, itemAtrasarVoo, itemEditarVoo);
 		
-		getMenus().addAll(menuArquivo, menuCadastro, menuEditar, menuVoo, menuSobre);
+		getMenus().addAll(menuArquivo, menuCadastro, menuEditar, menuCompra, menuVoo, menuSobre);
+		
+		if (f.getConta().getTipoConta().equals(ContaDeUsuario.TIPO_CONTA_OPERADOR)) {
+			itemCadastrarFuncionario.setVisible(false);
+			itemCadastrarVoo.setVisible(false);
+			itemChecarDisponibilidade.setVisible(false);
+			itemEditarVoo.setVisible(false);
+			itemCadastroConta.setVisible(false);
+			itemAtrasarVoo.setVisible(false);
+		}
 	}
 
 }

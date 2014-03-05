@@ -1,5 +1,7 @@
 package swairlines.gui;
 
+import javax.swing.JOptionPane;
+
 import swairlines.modelo.Cliente;
 import swairlines.modelo.Endereco;
 import swairlines.modelo.Gerente;
@@ -144,10 +146,13 @@ public class TelaCadCliente extends Stage {
 			@Override
 			public void handle(ActionEvent event) {
 				Gerente gerente = new Gerente();
-				Cliente c1  = new Cliente(txtNome.getText(), txtCpfCnpj.getText(), listSexo.getValue(), txtRg.getText(), txtDataDeNascimento.getText(), listEstadoCivil.getValue(), txtNacionalidade.getText(), txtTelefoneCelular.getText(), txtTelefoneResidencial.getText(), txtCartaoDeCredito.getText());
 				Endereco e1 = new Endereco(txtRua.getText(), txtCidade.getText(), txtBairro.getText(), txtNumero.getText(), txtEstado.getText());
-				c1.setEndereco(e1);
-				gerente.insereCliente(c1);
+				Cliente c1  = new Cliente(txtNome.getText(), txtCpfCnpj.getText(), listSexo.getValue(), txtRg.getText(), txtDataDeNascimento.getText(), listEstadoCivil.getValue(), txtNacionalidade.getText(), txtTelefoneCelular.getText(), txtTelefoneResidencial.getText(), txtCartaoDeCredito.getText(), e1);
+				if (gerente.insereCliente(c1)) {
+					JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!", "Cadastro Cliente", JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(null, "Erro ao inserir.", "Erro", JOptionPane.ERROR_MESSAGE);
+				}
 				
 			}
 		});

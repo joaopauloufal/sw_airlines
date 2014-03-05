@@ -98,9 +98,9 @@ public class TelaCadVoo extends Stage {
 					Voo v1 = new Voo(txtOrigem.getText(), txtDestino.getText(), txtRota.getText(), txtHoraPartida.getText(), txtHoraChegada.getText(), txtDataPartida.getText(), txtDataChegada.getText(), listTipoVoo.getValue());
 					gerente.insereVoo(v1);
 					if(gerente.insereVoo(v1)){
-						JOptionPane.showMessageDialog(null, "Voo cadastrado com sucesso!");
+						JOptionPane.showMessageDialog(null, "Voo cadastrado com sucesso!", "Cadastro Voo", JOptionPane.INFORMATION_MESSAGE);
 					} else {
-						JOptionPane.showMessageDialog(null, "Erro ao cadastrar!","Erro", 0);
+						JOptionPane.showMessageDialog(null, "Erro ao cadastrar!", "Erro", JOptionPane.ERROR_MESSAGE);
 					}
 				
 			}
