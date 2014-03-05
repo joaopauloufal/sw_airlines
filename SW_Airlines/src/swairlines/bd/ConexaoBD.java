@@ -45,8 +45,10 @@ public class ConexaoBD {
 			stm.executeUpdate(sql);
 			desconectar();
 			return true;
-		} catch(Exception e) {
+			
+		} catch(SQLException e) {
 			e.printStackTrace();
+			
 		}
 		return false;
 		
@@ -87,8 +89,10 @@ public class ConexaoBD {
 				+ " login varchar(30) NOT NULL,"
 				+ " senha varchar(30) NOT NULL,"
 				+ " tipo_conta VARCHAR(30) NOT NULL,"
-				+ " cpf_func VARCHAR(120),"
-				+ " PRIMARY KEY (login),"
+				+ " cpf_func VARCHAR(120) NOT NULL,"
+				+ " PRIMARY KEY (login, cpf_func),"
+				+ " UNIQUE (login),"
+				+ " UNIQUE (cpf_func),"
 				+ " INDEX fk_cpf_usuario (cpf_func),"
 				+ "	CONSTRAINT fk_cpf_usuario"
 				+ " FOREIGN KEY (cpf_func)"
@@ -98,32 +102,36 @@ public class ConexaoBD {
 		abreConexao();
 		executar(sql);
 		sql = "INSERT IGNORE sw_airlines.usuario(login, senha, tipo_conta, cpf_func) "
-				+ "VALUES('admin', '0000','Administrador', null);";
+				+ "VALUES('admin', '0000','Administrador', '000.000.000-00');";
 		executar(sql);
 		desconectar();	
 	}
 
 	private void tabelaFuncionario() throws SQLException {
 		sql = "CREATE TABLE IF NOT EXISTS sw_airlines.funcionario("
-				+ " cpf varchar(120) not null,"
-				+ " nome varchar(80) not null,"
-				+ " sexo varchar(50) not null ,"
-				+ " rg varchar(80) not null ,"
-				+ " cargo varchar(50) not null ,"
-				+ " data_de_nascimento varchar(30) not null ,"
-				+ " estado_civil varchar(50) not null,"
-				+ " nacionalidade varchar(50) not null ,"
-				+ " telefone_celular varchar(40) not null ,"
-				+ " telefone_residencial varchar(40) not null,"
-				+ " rua varchar(80) not null ,"
-				+ " cidade varchar(80) not null ,"
-				+ " bairro varchar(80) not null ,"
-				+ " numero varchar(20) not null ,"
-				+ " estado varchar(80) not null ,"
-				+ " primary key (cpf)) "
-	            + " ENGINE = InnoDB "
+				+ " cpf VARCHAR(120) NOT NULL,"
+				+ " nome VARCHAR(80) NOT NULL,"
+				+ " sexo VARCHAR(50) NOT NULL,"
+				+ " rg VARCHAR(80) NOT NULL ,"
+				+ " cargo VARCHAR(50) NOT NULL,"
+				+ " data_de_nascimento VARCHAR(30) NOT NULL,"
+				+ " estado_civil VARCHAR(50) NOT NULL,"
+				+ " nacionalidade VARCHAR(50) NOT NULL,"
+				+ " telefone_celular VARCHAR(40) NOT NULL,"
+				+ " telefone_residencial VARCHAR(40) NOT NULL,"
+				+ " rua VARCHAR(80) NOT NULL,"
+				+ " cidade VARCHAR(80) NOT NULL,"
+				+ " bairro VARCHAR(80) NOT NULL,"
+				+ " numero VARCHAR(20) NOT NULL,"
+				+ " estado VARCHAR(80) NOT NULL,"
+				+ " PRIMARY KEY (cpf),"
+				+ " UNIQUE (cpf)) "
+	            + " ENGINE = InnoDB"
 	            + " DEFAULT CHARACTER SET = utf8;" ;
 		abreConexao();
+		executar(sql);
+		sql = "INSERT IGNORE sw_airlines.funcionario(cpf, nome, sexo, rg, cargo, data_de_nascimento, estado_civil, nacionalidade, telefone_celular, telefone_residencial, rua, cidade, bairro, numero, estado) "
+				+ "VALUES('000.000.000-00', 'admin', 'anônimo', '0000000-0', 'Gerente', '00/00/0000', 'anônimo', 'anônimo', '0000', '0000', 'anônimo', 'anônimo', 'anônimo', 'anônimo', 'anônimo');";
 		executar(sql);
 		desconectar();		
 	}

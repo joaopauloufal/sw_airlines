@@ -34,14 +34,17 @@ public class Operador extends Funcionario implements AcessoBancoOperador {
 	public boolean insereCliente(Cliente cliente) {
 		try {
 			ConexaoBD cbd = new ConexaoBD();
-			cbd.executar("INSERT INTO sw_airlines.cliente (rg, cpf_cnpj, nome, sexo, data_de_nascimento, estado_civil, nacionalidade, telefone_celular, telefone_residencial, cartao_de_credito, rua, cidade, bairro, numero, estado) " +
+			if(cbd.executar("INSERT INTO sw_airlines.cliente (rg, cpf_cnpj, nome, sexo, data_de_nascimento, estado_civil, nacionalidade, telefone_celular, telefone_residencial, cartao_de_credito, rua, cidade, bairro, numero, estado) " +
 					"VALUES('" + cliente.getRg() +"','" + cliente.getCpfCnpj() +"','" + cliente.getNome() +"','" + cliente.getSexo() +"','" + cliente.getDataDeNascimento() +"','" + cliente.getEstadoCivil() +"','" + cliente.getNacionalidade() +"','" + cliente.getTelefoneCelular() +"','" + cliente.getTelefoneResidencial() +"','" + cliente.getCartaoDeCredito() +"','" 
-					+ cliente.getEndereco().getRua() + "','" + cliente.getEndereco().getCidade() + "','" + cliente.getEndereco().getBairro() + "','" + cliente.getEndereco().getNumero() + "','" + cliente.getEndereco().getEstado() + "');");
-			return true;
+					+ cliente.getEndereco().getRua() + "','" + cliente.getEndereco().getCidade() + "','" + cliente.getEndereco().getBairro() + "','" + cliente.getEndereco().getNumero() + "','" + cliente.getEndereco().getEstado() + "');")) {
+				return true;
+			}
+			
 		} catch (SQLException ex) {
 			Logger.getLogger(TelaCadCliente.class.getName()).log(Level.SEVERE, null, ex);
-			return false;
+			
 		}
+		return false;
 	}
 
 	@Override
@@ -49,23 +52,29 @@ public class Operador extends Funcionario implements AcessoBancoOperador {
 
 		try {
 			ConexaoBD cbd = new ConexaoBD();
-			cbd.executar("DELETE FROM sw_airlines.cliente WHERE rg= '" + cliente.getRg()+"';");
-			return true;
+			if(cbd.executar("DELETE FROM sw_airlines.cliente WHERE rg= '" + cliente.getRg()+"';")) {
+				return true;
+			}
+			
 		} catch (SQLException ex) {
 			Logger.getLogger(TelaCadCliente.class.getName()).log(Level.SEVERE, null, ex);
-			return false;
+			
 		}
+		return false;
 	}
 
 	@Override
-	public void alteraCliente(Cliente cliente) {
+	public boolean alteraCliente(Cliente cliente) {
 		try {
 			ConexaoBD cbd = new ConexaoBD();
-			cbd.executar("UPDATE sw_airlines.cliente SET cpf_cnpj='" + cliente.getCpfCnpj() +"', nome='" + cliente.getNome() +"', sexo='" + cliente.getSexo() +"', data_de_nascimento='" + cliente.getDataDeNascimento() +"', estado_civil='" + cliente.getEstadoCivil() +"', nacionalidade='" + cliente.getNacionalidade() +"', telefone_celular='" + cliente.getTelefoneCelular() +"', telefone_residencial='" + cliente.getTelefoneResidencial() +"', cartao_de_credito='" + cliente.getCartaoDeCredito()
-					+ "', rua='" + cliente.getEndereco().getRua() +", 'cidade='"+ cliente.getEndereco().getCidade() + ", 'bairro='"+ cliente.getEndereco().getBairro() + ", 'numero='" + cliente.getEndereco().getNumero() +", 'estado='" + cliente.getEndereco().getEstado() + "' WHERE rg='" + cliente.getRg() +"';");
+			if(cbd.executar("UPDATE sw_airlines.cliente SET cpf_cnpj='" + cliente.getCpfCnpj() +"', nome='" + cliente.getNome() +"', sexo='" + cliente.getSexo() +"', data_de_nascimento='" + cliente.getDataDeNascimento() +"', estado_civil='" + cliente.getEstadoCivil() +"', nacionalidade='" + cliente.getNacionalidade() +"', telefone_celular='" + cliente.getTelefoneCelular() +"', telefone_residencial='" + cliente.getTelefoneResidencial() +"', cartao_de_credito='" + cliente.getCartaoDeCredito()
+					+ "', rua='" + cliente.getEndereco().getRua() +", 'cidade='"+ cliente.getEndereco().getCidade() + ", 'bairro='"+ cliente.getEndereco().getBairro() + ", 'numero='" + cliente.getEndereco().getNumero() +", 'estado='" + cliente.getEndereco().getEstado() + "' WHERE rg='" + cliente.getRg() +"';")) {
+				return true;
+			}
 		} catch (SQLException ex) {
 			Logger.getLogger(TelaCadCliente.class.getName()).log(Level.SEVERE, null, ex);
 		}
+		return false;
 		
 	}
 

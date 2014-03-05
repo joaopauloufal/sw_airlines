@@ -19,6 +19,7 @@ public class ContaDeUsuario {
 	private String login;
 	private String senha;
 	private String tipoConta;
+	private String cpfFuncionario;
 	
 	public ContaDeUsuario() {
 		
@@ -27,13 +28,14 @@ public class ContaDeUsuario {
 	public ContaDeUsuario(String login, String senha) {
 		this.login = login;
 		this.senha = senha;
-	}	
+		
+	}
 
-
-	public ContaDeUsuario(String login, String senha, String tipoConta) {
+	public ContaDeUsuario(String login, String senha, String tipoConta, String cpfFuncionario) {
 		this.login = login;
 		this.senha = senha;
 		this.tipoConta = tipoConta;
+		this.cpfFuncionario = cpfFuncionario;
 	}
 	
 	@Override
@@ -42,6 +44,14 @@ public class ContaDeUsuario {
         if (obj.getClass() != this.getClass()) return false;  
         return this.senha.equalsIgnoreCase(senha);  
     }
+
+	public String getCpfFuncionario() {
+		return cpfFuncionario;
+	}
+
+	public void setCpfFuncionario(String cpfFuncionario) {
+		this.cpfFuncionario = cpfFuncionario;
+	}
 
 	public String getTipoConta() {
 		return tipoConta;
@@ -75,7 +85,7 @@ public class ContaDeUsuario {
 			//Abre a conexão com o banco de dados
 			Connection con = cbd.abreConexao();
 			//Cria um statement para realizar comandos no BD
-			PreparedStatement stm = con.prepareStatement("select * from sw_airlines.usuario;");
+			PreparedStatement stm = con.prepareStatement("SELECT login, senha, tipo_conta, cpf_func FROM sw_airlines.funcionario, sw_airlines.usuario WHERE cpf = cpf_func;");
 			//Armazena o valor da pesquisa e no rs
 			ResultSet rs = stm.executeQuery();
 			//Com o while ele vai rodar linha por linha sendo o parâmetro o rs.next(), que retorna V ou F se a tabela tiver ou não linhas.
@@ -83,7 +93,8 @@ public class ContaDeUsuario {
 				ContaDeUsuario u = new ContaDeUsuario();
 				u.setLogin(rs.getString("login"));
 				u.setSenha(rs.getString("senha"));
-				u.setTipoConta("tipo_conta");
+				u.setTipoConta(rs.getString("tipo_conta"));
+				u.setCpfFuncionario(rs.getString("cpf_func"));
 				//Adiciona o objeto a (usuario) a lista usuarios, usando o método add
 				usuarios.add(u);
 			}
@@ -103,8 +114,7 @@ public class ContaDeUsuario {
 		for (ContaDeUsuario temp : c1.buscaContasDeUsuario()) {
 			if (temp.getLogin().equals(c1.getLogin()) && temp.getSenha().equals(c1.getSenha())){
 				Main.alterarTela(new TelaPrincipal());
-				return true;
-				
+				return true;				
 			}
 		}		
 		return false;

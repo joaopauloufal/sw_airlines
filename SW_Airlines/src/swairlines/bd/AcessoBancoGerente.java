@@ -9,7 +9,7 @@ public interface AcessoBancoGerente extends AcessoBancoOperador {
 	
 	public boolean insereFuncionario(Funcionario f1);
 	public boolean excluiFuncionario(Funcionario f1);
-	public void alteraFuncionario(Funcionario f1);
+	public boolean alteraFuncionario(Funcionario f1);
 	public ObservableList<Funcionario> buscaFuncionarios();
 	
 	public boolean insereVoo(Voo v1);
@@ -19,7 +19,7 @@ public interface AcessoBancoGerente extends AcessoBancoOperador {
 	
 	public boolean insereContaDeUsuario(ContaDeUsuario c1);
 	public boolean excluiContaDeUsuario(ContaDeUsuario c1);
-	public void alteraContaDeUsuario(ContaDeUsuario c1);
+	public boolean alteraContaDeUsuario(ContaDeUsuario c1);
 	
 
 }

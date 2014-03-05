@@ -8,7 +8,6 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import swairlines.bd.AcessoBancoGerente;
@@ -40,37 +39,45 @@ public class Gerente extends Operador implements AcessoBancoGerente {
 	public boolean insereFuncionario(Funcionario f1) {
 		try {
 			ConexaoBD cbd = new ConexaoBD();
-			cbd.executar("INSERT INTO sw_airlines.funcionario (cpf, nome, sexo, rg, cargo, data_de_nascimento, estado_civil, nacionalidade, telefone_celular, telefone_residencial, rua, cidade, bairro, numero, estado) " +
+			if(cbd.executar("INSERT INTO sw_airlines.funcionario (cpf, nome, sexo, rg, cargo, data_de_nascimento, estado_civil, nacionalidade, telefone_celular, telefone_residencial, rua, cidade, bairro, numero, estado) " +
 					"VALUES('" + f1.getCpf() +"','" + f1.getNome() +"','" + f1.getSexo() +"','" + f1.getRg() +"','" + f1.getCargo() +"','" + f1.getDataDeNascimento() +"','" + f1.getEstadoCivil() +"','" + f1.getNacionalidade() +"','" + f1.getTelefoneCelular() +"','" + f1.getTelefoneResidencial() + "','" 
-					+ f1.getEndereco().getRua() + "','" + f1.getEndereco().getCidade() + "','" + f1.getEndereco().getBairro() + "','" + f1.getEndereco().getNumero() + "','" + f1.getEndereco().getEstado() + "');");
-			return true;
+					+ f1.getEndereco().getRua() + "','" + f1.getEndereco().getCidade() + "','" + f1.getEndereco().getBairro() + "','" + f1.getEndereco().getNumero() + "','" + f1.getEndereco().getEstado() + "');")) {
+				return true;
+			}
+			
 		} catch (SQLException ex) {
 			Logger.getLogger(TelaCadFuncionario.class.getName()).log(Level.SEVERE, null, ex);
-			return false;
 		}
+		return false;
 	}
 
 	@Override
 	public boolean excluiFuncionario(Funcionario f1) {
 		try {
 			ConexaoBD cbd = new ConexaoBD();
-			cbd.executar("DELETE FROM sw_airlines.funcionario WHERE cpf = '" + f1.getCpf() +"';");
-			return true;
+			if(cbd.executar("DELETE FROM sw_airlines.funcionario WHERE cpf= '" + f1.getCpf() +"';")) {
+				return true;
+			}
+			
 		} catch (SQLException ex) {
 			Logger.getLogger(TelaCadFuncionario.class.getName()).log(Level.SEVERE, null, ex);
-			return false;
+			
 		}
+		return false;
 	}
 
 	@Override
-	public void alteraFuncionario(Funcionario f1) {
+	public boolean alteraFuncionario(Funcionario f1) {
 		try {
 			ConexaoBD cbd = new ConexaoBD();
-			cbd.executar("UPDATE sw_airlines.funcionario set cpf='" + f1.getCpf() +"' , nome='" + f1.getNome() +"', sexo='" + f1.getSexo() +"', rg='" + f1.getRg() +"', cargo='" + f1.getCargo() +"' ,data_de_nascimento='" + f1.getDataDeNascimento() +"', estado_civil='" + f1.getEstadoCivil() +"', nacionalidade='" + f1.getNacionalidade() +"', telefone_celular='" + f1.getTelefoneCelular() +"', telefone_residencial='" + f1.getTelefoneResidencial() 
-					+", 'rua='" + f1.getEndereco().getRua() +", 'cidade='" + f1.getEndereco().getCidade() +", 'bairro='" + f1.getEndereco().getBairro() + ", 'numero='" + f1.getEndereco().getNumero() +", 'estado='"+ f1.getEndereco().getEstado() + "' WHERE cpf='" + f1.getCpf() +"';");
+			if(cbd.executar("UPDATE sw_airlines.funcionario set cpf='" + f1.getCpf() +"' , nome='" + f1.getNome() +"', sexo='" + f1.getSexo() +"', rg='" + f1.getRg() +"', cargo='" + f1.getCargo() +"' ,data_de_nascimento='" + f1.getDataDeNascimento() +"', estado_civil='" + f1.getEstadoCivil() +"', nacionalidade='" + f1.getNacionalidade() +"', telefone_celular='" + f1.getTelefoneCelular() +"', telefone_residencial='" + f1.getTelefoneResidencial() 
+					+", 'rua='" + f1.getEndereco().getRua() +", 'cidade='" + f1.getEndereco().getCidade() +", 'bairro='" + f1.getEndereco().getBairro() + ", 'numero='" + f1.getEndereco().getNumero() +", 'estado='"+ f1.getEndereco().getEstado() + "' WHERE cpf='" + f1.getCpf() +"';")) {
+				return true;
+			}
 		} catch (SQLException ex) {
 			Logger.getLogger(TelaCadFuncionario.class.getName()).log(Level.SEVERE, null, ex);
 		}
+		return false;
 		
 	}
 
@@ -120,39 +127,49 @@ public class Gerente extends Operador implements AcessoBancoGerente {
 	public boolean insereVoo(Voo v1) {
 		try {
 			ConexaoBD cbd = new ConexaoBD();			
-			cbd.executar("INSERT INTO sw_airlines.voo (origem, destino, quantidadeDePassageiros, rota, horaPartida, horaChegada, dataPartida, dataChegada, tipo_voo) " +
-					"VALUES('" + v1.getOrigem() +"','" + v1.getDestino() +"','" + v1.getQuantidadeDePassageiros() +"','" + v1.getRota() +"','" + v1.getHoraPartida() +"','" + v1.getHoraChegada() +"','" + v1.getDataPartida() + "','" + v1.getDataChegada() + "','" + v1.getTipoVoo() + "');");
-			return true;
+			if(cbd.executar("INSERT INTO sw_airlines.voo (origem, destino, quantidadeDePassageiros, rota, horaPartida, horaChegada, dataPartida, dataChegada, tipo_voo) " +
+					"VALUES('" + v1.getOrigem() +"','" + v1.getDestino() +"','" + v1.getQuantidadeDePassageiros() +"','" + v1.getRota() +"','" + v1.getHoraPartida() +"','" + v1.getHoraChegada() +"','" + v1.getDataPartida() + "','" + v1.getDataChegada() + "','" + v1.getTipoVoo() + "');")) {
+				return true;
+			}
+			
 		} catch (SQLException ex) {
 			Logger.getLogger(TelaCadVoo.class.getName()).log(Level.SEVERE, null, ex);
-			return false;
+			
 		}
+		return false;
+		
 	}
 
 	@Override
 	public boolean excluiVoo(Voo v1) {
 		try {
 			ConexaoBD cbd = new ConexaoBD();
-			cbd.executar("DELETE FROM sw_airlines.voo WHERE id= '" + v1.getId() +"';");
-			return true;
+			if(cbd.executar("DELETE FROM sw_airlines.voo WHERE id= '" + v1.getId() +"';")) {
+				return true;
+			}
+			
 
 		} catch (SQLException ex) {
 			Logger.getLogger(TelaCadVoo.class.getName()).log(Level.SEVERE, null, ex);
-			return false;
+			
 		}
+		return false;
 	}
 
 	@Override
 	public boolean alteraVoo(Voo v1) {
 		try {
 			ConexaoBD cbd = new ConexaoBD();
-			cbd.executar("UPDATE sw_airlines.voo SET origem='" + v1.getOrigem() +"', destino='" + v1.getDestino() + "', rota='" + v1.getRota() +"', horaPartida='" + v1.getHoraPartida() +"', horaChegada='" + v1.getHoraChegada() +"', dataPartida='" + v1.getDataPartida() + "', dataChegada='" + v1.getDataChegada() + "', tipo_voo='" + v1.getTipoVoo() + "' WHERE id='" + v1.getId() +"';");
-			return true;
+			if(cbd.executar("UPDATE sw_airlines.voo SET origem='" + v1.getOrigem() +"', destino='" + v1.getDestino() + "', rota='" + v1.getRota() +"', horaPartida='" + v1.getHoraPartida() +"', horaChegada='" + v1.getHoraChegada() +"', dataPartida='" + v1.getDataPartida() + "', dataChegada='" + v1.getDataChegada() + "', tipo_voo='" + v1.getTipoVoo() + "' WHERE id='" + v1.getId() +"';")) {
+				return true;
+			}
+			
 
 		} catch (SQLException ex) {
 			Logger.getLogger(TelaEditVoo.class.getName()).log(Level.SEVERE, null, ex);
-			return false;
+			
 		}
+		return false;
 	}
 
 	@Override
@@ -213,34 +230,42 @@ public class Gerente extends Operador implements AcessoBancoGerente {
 	public boolean insereContaDeUsuario(ContaDeUsuario c1) {
 		try {
 			ConexaoBD cbd = new ConexaoBD();
-			cbd.executar("INSERT INTO sw_airlines.usuario (login, senha, tipo_conta) VALUES('" + c1.getLogin() +"','" + c1.getSenha() +"','" + c1.getTipoConta() +"');");
-			return true;
+			if(cbd.executar("INSERT INTO sw_airlines.usuario (login, senha, tipo_conta, cpf_func) VALUES('" + c1.getLogin() +"','" + c1.getSenha() +"','" + c1.getTipoConta() +"','" + c1.getCpfFuncionario() +"');")){
+				return true;
+			}
+			
 		} catch (SQLException ex) {
-			Logger.getLogger(TelaCadConta.class.getName()).log(Level.SEVERE, null, ex);
-			return false;
+			Logger.getLogger(TelaCadConta.class.getName()).log(Level.SEVERE, null, ex);			
 		}
+		return false;
 	}
 
 	@Override
 	public boolean excluiContaDeUsuario(ContaDeUsuario c1) {
 		try {
 			ConexaoBD cbd = new ConexaoBD();
-			cbd.executar("DELETE FROM sw_airlines.usuario WHERE login= '" + c1.getLogin() +"';");
-			return true;
+			if(cbd.executar("DELETE FROM sw_airlines.usuario WHERE login= '" + c1.getLogin() +"';")) {
+				return true;
+			}
+			
 		} catch (SQLException ex) {
 			Logger.getLogger(TelaCadConta.class.getName()).log(Level.SEVERE, null, ex);
-			return false;
+			
 		}
+		return false;
 	}
 
 	@Override
-	public void alteraContaDeUsuario(ContaDeUsuario c1) {
+	public boolean alteraContaDeUsuario(ContaDeUsuario c1) {
 		try {
 			ConexaoBD cbd = new ConexaoBD();
-			cbd.executar("UPADATE sw_airlines.usuario SET senha='" + c1.getSenha() + "' WHERE login='" + c1.getSenha() +"';");
+			if(cbd.executar("UPADATE sw_airlines.usuario SET senha='" + c1.getSenha() + "' WHERE login='" + c1.getSenha() +"';")) {
+				return true;
+			}
 		} catch (SQLException ex) {
 			Logger.getLogger(TelaCadConta.class.getName()).log(Level.SEVERE, null, ex);
 		}
+		return false;
 		
 	}	
 	
