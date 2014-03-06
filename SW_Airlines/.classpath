@@ -3,7 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
-	<classpathentry kind="lib" path="/home/paulo/git/sw/SW_Airlines/src/lib/jfxrt.jar"/>
-	<classpathentry kind="lib" path="/home/paulo/git/sw/SW_Airlines/src/lib/mysql-connector-java-5.1.27-bin.jar"/>
+	<classpathentry kind="lib" path="/home/danilo/workspace/sw_airlines/SW_Airlines/src/lib/jfxrt.jar"/>
+	<classpathentry kind="lib" path="/home/danilo/workspace/sw_airlines/SW_Airlines/src/lib/mysql-connector-java-5.1.27-bin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
