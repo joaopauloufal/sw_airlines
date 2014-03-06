@@ -30,7 +30,7 @@ public class TelaTabelaVoos extends BorderPane {
 		
 		dados = FXCollections.observableArrayList();
 		Gerente gerente = new Gerente();
-		dados.addAll(gerente.buscaVoos());		
+		dados.addAll(gerente.buscaVoos());
 		
 		tableView.setEditable(true);		
 		
@@ -105,7 +105,7 @@ public class TelaTabelaVoos extends BorderPane {
 		VBox boxTable = new VBox();
 		boxTable.setPadding(new Insets(0, 10, 0, 10));
 		boxTable.getChildren().add(tableView);
-		boxTop.getChildren().addAll(new TelaPrincipal(f), boxTable, hbox);
+		boxTop.getChildren().addAll(new TelaPrincipal(f), titulo, boxTable, hbox);
 		setTop(boxTop);
 		
 		tableView.setItems(dados);

@@ -146,9 +146,9 @@ public class TelaCadCliente extends Stage {
 			@Override
 			public void handle(ActionEvent event) {
 				Gerente gerente = new Gerente();
-				Endereco e1 = new Endereco(txtRua.getText(), txtCidade.getText(), txtBairro.getText(), txtNumero.getText(), txtEstado.getText());
-				Cliente c1  = new Cliente(txtNome.getText(), txtCpfCnpj.getText(), listSexo.getValue(), txtRg.getText(), txtDataDeNascimento.getText(), listEstadoCivil.getValue(), txtNacionalidade.getText(), txtTelefoneCelular.getText(), txtTelefoneResidencial.getText(), txtCartaoDeCredito.getText(), e1);
-				if (gerente.insereCliente(c1)) {
+				Endereco endereco = new Endereco(txtRua.getText(), txtCidade.getText(), txtBairro.getText(), txtNumero.getText(), txtEstado.getText());
+				Cliente cliente  = new Cliente(txtNome.getText(), txtCpfCnpj.getText(), listSexo.getValue(), txtRg.getText(), txtDataDeNascimento.getText(), listEstadoCivil.getValue(), txtNacionalidade.getText(), txtTelefoneCelular.getText(), txtTelefoneResidencial.getText(), txtCartaoDeCredito.getText(), endereco);
+				if (gerente.insereCliente(cliente)) {
 					JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!", "Cadastro Cliente", JOptionPane.INFORMATION_MESSAGE);
 				} else {
 					JOptionPane.showMessageDialog(null, "Erro ao inserir.", "Erro", JOptionPane.ERROR_MESSAGE);

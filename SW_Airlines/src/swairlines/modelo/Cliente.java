@@ -27,7 +27,8 @@ public class Cliente {
 		this.telefoneCelular = telefoneCelular;
 		this.telefoneResidencial = telefoneResidencial;
 		this.cartaoDeCredito = cartaoDeCredito;
-		this.endereco = endereco;
+		this.endereco = endereco;		
+		
 		
 	}
 	
