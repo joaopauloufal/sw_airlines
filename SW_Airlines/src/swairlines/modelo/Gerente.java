@@ -103,11 +103,11 @@ public class Gerente extends Operador implements AcessoBancoGerente {
 				func.setNacionalidade(rs.getString("nacionalidade"));
 				func.setTelefoneCelular(rs.getString("telefone_celular"));
 				func.setTelefoneResidencial(rs.getString("telefone_residencial"));
-				func.getEndereco().setRua(rs.getString("rua"));
-				func.getEndereco().setCidade(rs.getString("cidade"));
-				func.getEndereco().setBairro(rs.getString("bairro"));
-				func.getEndereco().setNumero(rs.getString("numero"));
-				func.getEndereco().setEstado(rs.getString("estado"));
+				func.setRua(rs.getString("rua"));
+				func.setCidade(rs.getString("cidade"));
+				func.setBairro(rs.getString("bairro"));
+				func.setNumero(rs.getString("numero"));
+				func.setEstado(rs.getString("estado"));
 				funcionarios.add(func);
 				
 			}

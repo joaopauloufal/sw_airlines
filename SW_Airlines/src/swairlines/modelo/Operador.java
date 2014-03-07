@@ -101,11 +101,11 @@ public class Operador extends Funcionario implements AcessoBancoOperador {
 				cliente.setTelefoneCelular(rs.getString("telefone_celular"));
 				cliente.setTelefoneResidencial(rs.getString("telefone_residencial"));
 				cliente.setCartaoDeCredito(rs.getString("cartao_de_credito"));
-				cliente.getEndereco().setRua(rs.getString("rua"));
-				cliente.getEndereco().setCidade(rs.getString("cidade"));
-				cliente.getEndereco().setBairro(rs.getString("bairro"));
-				cliente.getEndereco().setNumero(rs.getString("numero"));
-				cliente.getEndereco().setEstado(rs.getString("estado"));	
+				cliente.setRua(rs.getString("rua"));
+				cliente.setCidade(rs.getString("cidade"));
+				cliente.setBairro(rs.getString("bairro"));
+				cliente.setNumero(rs.getString("numero"));
+				cliente.setEstado(rs.getString("estado"));	
 				clientes.add(cliente);
 			}
 			

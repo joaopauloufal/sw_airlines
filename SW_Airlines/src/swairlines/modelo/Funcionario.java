@@ -1,6 +1,6 @@
 package swairlines.modelo;
 
-public abstract class Funcionario {
+public abstract class Funcionario extends Endereco {
 	
 	private String nome;
 	private String sexo;

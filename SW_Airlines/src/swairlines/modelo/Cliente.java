@@ -1,6 +1,6 @@
 package swairlines.modelo;
 
-public class Cliente {
+public class Cliente extends Endereco {
 
 	private String nome;
 	private String cpfCnpj;
@@ -29,18 +29,18 @@ public class Cliente {
 		this.cartaoDeCredito = cartaoDeCredito;
 		this.endereco = endereco;		
 		
-		
 	}
+	
 	
 	public Cliente() {
 		
 	}
 
+
 	public Endereco getEndereco() {
 		return endereco;
 	}
-
-
+	
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
