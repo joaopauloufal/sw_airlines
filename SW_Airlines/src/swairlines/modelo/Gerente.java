@@ -12,11 +12,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import swairlines.bd.AcessoBancoGerente;
 import swairlines.bd.ConexaoBD;
-import swairlines.gui.TelaCadConta;
-import swairlines.gui.TelaCadFuncionario;
-import swairlines.gui.TelaCadVoo;
-import swairlines.gui.TelaEditVoo;
-import swairlines.gui.TelaTabelaVoos;
 
 public class Gerente extends Operador implements AcessoBancoGerente {
 	
@@ -46,7 +41,7 @@ public class Gerente extends Operador implements AcessoBancoGerente {
 			}
 			
 		} catch (SQLException ex) {
-			Logger.getLogger(TelaCadFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(Gerente.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		return false;
 	}
@@ -60,7 +55,7 @@ public class Gerente extends Operador implements AcessoBancoGerente {
 			}
 			
 		} catch (SQLException ex) {
-			Logger.getLogger(TelaCadFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(Gerente.class.getName()).log(Level.SEVERE, null, ex);
 			
 		}
 		return false;
@@ -75,7 +70,7 @@ public class Gerente extends Operador implements AcessoBancoGerente {
 				return true;
 			}
 		} catch (SQLException ex) {
-			Logger.getLogger(TelaCadFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(Gerente.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		return false;
 		
@@ -116,7 +111,7 @@ public class Gerente extends Operador implements AcessoBancoGerente {
 			stm.close();
 			con.close();
 		} catch (SQLException e) {
-			Logger.getLogger(TelaCadFuncionario.class.getName()).log(Level.SEVERE, null, e);	
+			Logger.getLogger(Gerente.class.getName()).log(Level.SEVERE, null, e);	
 			return null;
 		}
 		return funcionarios;
@@ -133,7 +128,7 @@ public class Gerente extends Operador implements AcessoBancoGerente {
 			}
 			
 		} catch (SQLException ex) {
-			Logger.getLogger(TelaCadVoo.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(Gerente.class.getName()).log(Level.SEVERE, null, ex);
 			
 		}
 		return false;
@@ -150,7 +145,7 @@ public class Gerente extends Operador implements AcessoBancoGerente {
 			
 
 		} catch (SQLException ex) {
-			Logger.getLogger(TelaCadVoo.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(Gerente.class.getName()).log(Level.SEVERE, null, ex);
 			
 		}
 		return false;
@@ -166,7 +161,7 @@ public class Gerente extends Operador implements AcessoBancoGerente {
 			
 
 		} catch (SQLException ex) {
-			Logger.getLogger(TelaEditVoo.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(Gerente.class.getName()).log(Level.SEVERE, null, ex);
 			
 		}
 		return false;
@@ -220,7 +215,7 @@ public class Gerente extends Operador implements AcessoBancoGerente {
 			return voos;
 			
 		} catch(SQLException e) {
-			Logger.getLogger(TelaTabelaVoos.class.getName()).log(Level.SEVERE, null, e);
+			Logger.getLogger(Gerente.class.getName()).log(Level.SEVERE, null, e);
 			return null;
 			
 		}
@@ -236,7 +231,7 @@ public class Gerente extends Operador implements AcessoBancoGerente {
 			}
 			
 		} catch (SQLException ex) {
-			Logger.getLogger(TelaCadConta.class.getName()).log(Level.SEVERE, null, ex);			
+			Logger.getLogger(Gerente.class.getName()).log(Level.SEVERE, null, ex);			
 		}
 		return false;
 	}
@@ -250,7 +245,7 @@ public class Gerente extends Operador implements AcessoBancoGerente {
 			}
 			
 		} catch (SQLException ex) {
-			Logger.getLogger(TelaCadConta.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(Gerente.class.getName()).log(Level.SEVERE, null, ex);
 			
 		}
 		return false;
@@ -264,7 +259,7 @@ public class Gerente extends Operador implements AcessoBancoGerente {
 				return true;
 			}
 		} catch (SQLException ex) {
-			Logger.getLogger(TelaCadConta.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(Gerente.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		return false;
 		

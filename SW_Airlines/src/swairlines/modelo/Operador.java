@@ -11,8 +11,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import swairlines.bd.AcessoBancoOperador;
 import swairlines.bd.ConexaoBD;
-import swairlines.gui.TelaCadCliente;
-import swairlines.gui.TelaTabelaClientes;
 
 public class Operador extends Funcionario implements AcessoBancoOperador {
 	
@@ -42,7 +40,7 @@ public class Operador extends Funcionario implements AcessoBancoOperador {
 			}
 			
 		} catch (SQLException ex) {
-			Logger.getLogger(TelaCadCliente.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(Operador.class.getName()).log(Level.SEVERE, null, ex);
 			
 		}
 		return false;
@@ -58,7 +56,7 @@ public class Operador extends Funcionario implements AcessoBancoOperador {
 			}
 			
 		} catch (SQLException ex) {
-			Logger.getLogger(TelaCadCliente.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(Operador.class.getName()).log(Level.SEVERE, null, ex);
 			
 		}
 		return false;
@@ -73,7 +71,7 @@ public class Operador extends Funcionario implements AcessoBancoOperador {
 				return true;
 			}
 		} catch (SQLException ex) {
-			Logger.getLogger(TelaCadCliente.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(Operador.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		return false;
 		
@@ -114,7 +112,7 @@ public class Operador extends Funcionario implements AcessoBancoOperador {
 			con.close();
 			return clientes;
 		} catch (SQLException e) {
-			Logger.getLogger(TelaTabelaClientes.class.getName()).log(Level.SEVERE, null, e);
+			Logger.getLogger(Operador.class.getName()).log(Level.SEVERE, null, e);
 			return null;
 		}
 		

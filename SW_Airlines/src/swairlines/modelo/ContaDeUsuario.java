@@ -11,7 +11,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import swairlines.Main;
 import swairlines.bd.ConexaoBD;
-import swairlines.gui.TelaCadConta;
 import swairlines.gui.TelaPrincipal;
 
 public class ContaDeUsuario {
@@ -107,7 +106,7 @@ public class ContaDeUsuario {
 			return usuarios;
 
 		} catch (SQLException ex) {
-			Logger.getLogger(TelaCadConta.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(ContaDeUsuario.class.getName()).log(Level.SEVERE, null, ex);
 			return null;
 		}
 	}

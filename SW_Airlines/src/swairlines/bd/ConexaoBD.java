@@ -7,6 +7,8 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.JOptionPane;
+
 public class ConexaoBD {
 	
 	private Connection c;
@@ -26,9 +28,10 @@ public class ConexaoBD {
 	public Connection abreConexao(){
 		//35216493
         try {
-            c = DriverManager.getConnection("jdbc:mysql://localhost/","root","12345");
+            c = DriverManager.getConnection("jdbc:mysql://localhost/","root","35216493");
             return c;
         } catch (SQLException ex) {
+        	JOptionPane.showMessageDialog(null, "Não foi possível conectar ao banco de dados. Tente novamente mais tarde.", "Erro de Conexão Com o Banco de Dados", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
