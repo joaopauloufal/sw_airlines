@@ -15,6 +15,7 @@ public class MenuBarPrincipal extends MenuBar {
 		Menu menuArquivo = new Menu("Arquivo");
 		Menu menuCadastro = new Menu("Cadastro");
 		Menu menuEditar = new Menu("Editar");
+		Menu menuListar = new Menu("Listar");
 		Menu menuVoo = new Menu("Voo");
 		Menu menuCompra = new Menu("Compra");
 		Menu menuSobre = new Menu("Sobre");		
@@ -127,7 +128,24 @@ public class MenuBarPrincipal extends MenuBar {
 		
 		menuVoo.getItems().addAll(listarVoos, itemChecarDisponibilidade, itemAtrasarVoo, itemEditarVoo);
 		
-		getMenus().addAll(menuArquivo, menuCadastro, menuEditar, menuCompra, menuVoo, menuSobre);
+		MenuItem listarContasDeUsuario = new MenuItem("Listar Contas de Usuário");
+		MenuItem listarFuncionarios = new MenuItem("Listar Funcionários");
+		MenuItem listarClientes = new MenuItem("Listar Clientes");
+		
+		listarClientes.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				Main.alterarTela(new TelaTabelaClientes(f));
+				
+			}
+			
+		});
+		MenuItem listarCompras = new MenuItem("Listar Compras");
+		
+		menuListar.getItems().addAll(listarContasDeUsuario, listarClientes, listarFuncionarios, listarCompras);
+		
+		getMenus().addAll(menuArquivo, menuCadastro, menuEditar, menuListar, menuCompra, menuVoo, menuSobre);
 		
 		if (f.getConta().getTipoConta().equals(ContaDeUsuario.TIPO_CONTA_OPERADOR)) {
 			itemCadastrarFuncionario.setVisible(false);

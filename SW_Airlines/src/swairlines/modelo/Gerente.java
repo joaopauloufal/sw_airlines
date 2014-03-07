@@ -92,7 +92,7 @@ public class Gerente extends Operador implements AcessoBancoGerente {
 			ResultSet rs = stm.executeQuery();
 			
 			while (rs.next()){
-				Funcionario func = new Operador();
+				Funcionario func = new Gerente();
 				func.setCpf(rs.getString("cpf"));
 				func.setNome(rs.getString("nome"));
 				func.setSexo(rs.getString("sexo"));
@@ -216,7 +216,7 @@ public class Gerente extends Operador implements AcessoBancoGerente {
 			}			
 			rs.close();
 			stm.close();
-			con.close();						
+			con.close();
 			return voos;
 			
 		} catch(SQLException e) {
@@ -224,6 +224,7 @@ public class Gerente extends Operador implements AcessoBancoGerente {
 			return null;
 			
 		}
+		
 	}
 
 	@Override

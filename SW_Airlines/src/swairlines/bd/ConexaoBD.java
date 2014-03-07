@@ -97,7 +97,8 @@ public class ConexaoBD {
 				+ " INDEX fk_cpf_usuario (cpf_func),"
 				+ "	CONSTRAINT fk_cpf_usuario"
 				+ " FOREIGN KEY (cpf_func)"
-				+ " REFERENCES sw_airlines.funcionario (cpf)) "
+				+ " REFERENCES sw_airlines.funcionario (cpf)"
+				+ " ON DELETE CASCADE)"
 	            + " ENGINE = InnoDB "
 	            + " DEFAULT CHARACTER SET = utf8;";
 		abreConexao();
@@ -139,24 +140,24 @@ public class ConexaoBD {
 
 	private void tabelaCliente() throws SQLException {
 		sql = "CREATE TABLE IF NOT EXISTS sw_airlines.cliente("
-				+ "rg varchar(25) not null ,"
-				+ "cpf_cnpj varchar(25) not null ,"
-				+ "nome varchar(80) not null ,"
-				+ "sexo varchar(40) not null ,"
-				+ "data_de_nascimento varchar(25) not null ,"
-				+ "estado_civil varchar(20) ,"
-				+ "nacionalidade varchar(25) ,"
-				+ "telefone_celular varchar(25) ,"
-				+ "telefone_residencial varchar(25) ,"
-				+ "cartao_de_credito varchar(30) ,"
-				+ "rua varchar(80) not null ,"
-				+ "cidade varchar(80) not null ,"
-				+ "bairro varchar(80) not null ,"
-				+ "numero varchar(20) not null ,"
-				+ "estado varchar(80) not null ,"
-				+ "primary key (rg))"
-	            + "ENGINE = InnoDB "
-	            + "DEFAULT CHARACTER SET = utf8;" ;
+				+ " rg varchar(25) not null,"
+				+ " cpfcnpj varchar(40) not null,"
+				+ " nome varchar(80) not null,"
+				+ " sexo varchar(40) not null,"
+				+ " data_de_nascimento varchar(25) not null ,"
+				+ " estado_civil varchar(40),"
+				+ " nacionalidade varchar(60),"
+				+ " telefone_celular varchar(30),"
+				+ " telefone_residencial varchar(30),"
+				+ " cartao_de_credito varchar(30),"
+				+ " rua varchar(80) not null,"
+				+ " cidade varchar(80) not null,"
+				+ " bairro varchar(80) not null,"
+				+ " numero varchar(20) not null,"
+				+ " estado varchar(80) not null,"
+				+ " primary key (rg))"
+	            + " ENGINE = InnoDB"
+	            + " DEFAULT CHARACTER SET = utf8;";
 		abreConexao();
 		executar(sql);
 		desconectar();		
