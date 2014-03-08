@@ -1,8 +1,8 @@
-package swairlines.gui;
+package swairlines.view;
 
-import swairlines.modelo.Cliente;
-import swairlines.modelo.Funcionario;
-import swairlines.modelo.Gerente;
+import swairlines.dao.ClienteDAO;
+import swairlines.model.Cliente;
+import swairlines.model.Funcionario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -24,8 +24,8 @@ public class TelaTabelaClientes extends BorderPane {
 	public TelaTabelaClientes(Funcionario f) {
 		
 		dados = FXCollections.observableArrayList();
-		Gerente gerente = new Gerente();
-		dados.addAll(gerente.buscaClientes());
+		ClienteDAO clienteDao = new ClienteDAO();
+		dados.addAll(clienteDao.buscaClientes());
 		
 		tableView.setEditable(true);
 		

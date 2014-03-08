@@ -1,8 +1,8 @@
-package swairlines.gui;
+package swairlines.view;
 
 import swairlines.Main;
-import swairlines.modelo.ContaDeUsuario;
-import swairlines.modelo.Funcionario;
+import swairlines.model.ContaDeUsuario;
+import swairlines.model.Funcionario;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Menu;

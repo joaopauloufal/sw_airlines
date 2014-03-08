@@ -1,6 +1,6 @@
-package swairlines.gui;
+package swairlines.view;
 
-import swairlines.modelo.Funcionario;
+import swairlines.model.Funcionario;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 

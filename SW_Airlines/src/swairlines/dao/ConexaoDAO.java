@@ -1,4 +1,4 @@
-package swairlines.bd;
+package swairlines.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,32 +9,32 @@ import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
-public class ConexaoBD {
+public class ConexaoDAO {
 	
 	private Connection c;
 	private String sql;
 	private Statement stm;
 	
-	public ConexaoBD() {
+	public ConexaoDAO() {
 		
 		try {
 			criarBanco();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}				
+		} 
 		
 	}	
 	
-	public Connection abreConexao(){
+	public Connection abreConexao() throws SQLException {
 		//35216493
         try {
             c = DriverManager.getConnection("jdbc:mysql://localhost/","root","35216493");
             return c;
         } catch (SQLException ex) {
         	JOptionPane.showMessageDialog(null, "Não foi possível conectar ao banco de dados. Tente novamente mais tarde.", "Erro de Conexão Com o Banco de Dados", JOptionPane.ERROR_MESSAGE);
-            Logger.getLogger(ConexaoBD.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConexaoDAO.class.getName()).log(Level.SEVERE, null, ex);
             return null;
-        }
+        } 
     }
 	
 	public void desconectar() throws SQLException {
@@ -42,17 +42,19 @@ public class ConexaoBD {
 	}
 	
 	public boolean executar(String sql) throws SQLException {
-		try{
+		try {
 			abreConexao();
 			stm = null;
 			stm = c.createStatement();
 			stm.executeUpdate(sql);
-			desconectar();
 			return true;
 			
-		} catch(SQLException e) {
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Não foi possível conectar ao banco de dados. Tente novamente mais tarde.", "Erro de Conexão Com o Banco de Dados", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 			
+		} finally {
+			desconectar();
 		}
 		return false;
 		
@@ -64,8 +66,7 @@ public class ConexaoBD {
 		tabelaCliente();
 		tabelaFuncionario();
 		tabelaUsuario();
-		tabelaVoo();		
-		
+		tabelaVoo();
 	}
 
 	private void tabelaVoo() throws SQLException {
@@ -84,8 +85,7 @@ public class ConexaoBD {
 	            + " ENGINE = InnoDB "
 	            + " DEFAULT CHARACTER SET = utf8;";
 		abreConexao();
-		executar(sql);
-		desconectar();	
+		executar(sql);	
 	}
 
 	private void tabelaUsuario() throws SQLException {
@@ -108,8 +108,7 @@ public class ConexaoBD {
 		executar(sql);
 		sql = "INSERT IGNORE sw_airlines.usuario(login, senha, tipo_conta, cpf_func) "
 				+ "VALUES('admin', '0000','Administrador', '000.000.000-00');";
-		executar(sql);
-		desconectar();	
+		executar(sql);	
 	}
 
 	private void tabelaFuncionario() throws SQLException {
@@ -137,8 +136,7 @@ public class ConexaoBD {
 		executar(sql);
 		sql = "INSERT IGNORE sw_airlines.funcionario(cpf, nome, sexo, rg, cargo, data_de_nascimento, estado_civil, nacionalidade, telefone_celular, telefone_residencial, rua, cidade, bairro, numero, estado) "
 				+ "VALUES('000.000.000-00', 'admin', 'anônimo', '0000000-0', 'Gerente', '00/00/0000', 'anônimo', 'anônimo', '0000', '0000', 'anônimo', 'anônimo', 'anônimo', 'anônimo', 'anônimo');";
-		executar(sql);
-		desconectar();		
+		executar(sql);	
 	}
 
 	private void tabelaCliente() throws SQLException {
@@ -163,7 +161,6 @@ public class ConexaoBD {
 	            + " DEFAULT CHARACTER SET = utf8;";
 		abreConexao();
 		executar(sql);
-		desconectar();		
 		
 	}
 	

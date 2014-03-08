@@ -1,6 +1,6 @@
 package swairlines;
 
-import swairlines.gui.TelaLogin;
+import swairlines.view.TelaLogin;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

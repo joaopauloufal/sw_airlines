@@ -1,4 +1,4 @@
-package swairlines.modelo;
+package swairlines.model;
 
 public class Cliente extends Endereco {
 

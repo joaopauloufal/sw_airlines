@@ -1,4 +1,4 @@
-package swairlines.modelo;
+package swairlines.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,8 +10,8 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import swairlines.Main;
-import swairlines.bd.ConexaoBD;
-import swairlines.gui.TelaPrincipal;
+import swairlines.dao.ConexaoDAO;
+import swairlines.view.TelaPrincipal;
 
 public class ContaDeUsuario {
 	
@@ -82,7 +82,7 @@ public class ContaDeUsuario {
 		ObservableList<ContaDeUsuario> usuarios;
 		usuarios = FXCollections.observableArrayList();
 		try {
-			ConexaoBD cbd = new ConexaoBD();
+			ConexaoDAO cbd = new ConexaoDAO();
 			//Abre a conexão com o banco de dados
 			Connection con = cbd.abreConexao();
 			//Cria um statement para realizar comandos no BD

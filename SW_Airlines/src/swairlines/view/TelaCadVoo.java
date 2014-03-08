@@ -1,7 +1,9 @@
-package swairlines.gui;
+package swairlines.view;
 
 import javax.swing.JOptionPane;
 
+import swairlines.dao.VooDAO;
+import swairlines.model.Voo;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -17,12 +19,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import swairlines.modelo.Gerente;
-import swairlines.modelo.Voo;
 
-public class TelaEditVoo extends Stage {
+public class TelaCadVoo extends Stage {
 	
-	protected TextField txtOrigem;
+	private TextField txtOrigem;
 	private TextField txtDestino;
 	private TextField txtRota;
 	private TextField txtHoraPartida;
@@ -30,10 +30,8 @@ public class TelaEditVoo extends Stage {
 	private TextField txtHoraChegada;
 	private ComboBox<String> listTipoVoo;
 	private TextField txtDataChegada;
-	private Label lblValorId;
 	
-	
-	public TelaEditVoo(Voo v1) {
+	public TelaCadVoo() {
 		
 		GridPane gPane = new GridPane();
 		gPane.setPadding(new Insets(10, 10, 10, 10));
@@ -49,74 +47,60 @@ public class TelaEditVoo extends Stage {
 		HBox hbox7 = new HBox(20);
 		HBox hbox8 = new HBox(20);
 		HBox hbox9 = new HBox(20);
-		HBox hbox10 = new HBox(20);
 		VBox vbox1 = new VBox(20);		
 		
 		Scene scene = new Scene(gPane, 620, 480, Color.SILVER);
 		setScene(scene);
 		
-		Label lblId = new Label("Id:");
-		lblValorId = new Label(String.valueOf(v1.getId()));
-		hbox10.getChildren().addAll(lblId, lblValorId);
-		
 		Label lblOrigem = new Label("Origem:");
 		txtOrigem = new TextField();
 		txtOrigem.setPrefColumnCount(25);
-		txtOrigem.setText(v1.getOrigem());
 		hbox1.getChildren().addAll(lblOrigem, txtOrigem);
 		
 		Label lblDestino = new Label("Destino:");
 		txtDestino = new TextField();
 		txtDestino.setPrefColumnCount(25);
-		txtDestino.setText(v1.getDestino());
 		hbox2.getChildren().addAll(lblDestino, txtDestino);
 		
 		Label lblRota = new Label("Rota:");
 		txtRota = new TextField();
 		txtRota.setPrefColumnCount(30);
-		txtRota.setText(v1.getRota());
 		hbox3.getChildren().addAll(lblRota, txtRota);
 		
 		Label lblTipoVoo = new Label("Tipo de Voo:");
 		listTipoVoo = new ComboBox<String>();
 		listTipoVoo.getItems().addAll("Nacional", "Internacional");
-		listTipoVoo.setValue(v1.getTipoVoo());
 		hbox4.getChildren().addAll(lblTipoVoo, listTipoVoo);
 		
 		Label lblHoraChegada = new Label("Hora de Chegada:");
 		txtHoraChegada = new TextField();
-		txtHoraChegada.setText(v1.getHoraChegada());
 		hbox5.getChildren().addAll(lblHoraChegada, txtHoraChegada);
 		
 		Label lblHoraPartida = new Label("Hora de Partida:");
 		txtHoraPartida = new TextField();
-		txtHoraPartida.setText(v1.getHoraPartida());
 		hbox6.getChildren().addAll(lblHoraPartida, txtHoraPartida);
 		
 		Label lblDataPartida = new Label("Data de Partida:");
 		txtDataPartida = new TextField();
-		txtDataPartida.setText(v1.getDataPartida());
 		hbox8.getChildren().addAll(lblDataPartida, txtDataPartida);
 		
 		Label lblDataChegada = new Label("Data de Chegada:");
 		txtDataChegada = new TextField();
-		txtDataChegada.setText(v1.getDataChegada());
 		hbox9.getChildren().addAll(lblDataChegada, txtDataChegada);
 		
 		
-		Button btnAtualizar = new Button("Atualizar");
-		btnAtualizar.setOnAction(new EventHandler<ActionEvent>() {
+		Button btnCadastrar = new Button("Cadastrar");
+		btnCadastrar.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
-			public void handle(ActionEvent event) {								
-					Voo v1 = new Voo(txtOrigem.getText(), txtDestino.getText(), txtRota.getText(), txtHoraPartida.getText(), txtHoraChegada.getText(), txtDataPartida.getText(), txtDataChegada.getText(), listTipoVoo.getValue());
-					v1.setId(Integer.parseInt(lblValorId.getText()));
-					Gerente gerente = new Gerente();
-					if(gerente.alteraVoo(v1)){
-						JOptionPane.showMessageDialog(null, "Voo atualizado com sucesso!");
-					} else {
-						JOptionPane.showMessageDialog(null, "Erro ao atualizar!","Erro", 0);
-					}
+			public void handle(ActionEvent event) {
+				VooDAO vooDao = new VooDAO();
+				Voo v1 = new Voo(txtOrigem.getText(), txtDestino.getText(), txtRota.getText(), txtHoraPartida.getText(), txtHoraChegada.getText(), txtDataPartida.getText(), txtDataChegada.getText(), listTipoVoo.getValue());
+				if(vooDao.insereVoo(v1)){
+					JOptionPane.showMessageDialog(null, "Voo cadastrado com sucesso!", "Cadastro Voo", JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(null, "Erro ao cadastrar!", "Erro", JOptionPane.ERROR_MESSAGE);
+				}
 				
 			}
 		});
@@ -131,10 +115,10 @@ public class TelaEditVoo extends Stage {
 			}
 			
 		});
-		hbox7.getChildren().addAll(btnAtualizar, btnCancelar);
+		hbox7.getChildren().addAll(btnCadastrar, btnCancelar);
 		hbox7.setAlignment(Pos.CENTER);
 		
-		vbox1.getChildren().addAll(hbox10, hbox1, hbox2, hbox3, hbox4, hbox6, hbox5, hbox8, hbox9, hbox7);
+		vbox1.getChildren().addAll(hbox1, hbox2, hbox3, hbox4, hbox6, hbox5, hbox8, hbox9, hbox7);
 		
 		GridPane.setConstraints(vbox1, 9, 4);
 		

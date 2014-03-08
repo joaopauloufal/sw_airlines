@@ -1,4 +1,4 @@
-package swairlines.modelo;
+package swairlines.model;
 
 public abstract class Funcionario extends Endereco {
 	

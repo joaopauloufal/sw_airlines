@@ -1,10 +1,11 @@
-package swairlines.gui;
+package swairlines.view;
 
 import javax.swing.JOptionPane;
 
-import swairlines.modelo.ContaDeUsuario;
-import swairlines.modelo.Funcionario;
-import swairlines.modelo.Gerente;
+import swairlines.dao.ContaDeUsuarioDAO;
+import swairlines.dao.FuncionarioDAO;
+import swairlines.model.ContaDeUsuario;
+import swairlines.model.Funcionario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -75,9 +76,9 @@ public class TelaCadConta extends Stage {
 		listCpfFuncionarios = new ComboBox<String>();
 		hbox6.getChildren().addAll(lblCpfFuncionario, listCpfFuncionarios);
 		
-		Gerente g = new Gerente();
+		FuncionarioDAO funcionarioDao = new FuncionarioDAO();
 		
-		for (Funcionario f : g.buscaFuncionarios()) {
+		for (Funcionario f : funcionarioDao.buscaFuncionarios()) {
 			funcionariosCpf.add(f.getCpf());
 		}
 		
@@ -89,10 +90,10 @@ public class TelaCadConta extends Stage {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				Gerente gerente = new Gerente();
+				ContaDeUsuarioDAO contaDao = new ContaDeUsuarioDAO();
 				ContaDeUsuario c1 = new ContaDeUsuario(txtUsuario.getText(), txtSenha.getText(), listTipoConta.getValue(), listCpfFuncionarios.getValue());
 				if (c1.getSenha().equals(txtSenhaConfirmacao.getText())) {
-					if (gerente.insereContaDeUsuario(c1)) {
+					if (contaDao.insereContaDeUsuario(c1)) {
 						JOptionPane.showMessageDialog(null, "Conta cadastrada com sucesso!");
 					} else {
 						JOptionPane.showMessageDialog(null, "Erro ao inserir!", "Erro", JOptionPane.ERROR_MESSAGE);

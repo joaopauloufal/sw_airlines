@@ -1,4 +1,4 @@
-package swairlines.modelo;
+package swairlines.model;
 
 import java.util.Date;
 

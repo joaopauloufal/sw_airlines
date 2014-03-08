@@ -1,8 +1,8 @@
-package swairlines.gui;
+package swairlines.view;
 
 import javax.swing.JOptionPane;
 
-import swairlines.modelo.ContaDeUsuario;
+import swairlines.model.ContaDeUsuario;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
