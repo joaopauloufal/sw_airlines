@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
-public class ConexaoDAO {
+public class ConexaoDAO implements ConexaoBDMySql {
 	
 	private Connection c;
 	private String sql;
@@ -25,6 +25,7 @@ public class ConexaoDAO {
 		
 	}	
 	
+	@Override
 	public Connection abreConexao() throws SQLException {
 		//35216493
         try {
@@ -37,10 +38,12 @@ public class ConexaoDAO {
         } 
     }
 	
-	public void desconectar() throws SQLException {
+	@Override
+	public void desconectar() throws SQLException{
 		c.close();
 	}
 	
+	@Override
 	public boolean executar(String sql) throws SQLException {
 		try {
 			abreConexao();
@@ -60,16 +63,18 @@ public class ConexaoDAO {
 		
 	}
 	
-	public void criarBanco() throws SQLException {
+	
+	private void criarBanco() throws SQLException {
 		sql = "CREATE DATABASE IF NOT EXISTS sw_airlines DEFAULT CHARACTER SET utf8 ";
 		executar(sql);
-		tabelaCliente();
-		tabelaFuncionario();
-		tabelaUsuario();
-		tabelaVoo();
+		criarTabelaCliente();
+		criarTabelaFuncionario();
+		criarTabelaUsuario();
+		criarTabelaVoo();
 	}
 
-	private void tabelaVoo() throws SQLException {
+	
+	private void criarTabelaVoo() throws SQLException {
 		sql = "CREATE TABLE IF NOT EXISTS sw_airlines.voo("
 				+ " id INT NOT NULL AUTO_INCREMENT,"
 				+ " origem VARCHAR(60) NOT NULL,"
@@ -87,8 +92,8 @@ public class ConexaoDAO {
 		abreConexao();
 		executar(sql);	
 	}
-
-	private void tabelaUsuario() throws SQLException {
+	
+	private void criarTabelaUsuario() throws SQLException {
 		sql = "CREATE TABLE IF NOT EXISTS sw_airlines.usuario("
 				+ " login varchar(30) NOT NULL,"
 				+ " senha varchar(30) NOT NULL,"
@@ -111,7 +116,7 @@ public class ConexaoDAO {
 		executar(sql);	
 	}
 
-	private void tabelaFuncionario() throws SQLException {
+	private void criarTabelaFuncionario() throws SQLException {
 		sql = "CREATE TABLE IF NOT EXISTS sw_airlines.funcionario("
 				+ " cpf VARCHAR(120) NOT NULL,"
 				+ " nome VARCHAR(80) NOT NULL,"
@@ -139,7 +144,7 @@ public class ConexaoDAO {
 		executar(sql);	
 	}
 
-	private void tabelaCliente() throws SQLException {
+	private void criarTabelaCliente() throws SQLException {
 		sql = "CREATE TABLE IF NOT EXISTS sw_airlines.cliente("
 				+ " rg varchar(25) not null,"
 				+ " cpfcnpj varchar(40) not null,"

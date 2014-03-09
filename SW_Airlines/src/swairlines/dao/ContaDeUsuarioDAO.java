@@ -12,8 +12,9 @@ import javafx.collections.ObservableList;
 import swairlines.model.ContaDeUsuario;
 import swairlines.model.Gerente;
 
-public class ContaDeUsuarioDAO {
+public class ContaDeUsuarioDAO implements ConsultasBancoContaDeUsuario {
 	
+	@Override
 	public boolean insereContaDeUsuario(ContaDeUsuario c1) {
 		try {
 			ConexaoDAO cbd = new ConexaoDAO();
@@ -28,6 +29,7 @@ public class ContaDeUsuarioDAO {
 		return false;
 	}
 	
+	@Override
 	public boolean excluiContaDeUsuario(ContaDeUsuario c1) {
 		try {
 			ConexaoDAO cbd = new ConexaoDAO();
@@ -42,6 +44,7 @@ public class ContaDeUsuarioDAO {
 		return false;
 	}
 	
+	@Override
 	public boolean alteraContaDeUsuario(ContaDeUsuario c1) {
 		try {
 			ConexaoDAO cbd = new ConexaoDAO();
@@ -55,6 +58,7 @@ public class ContaDeUsuarioDAO {
 		
 	}
 	
+	@Override
 	public ObservableList<ContaDeUsuario> buscaContasDeUsuario() {
 		ObservableList<ContaDeUsuario> usuarios;
 		usuarios = FXCollections.observableArrayList();

@@ -116,8 +116,7 @@ public class TelaTabelaVoos extends BorderPane {
 			@Override
 			public void handle(ActionEvent event) {
 				if (tableView.getSelectionModel().getSelectedIndex() != -1) {
-					int resposta;
-					resposta = JOptionPane.showConfirmDialog(null, "Você tem certeza que quer excuir o Voo selecionado?", "Confirmação de Exclusão Voo", JOptionPane.OK_CANCEL_OPTION);
+					int resposta = JOptionPane.showConfirmDialog(null, "Você tem certeza de que quer excuir o Voo selecionado?", "Confirmação de Exclusão Voo", JOptionPane.WARNING_MESSAGE, JOptionPane.WARNING_MESSAGE);
 					if (resposta == JOptionPane.YES_OPTION) {
 						VooDAO vooDao = new VooDAO();
 						vooDao.excluiVoo(tableView.getSelectionModel().getSelectedItem());

@@ -53,7 +53,10 @@ public class TelaLogin extends BorderPane {
 
 			@Override
 			public void handle(ActionEvent event) {
-				System.exit(0);
+				int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente sair do sistema?", "Confirmação de Saida", JOptionPane.WARNING_MESSAGE, JOptionPane.WARNING_MESSAGE);
+				if (resposta == JOptionPane.YES_OPTION) {
+					System.exit(0);
+				}
 				
 			}
 			

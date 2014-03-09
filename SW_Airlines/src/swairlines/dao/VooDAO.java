@@ -14,8 +14,9 @@ import javafx.collections.ObservableList;
 import swairlines.model.Gerente;
 import swairlines.model.Voo;
 
-public class VooDAO {	
+public class VooDAO implements ConsultasBancoVoo {	
 	
+	@Override
 	public boolean insereVoo(Voo v1) {
 		try {
 			ConexaoDAO cbd = new ConexaoDAO();			
@@ -31,6 +32,7 @@ public class VooDAO {
 		
 	}
 	
+	@Override
 	public boolean excluiVoo(Voo v1) {
 		try {
 			ConexaoDAO cbd = new ConexaoDAO();
@@ -45,6 +47,7 @@ public class VooDAO {
 		return false;
 	}
 	
+	@Override
 	public boolean alteraVoo(Voo v1) {
 		try {
 			ConexaoDAO cbd = new ConexaoDAO();
@@ -59,6 +62,7 @@ public class VooDAO {
 		return false;
 	}
 	
+	@Override
 	public ObservableList<Voo> buscaVoos() {
 		ObservableList<Voo> voos;
 		voos = FXCollections.observableArrayList();

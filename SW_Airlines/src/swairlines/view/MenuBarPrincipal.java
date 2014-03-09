@@ -1,5 +1,7 @@
 package swairlines.view;
 
+import javax.swing.JOptionPane;
+
 import swairlines.Main;
 import swairlines.model.ContaDeUsuario;
 import swairlines.model.Funcionario;
@@ -26,19 +28,27 @@ public class MenuBarPrincipal extends MenuBar {
 
 			@Override
 			public void handle(ActionEvent event) {
-				System.exit(0);
+				int resposta = JOptionPane.showConfirmDialog(null, "Você deseja realmente sair do sistema?", "Confirmação de Saida", JOptionPane.WARNING_MESSAGE, JOptionPane.WARNING_MESSAGE);
+				if (resposta == JOptionPane.YES_OPTION) {
+					System.exit(0);
+				}
+				
 				
 			}			
 			
 		});
 		
-		MenuItem itemLogout = new MenuItem("Logout...");
+		MenuItem itemLogout = new MenuItem("Fazer Logout...");
 		
 		itemLogout.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				Main.alterarTela(new TelaLogin());				
+				int resposta = JOptionPane.showConfirmDialog(null, "Você deseja realmente fazer Logout?", "Confirmação de Logout", JOptionPane.WARNING_MESSAGE, JOptionPane.WARNING_MESSAGE);
+				if (resposta == JOptionPane.YES_OPTION) {
+					Main.alterarTela(new TelaLogin());
+				}
+								
 			}			
 		});		
 		

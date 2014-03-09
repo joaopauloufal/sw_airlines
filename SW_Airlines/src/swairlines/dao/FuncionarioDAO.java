@@ -13,8 +13,9 @@ import swairlines.model.Endereco;
 import swairlines.model.Funcionario;
 import swairlines.model.Gerente;
 
-public class FuncionarioDAO {
+public class FuncionarioDAO implements ConsultasBancoFuncionario {
 	
+	@Override
 	public boolean insereFuncionario(Funcionario f1) {
 		try {
 			ConexaoDAO cbd = new ConexaoDAO();
@@ -30,6 +31,7 @@ public class FuncionarioDAO {
 		return false;
 	}
 	
+	@Override
 	public boolean excluiFuncionario(Funcionario f1) {
 		try {
 			ConexaoDAO cbd = new ConexaoDAO();
@@ -44,6 +46,8 @@ public class FuncionarioDAO {
 		return false;
 	}
 	
+	
+	@Override
 	public boolean alteraFuncionario(Funcionario f1) {
 		try {
 			ConexaoDAO cbd = new ConexaoDAO();
@@ -58,6 +62,7 @@ public class FuncionarioDAO {
 		
 	}
 	
+	@Override
 	public ObservableList<Funcionario> buscaFuncionarios() {
 		ObservableList<Funcionario> funcionarios;
 		funcionarios = FXCollections.observableArrayList();		

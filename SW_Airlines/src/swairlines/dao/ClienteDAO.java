@@ -13,8 +13,9 @@ import swairlines.model.Cliente;
 import swairlines.model.Endereco;
 import swairlines.model.Operador;
 
-public class ClienteDAO {
+public class ClienteDAO implements ConsultasBancoCliente {
 	
+	@Override
 	public boolean insereCliente(Cliente cliente) {
 		try {
 			ConexaoDAO cbd = new ConexaoDAO();
@@ -31,6 +32,7 @@ public class ClienteDAO {
 		return false;
 	}
 	
+	@Override
 	public boolean excluiCliente(Cliente cliente) {
 		try {
 			ConexaoDAO cbd = new ConexaoDAO();
@@ -45,6 +47,7 @@ public class ClienteDAO {
 		return false;
 	}
 	
+	@Override
 	public boolean alteraCliente(Cliente cliente) {
 		try {
 			ConexaoDAO cbd = new ConexaoDAO();
@@ -59,6 +62,7 @@ public class ClienteDAO {
 		
 	}
 	
+	@Override
 	public ObservableList<Cliente> buscaClientes() {
 		ObservableList<Cliente> clientes;
 		clientes = FXCollections.observableArrayList();
