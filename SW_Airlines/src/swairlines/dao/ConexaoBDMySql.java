@@ -7,8 +7,7 @@ public interface ConexaoBDMySql {
 	
 	public Connection abreConexao() throws SQLException;
 	public void desconectar() throws SQLException;
-	public boolean executar(String sql) throws SQLException;
-	
+	public boolean executar(String sql) throws SQLException;	
 	
 
 }

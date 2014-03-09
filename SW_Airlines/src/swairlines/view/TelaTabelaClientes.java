@@ -1,18 +1,25 @@
 package swairlines.view;
 
+import javax.swing.JOptionPane;
+
+import swairlines.Main;
 import swairlines.dao.ClienteDAO;
 import swairlines.model.Cliente;
 import swairlines.model.Endereco;
 import swairlines.model.Funcionario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
@@ -22,7 +29,9 @@ public class TelaTabelaClientes extends BorderPane {
 	private ObservableList<Cliente> dados;
 	
 	@SuppressWarnings("unchecked")
-	public TelaTabelaClientes(Funcionario f) {
+	public TelaTabelaClientes(final Funcionario f) {
+		
+		HBox hbox = new HBox(20);
 		
 		dados = FXCollections.observableArrayList();
 		ClienteDAO clienteDao = new ClienteDAO();
@@ -93,14 +102,60 @@ public class TelaTabelaClientes extends BorderPane {
 		tableView.getColumns().addAll(rgColuna, cpfColuna, nomeColuna, sexoColuna, dataDeNascimentoColuna, estadoCivilColuna, nacionalidadeColuna, telefoneCelularColuna, telefoneResidencialColuna, cartaoDeCreditoColuna, enderecoColuna);
 		tableView.setFocusTraversable(false);
 		
+		Button btnAtualizarValores = new Button("Atualizar Valores");
+		btnAtualizarValores.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				Main.alterarTela(new TelaTabelaClientes(f));
+				
+			}
+		});
+		
+		Button btnEditarCliente = new Button("Editar Cliente");
+		btnEditarCliente.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				if (tableView.getSelectionModel().getSelectedIndex() != -1) {
+					Cliente cliente = dados.get(tableView.getSelectionModel().getSelectedIndex());
+					TelaEditCliente tela = new TelaEditCliente(cliente);
+					tela.setTitle("Editar Cliente");
+				}
+				
+			}
+			
+		});
+		
+		Button btnExcluirCliente = new Button("Excluir Cliente");
+		btnExcluirCliente.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				if (tableView.getSelectionModel().getSelectedIndex() != -1) {
+					int resposta = JOptionPane.showConfirmDialog(null, "Você tem certeza de que quer excuir o Cliente selecionado?", "Confirmação de Exclusão Cliente", JOptionPane.WARNING_MESSAGE, JOptionPane.WARNING_MESSAGE);
+					if (resposta == JOptionPane.YES_OPTION) {
+						ClienteDAO clienteDao = new ClienteDAO();
+						clienteDao.excluiCliente(tableView.getSelectionModel().getSelectedItem());
+						JOptionPane.showMessageDialog(null, "Cliente excluido.", "Exclusãa de Cliente", JOptionPane.INFORMATION_MESSAGE);
+						Main.alterarTela(new TelaTabelaClientes(f));
+					}
+				}
+				
+			}
+			
+		});
+		
 		VBox boxTop = new VBox(20);
 		Label titulo = new Label("Lista de Clientes");
 		titulo.setFont(new Font(30));
+		hbox.getChildren().addAll(btnAtualizarValores, btnEditarCliente, btnExcluirCliente);
+		hbox.setAlignment(Pos.BASELINE_CENTER);
 		boxTop.setAlignment(Pos.CENTER);
 		VBox vboxTabela = new VBox();
 		vboxTabela.setPadding(new Insets(0, 10, 0, 10));
 		vboxTabela.getChildren().add(tableView);
-		boxTop.getChildren().addAll(new TelaPrincipal(f), titulo, vboxTabela);
+		boxTop.getChildren().addAll(new TelaPrincipal(f), titulo, vboxTabela, hbox);
 		setTop(boxTop);
 		
 		tableView.setItems(dados);

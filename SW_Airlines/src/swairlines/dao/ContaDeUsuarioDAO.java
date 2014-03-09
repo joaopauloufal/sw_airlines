@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import swairlines.model.ContaDeUsuario;
-import swairlines.model.Gerente;
 
 public class ContaDeUsuarioDAO implements ConsultasBancoContaDeUsuario {
 	
@@ -23,7 +22,7 @@ public class ContaDeUsuarioDAO implements ConsultasBancoContaDeUsuario {
 			}
 			
 		} catch (SQLException ex) {
-			Logger.getLogger(Gerente.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(ContaDeUsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
 			
 		}
 		return false;
@@ -33,12 +32,12 @@ public class ContaDeUsuarioDAO implements ConsultasBancoContaDeUsuario {
 	public boolean excluiContaDeUsuario(ContaDeUsuario c1) {
 		try {
 			ConexaoDAO cbd = new ConexaoDAO();
-			if(cbd.executar("DELETE FROM sw_airlines.usuario WHERE login= '" + c1.getLogin() +"';")) {
+			if(cbd.executar("DELETE FROM sw_airlines.usuario WHERE cpf_func= '" + c1.getCpfFuncionario() +"';")) {
 				return true;
 			}
 			
 		} catch (SQLException ex) {
-			Logger.getLogger(Gerente.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(ContaDeUsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
 			
 		}
 		return false;
@@ -48,11 +47,11 @@ public class ContaDeUsuarioDAO implements ConsultasBancoContaDeUsuario {
 	public boolean alteraContaDeUsuario(ContaDeUsuario c1) {
 		try {
 			ConexaoDAO cbd = new ConexaoDAO();
-			if(cbd.executar("UPDATE sw_airlines.usuario SET senha='" + c1.getSenha() + "' WHERE login='" + c1.getSenha() +"';")) {
+			if(cbd.executar("UPDATE sw_airlines.usuario SET senha='" + c1.getSenha() + "', login='" + c1.getLogin() + "' WHERE cpf_func='" + c1.getCpfFuncionario() +"';")) {
 				return true;
 			}
 		} catch (SQLException ex) {
-			Logger.getLogger(Gerente.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(ContaDeUsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		return false;
 		
@@ -87,7 +86,7 @@ public class ContaDeUsuarioDAO implements ConsultasBancoContaDeUsuario {
 			return usuarios;
 
 		} catch (SQLException ex) {
-			Logger.getLogger(ContaDeUsuario.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(ContaDeUsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
 			return null;
 		} 
 	}

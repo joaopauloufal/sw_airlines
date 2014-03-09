@@ -51,8 +51,8 @@ public class FuncionarioDAO implements ConsultasBancoFuncionario {
 	public boolean alteraFuncionario(Funcionario f1) {
 		try {
 			ConexaoDAO cbd = new ConexaoDAO();
-			if(cbd.executar("UPDATE sw_airlines.funcionario set cpf='" + f1.getCpf() +"' , nome='" + f1.getNome() +"', sexo='" + f1.getSexo() +"', rg='" + f1.getRg() +"', cargo='" + f1.getCargo() +"' ,data_de_nascimento='" + f1.getDataDeNascimento() +"', estado_civil='" + f1.getEstadoCivil() +"', nacionalidade='" + f1.getNacionalidade() +"', telefone_celular='" + f1.getTelefoneCelular() +"', telefone_residencial='" + f1.getTelefoneResidencial() 
-					+", 'rua='" + f1.getEndereco().getRua() +", 'cidade='" + f1.getEndereco().getCidade() +", 'bairro='" + f1.getEndereco().getBairro() + ", 'numero='" + f1.getEndereco().getNumero() +", 'estado='"+ f1.getEndereco().getEstado() + "' WHERE cpf='" + f1.getCpf() +"';")) {
+			if (cbd.executar("UPDATE sw_airlines.funcionario set nome='" + f1.getNome() +"', sexo='" + f1.getSexo() +"', rg='" + f1.getRg() +"', cargo='" + f1.getCargo() +"', data_de_nascimento='" + f1.getDataDeNascimento() +"', estado_civil='" + f1.getEstadoCivil() +"', nacionalidade='" + f1.getNacionalidade() +"', telefone_celular='" + f1.getTelefoneCelular() +"', telefone_residencial='" + f1.getTelefoneResidencial() 
+					+"', rua='" + f1.getEndereco().getRua() +"', cidade='" + f1.getEndereco().getCidade() +"', bairro='" + f1.getEndereco().getBairro() +"', numero='" + f1.getEndereco().getNumero() +"', estado='"+ f1.getEndereco().getEstado() +"' WHERE cpf='" + f1.getCpf() +"';")) {
 				return true;
 			}
 		} catch (SQLException ex) {

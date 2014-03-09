@@ -11,7 +11,6 @@ import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import swairlines.model.Gerente;
 import swairlines.model.Voo;
 
 public class VooDAO implements ConsultasBancoVoo {	
@@ -25,7 +24,7 @@ public class VooDAO implements ConsultasBancoVoo {
 				return true;
 			}			
 		} catch (SQLException ex) {
-			Logger.getLogger(Gerente.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(VooDAO.class.getName()).log(Level.SEVERE, null, ex);
 			
 		}
 		return false;
@@ -41,7 +40,7 @@ public class VooDAO implements ConsultasBancoVoo {
 			}			
 
 		} catch (SQLException ex) {
-			Logger.getLogger(Gerente.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(VooDAO.class.getName()).log(Level.SEVERE, null, ex);
 			
 		}
 		return false;
@@ -56,7 +55,7 @@ public class VooDAO implements ConsultasBancoVoo {
 			}			
 
 		} catch (SQLException ex) {
-			Logger.getLogger(Gerente.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(VooDAO.class.getName()).log(Level.SEVERE, null, ex);
 			
 		}
 		return false;
@@ -109,7 +108,7 @@ public class VooDAO implements ConsultasBancoVoo {
 			return voos;
 			
 		} catch (SQLException e) {
-			Logger.getLogger(Gerente.class.getName()).log(Level.SEVERE, null, e);
+			Logger.getLogger(VooDAO.class.getName()).log(Level.SEVERE, null, e);
 			return null;			
 		}
 		

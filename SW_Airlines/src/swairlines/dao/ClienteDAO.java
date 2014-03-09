@@ -11,7 +11,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import swairlines.model.Cliente;
 import swairlines.model.Endereco;
-import swairlines.model.Operador;
 
 public class ClienteDAO implements ConsultasBancoCliente {
 	
@@ -26,7 +25,7 @@ public class ClienteDAO implements ConsultasBancoCliente {
 			}
 			
 		} catch (SQLException ex) {
-			Logger.getLogger(Operador.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
 			
 		}
 		return false;
@@ -41,7 +40,7 @@ public class ClienteDAO implements ConsultasBancoCliente {
 			}
 			
 		} catch (SQLException ex) {
-			Logger.getLogger(Operador.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
 			
 		}
 		return false;
@@ -51,12 +50,12 @@ public class ClienteDAO implements ConsultasBancoCliente {
 	public boolean alteraCliente(Cliente cliente) {
 		try {
 			ConexaoDAO cbd = new ConexaoDAO();
-			if(cbd.executar("UPDATE sw_airlines.cliente SET cpf_cnpj='" + cliente.getCpfCnpj() +"', nome='" + cliente.getNome() +"', sexo='" + cliente.getSexo() +"', data_de_nascimento='" + cliente.getDataDeNascimento() +"', estado_civil='" + cliente.getEstadoCivil() +"', nacionalidade='" + cliente.getNacionalidade() +"', telefone_celular='" + cliente.getTelefoneCelular() +"', telefone_residencial='" + cliente.getTelefoneResidencial() +"', cartao_de_credito='" + cliente.getCartaoDeCredito()
-					+ "', rua='" + cliente.getEndereco().getRua() +", 'cidade='"+ cliente.getEndereco().getCidade() + ", 'bairro='"+ cliente.getEndereco().getBairro() + ", 'numero='" + cliente.getEndereco().getNumero() +", 'estado='" + cliente.getEndereco().getEstado() + "' WHERE rg='" + cliente.getRg() +"';")) {
+			if(cbd.executar("UPDATE sw_airlines.cliente SET cpfcnpj='" + cliente.getCpfCnpj() +"', nome='" + cliente.getNome() +"', sexo='" + cliente.getSexo() +"', data_de_nascimento='" + cliente.getDataDeNascimento() +"', estado_civil='" + cliente.getEstadoCivil() +"', nacionalidade='" + cliente.getNacionalidade() +"', telefone_celular='" + cliente.getTelefoneCelular() +"', telefone_residencial='" + cliente.getTelefoneResidencial() +"', cartao_de_credito='" + cliente.getCartaoDeCredito()
+					+ "', rua='" + cliente.getEndereco().getRua() +"', cidade='"+ cliente.getEndereco().getCidade() +"', bairro='"+ cliente.getEndereco().getBairro() +"', numero='" + cliente.getEndereco().getNumero() +"', estado='" + cliente.getEndereco().getEstado() +"' WHERE rg='" + cliente.getRg() +"';")) {
 				return true;
 			}
 		} catch (SQLException ex) {
-			Logger.getLogger(Operador.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		return false;
 		
@@ -100,7 +99,7 @@ public class ClienteDAO implements ConsultasBancoCliente {
 			con.close();
 			return clientes;
 		} catch (SQLException e) {
-			Logger.getLogger(Operador.class.getName()).log(Level.SEVERE, null, e);
+			Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, e);
 			return null;
 		}
 	}

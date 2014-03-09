@@ -167,9 +167,7 @@ public class ConexaoDAO implements ConexaoBDMySql {
 		abreConexao();
 		executar(sql);
 		
-	}
-	
-	
+	}	
 	
 
 }
