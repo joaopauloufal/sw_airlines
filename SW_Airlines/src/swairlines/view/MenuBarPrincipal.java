@@ -129,7 +129,27 @@ public class MenuBarPrincipal extends MenuBar {
 		menuVoo.getItems().addAll(listarVoos, itemChecarDisponibilidade, itemAtrasarVoo, itemEditarVoo);
 		
 		MenuItem listarContasDeUsuario = new MenuItem("Listar Contas de Usuário");
+		
+		listarContasDeUsuario.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				Main.alterarTela(new TelaTabelaContasDeUsuario(f));
+				
+			}
+			
+		});
 		MenuItem listarFuncionarios = new MenuItem("Listar Funcionários");
+		
+		listarFuncionarios.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				Main.alterarTela(new TelaTabelaFuncionarios(f));
+				
+			}
+			
+		});
 		MenuItem listarClientes = new MenuItem("Listar Clientes");
 		
 		listarClientes.setOnAction(new EventHandler<ActionEvent>() {

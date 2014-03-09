@@ -1,5 +1,8 @@
 package swairlines.view;
 
+import javax.swing.JOptionPane;
+
+import swairlines.Main;
 import swairlines.dao.VooDAO;
 import swairlines.model.ContaDeUsuario;
 import swairlines.model.Funcionario;
@@ -26,7 +29,7 @@ public class TelaTabelaVoos extends BorderPane {
 	private ObservableList<Voo> dados;
 	
 	@SuppressWarnings("unchecked")
-	public TelaTabelaVoos(Funcionario f) {
+	public TelaTabelaVoos(final Funcionario f) {
 		
 		dados = FXCollections.observableArrayList();
 		VooDAO vooDao = new VooDAO();
@@ -94,13 +97,47 @@ public class TelaTabelaVoos extends BorderPane {
 			}
 		});
 		
+		Button btnAtualizarValores = new Button("Atualizar Valores");
+		
+		btnAtualizarValores.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				Main.alterarTela(new TelaTabelaVoos(f));
+				
+			}
+			
+		});
+		
+		Button btnExcluirVoo = new Button("Excuir Voo");
+		
+		btnExcluirVoo.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				if (tableView.getSelectionModel().getSelectedIndex() != -1) {
+					int resposta;
+					resposta = JOptionPane.showConfirmDialog(null, "Você tem certeza que quer excuir o Voo selecionado?", "Confirmação de Exclusão Voo", JOptionPane.OK_CANCEL_OPTION);
+					if (resposta == JOptionPane.YES_OPTION) {
+						VooDAO vooDao = new VooDAO();
+						vooDao.excluiVoo(tableView.getSelectionModel().getSelectedItem());
+						JOptionPane.showMessageDialog(null, "Voo excluido.", "Exclusão de Voo", JOptionPane.INFORMATION_MESSAGE);
+						Main.alterarTela(new TelaTabelaVoos(f));
+					}
+					
+				}
+				
+			}
+			
+		});
+		
 		tableView.getColumns().addAll(idColuna, origemColuna, destinoColuna, statusColuna, qntPassageirosColuna, rotaColuna, horaPartidaColuna, horaChegadaColuna, dataPartidaColuna, dataChegadaColuna, tipoVooColuna);
 		tableView.setFocusTraversable(false);	
 		
 		VBox boxTop = new VBox(20);
 		Label titulo = new Label("Relação de Voos");
 		titulo.setFont(new Font(30));
-		hbox.getChildren().addAll(btnEditarVoo);
+		hbox.getChildren().addAll(btnExcluirVoo, btnEditarVoo, btnAtualizarValores);
 		hbox.setAlignment(Pos.BASELINE_CENTER);
 		boxTop.setAlignment(Pos.CENTER);
 		VBox boxTable = new VBox();

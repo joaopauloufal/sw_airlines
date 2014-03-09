@@ -1,6 +1,6 @@
 package swairlines.model;
 
-public abstract class Funcionario extends Endereco {
+public abstract class Funcionario {
 	
 	private String nome;
 	private String sexo;
@@ -13,7 +13,7 @@ public abstract class Funcionario extends Endereco {
 	private String estadoCivil;
 	private ContaDeUsuario conta = new ContaDeUsuario();
 	private String cargo;
-	private Endereco endereco = new Endereco();
+	private Endereco endereco;
 
 	public Funcionario(String nome, String sexo, String cpf, String rg,
 			String dataDeNascimento, String telefoneCelular,
@@ -29,8 +29,7 @@ public abstract class Funcionario extends Endereco {
 		this.cargo = cargo;
 		this.nacionalidade = nacionalidade;
 		this.estadoCivil = estadoCivil;
-		this.endereco = endereco;
-		
+		this.endereco = endereco;		
 		
 	}
 	

@@ -2,6 +2,7 @@ package swairlines.view;
 
 import javax.swing.JOptionPane;
 
+import swairlines.Main;
 import swairlines.model.ContaDeUsuario;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -38,10 +39,11 @@ public class TelaLogin extends BorderPane {
 			@Override
 			public void handle(ActionEvent event) {					
 				ContaDeUsuario conta = new ContaDeUsuario(txtUsuario.getText(), txtSenha.getText());
-				if (!conta.autenticar(conta)) {
+				if (conta.autenticar(conta)) {
+					Main.alterarTela(new TelaPrincipal(conta.getFuncionario()));
+				} else {
 					JOptionPane.showMessageDialog(null, "Usuário Inexistente.", "Erro de Autenticação", JOptionPane.ERROR_MESSAGE);
 				}
-				
 			}			
 			
 		});

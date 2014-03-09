@@ -2,6 +2,7 @@ package swairlines.view;
 
 import swairlines.dao.ClienteDAO;
 import swairlines.model.Cliente;
+import swairlines.model.Endereco;
 import swairlines.model.Funcionario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -69,9 +70,9 @@ public class TelaTabelaClientes extends BorderPane {
 		cartaoDeCreditoColuna.setCellValueFactory(new PropertyValueFactory<Cliente, String>("cartaoDeCredito"));
 		cartaoDeCreditoColuna.setMinWidth(140);
 		
-		TableColumn<Cliente, String> ruaColuna = new TableColumn<>("Rua");
-		ruaColuna.setCellValueFactory(new PropertyValueFactory<Cliente, String>("rua"));
-		ruaColuna.setMinWidth(140);
+		TableColumn<Cliente, Endereco> enderecoColuna = new TableColumn<>("Endereço");
+		enderecoColuna.setCellValueFactory(new PropertyValueFactory<Cliente, Endereco>("endereco"));
+		enderecoColuna.setMinWidth(140);
 		
 		TableColumn<Cliente, String> cidadeColuna = new TableColumn<>("Cidade");
 		cidadeColuna.setCellValueFactory(new PropertyValueFactory<Cliente, String>("cidade"));
@@ -89,7 +90,7 @@ public class TelaTabelaClientes extends BorderPane {
 		estadoColuna.setCellValueFactory(new PropertyValueFactory<Cliente, String>("estado"));
 		estadoColuna.setMinWidth(140);
 		
-		tableView.getColumns().addAll(rgColuna, cpfColuna, nomeColuna, sexoColuna, dataDeNascimentoColuna, estadoCivilColuna, nacionalidadeColuna, telefoneCelularColuna, telefoneResidencialColuna, cartaoDeCreditoColuna, ruaColuna, cidadeColuna, bairroColuna, numeroColuna, estadoColuna);
+		tableView.getColumns().addAll(rgColuna, cpfColuna, nomeColuna, sexoColuna, dataDeNascimentoColuna, estadoCivilColuna, nacionalidadeColuna, telefoneCelularColuna, telefoneResidencialColuna, cartaoDeCreditoColuna, enderecoColuna);
 		tableView.setFocusTraversable(false);
 		
 		VBox boxTop = new VBox(20);

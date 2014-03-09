@@ -1,6 +1,6 @@
 package swairlines.model;
 
-public class Cliente extends Endereco {
+public class Cliente {
 
 	private String nome;
 	private String cpfCnpj;
@@ -12,7 +12,7 @@ public class Cliente extends Endereco {
 	private String telefoneCelular;
 	private String telefoneResidencial;
 	private String cartaoDeCredito;
-	private Endereco endereco = new Endereco();
+	private Endereco endereco;
 	
 	public Cliente(String nome, String cpfCnpj, String sexo, String rg, String dataDeNascimento, String estadoCivil, String nacionalidade,
 			String telefoneCelular, String telefoneResidencial, String cartaoDeCredito, Endereco endereco) {
@@ -124,6 +124,8 @@ public class Cliente extends Endereco {
 	
 	public void setCartaoDeCredito(String cartaoDeCredito) {
 		this.cartaoDeCredito = cartaoDeCredito;
-	}	
+	}
+	
+	
 
 }

@@ -1,17 +1,5 @@
 package swairlines.model;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import swairlines.Main;
-import swairlines.dao.ConexaoDAO;
-import swairlines.view.TelaPrincipal;
+import swairlines.dao.ContaDeUsuarioDAO;
 
 public class ContaDeUsuario {
 	
@@ -19,6 +7,7 @@ public class ContaDeUsuario {
 	private String senha;
 	private String tipoConta;
 	private String cpfFuncionario;
+	private Funcionario funcionario;
 	public static final String TIPO_CONTA_ADMIN = "Administrador";
 	public static final String TIPO_CONTA_OPERADOR = "Operador";
 	
@@ -78,51 +67,27 @@ public class ContaDeUsuario {
 		this.senha = senha;
 	}
 	
-	public ObservableList<ContaDeUsuario> buscaContasDeUsuario() {
-		ObservableList<ContaDeUsuario> usuarios;
-		usuarios = FXCollections.observableArrayList();
-		try {
-			ConexaoDAO cbd = new ConexaoDAO();
-			//Abre a conexão com o banco de dados
-			Connection con = cbd.abreConexao();
-			//Cria um statement para realizar comandos no BD
-			PreparedStatement stm = con.prepareStatement("SELECT login, senha, tipo_conta, cpf_func FROM sw_airlines.funcionario, sw_airlines.usuario WHERE cpf = cpf_func;");
-			//Armazena o valor da pesquisa e no rs
-			ResultSet rs = stm.executeQuery();
-			//Com o while ele vai rodar linha por linha sendo o parâmetro o rs.next(), que retorna V ou F se a tabela tiver ou não linhas.
-			while (rs.next()){
-				ContaDeUsuario u = new ContaDeUsuario();
-				u.setLogin(rs.getString("login"));
-				u.setSenha(rs.getString("senha"));
-				u.setTipoConta(rs.getString("tipo_conta"));
-				u.setCpfFuncionario(rs.getString("cpf_func"));
-				//Adiciona o objeto a (usuario) a lista usuarios, usando o método add
-				usuarios.add(u);
-			}
-			rs.close();
-			stm.close();
-			con.close();
-			//O retorno pode ser tanto dentro do try-catch sendo return usuario e return null ou fora e assim só sendo preciso um return
-			return usuarios;
-
-		} catch (SQLException ex) {
-			Logger.getLogger(ContaDeUsuario.class.getName()).log(Level.SEVERE, null, ex);
-			return null;
-		}
+	public Funcionario getFuncionario() {
+		return funcionario;
 	}
-	
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
+	}
+
 	public boolean autenticar(ContaDeUsuario c1) {
-		for (ContaDeUsuario temp : c1.buscaContasDeUsuario()) {
+		ContaDeUsuarioDAO contaDao = new ContaDeUsuarioDAO();
+		for (ContaDeUsuario temp : contaDao.buscaContasDeUsuario()) {
 			if (temp.getLogin().equals(c1.getLogin()) && temp.getSenha().equals(c1.getSenha())) {
 				if (temp.getTipoConta().equals(ContaDeUsuario.TIPO_CONTA_ADMIN)) {
 					Gerente gerente = new Gerente();
+					c1.setFuncionario(gerente);
 					gerente.setConta(temp);
-					Main.alterarTela(new TelaPrincipal(gerente));
 					return true;
 				} else if (temp.getTipoConta().equals(ContaDeUsuario.TIPO_CONTA_OPERADOR)){
 					Operador operador = new Operador();
 					operador.setConta(temp);
-					Main.alterarTela(new TelaPrincipal(operador));
+					c1.setFuncionario(operador);
 					return true;
 				}												
 			}

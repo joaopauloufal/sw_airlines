@@ -32,7 +32,6 @@ public class TelaEditVoo extends Stage {
 	private TextField txtDataChegada;
 	private Label lblValorId;
 	
-	
 	public TelaEditVoo(Voo v1) {
 		
 		GridPane gPane = new GridPane();
@@ -112,7 +111,7 @@ public class TelaEditVoo extends Stage {
 					Voo v1 = new Voo(txtOrigem.getText(), txtDestino.getText(), txtRota.getText(), txtHoraPartida.getText(), txtHoraChegada.getText(), txtDataPartida.getText(), txtDataChegada.getText(), listTipoVoo.getValue());
 					v1.setId(Integer.parseInt(lblValorId.getText()));
 					VooDAO vooDao = new VooDAO();
-					if(vooDao.alteraVoo(v1)){
+					if (vooDao.alteraVoo(v1)){
 						JOptionPane.showMessageDialog(null, "Voo atualizado com sucesso!");
 					} else {
 						JOptionPane.showMessageDialog(null, "Erro ao atualizar!","Erro", 0);

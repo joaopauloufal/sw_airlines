@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import swairlines.model.Cliente;
+import swairlines.model.Endereco;
 import swairlines.model.Operador;
 
 public class ClienteDAO {
@@ -70,6 +71,7 @@ public class ClienteDAO {
 			
 			while (rs.next()) {
 				Cliente cliente = new Cliente();
+				Endereco endereco = new Endereco();
 				cliente.setRg(rs.getString("rg"));
 				cliente.setCpfCnpj(rs.getString("cpfcnpj"));
 				cliente.setNome(rs.getString("nome"));
@@ -80,11 +82,12 @@ public class ClienteDAO {
 				cliente.setTelefoneCelular(rs.getString("telefone_celular"));
 				cliente.setTelefoneResidencial(rs.getString("telefone_residencial"));
 				cliente.setCartaoDeCredito(rs.getString("cartao_de_credito"));
-				cliente.setRua(rs.getString("rua"));
-				cliente.setCidade(rs.getString("cidade"));
-				cliente.setBairro(rs.getString("bairro"));
-				cliente.setNumero(rs.getString("numero"));
-				cliente.setEstado(rs.getString("estado"));	
+				endereco.setRua(rs.getString("rua"));
+				endereco.setCidade(rs.getString("cidade"));
+				endereco.setBairro(rs.getString("bairro"));
+				endereco.setNumero(rs.getString("numero"));
+				endereco.setEstado(rs.getString("estado"));
+				cliente.setEndereco(endereco);
 				clientes.add(cliente);
 			}
 			

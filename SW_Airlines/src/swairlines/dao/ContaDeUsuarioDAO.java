@@ -45,7 +45,7 @@ public class ContaDeUsuarioDAO {
 	public boolean alteraContaDeUsuario(ContaDeUsuario c1) {
 		try {
 			ConexaoDAO cbd = new ConexaoDAO();
-			if(cbd.executar("UPADATE sw_airlines.usuario SET senha='" + c1.getSenha() + "' WHERE login='" + c1.getSenha() +"';")) {
+			if(cbd.executar("UPDATE sw_airlines.usuario SET senha='" + c1.getSenha() + "' WHERE login='" + c1.getSenha() +"';")) {
 				return true;
 			}
 		} catch (SQLException ex) {
@@ -55,12 +55,11 @@ public class ContaDeUsuarioDAO {
 		
 	}
 	
-	public ObservableList<ContaDeUsuario> buscaContasDeUsuario() throws SQLException {
+	public ObservableList<ContaDeUsuario> buscaContasDeUsuario() {
 		ObservableList<ContaDeUsuario> usuarios;
 		usuarios = FXCollections.observableArrayList();
 		ConexaoDAO cbd = new ConexaoDAO();
-		try {
-			
+		try {			
 			//Abre a conexão com o banco de dados
 			Connection con = cbd.abreConexao();
 			//Cria um statement para realizar comandos no BD
@@ -86,10 +85,7 @@ public class ContaDeUsuarioDAO {
 		} catch (SQLException ex) {
 			Logger.getLogger(ContaDeUsuario.class.getName()).log(Level.SEVERE, null, ex);
 			return null;
-		} finally {
-			cbd.desconectar();
-			
-		}
+		} 
 	}
 	
 	
