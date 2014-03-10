@@ -12,10 +12,11 @@ public class Cliente {
 	private String telefoneCelular;
 	private String telefoneResidencial;
 	private String cartaoDeCredito;
+	private String passaporteNumero;
 	private Endereco endereco;
 	
 	public Cliente(String nome, String cpfCnpj, String sexo, String rg, String dataDeNascimento, String estadoCivil, String nacionalidade,
-			String telefoneCelular, String telefoneResidencial, String cartaoDeCredito, Endereco endereco) {
+			String telefoneCelular, String telefoneResidencial, String cartaoDeCredito, String passaporteNumero, Endereco endereco) {
 		
 		this.nome = nome;
 		this.cpfCnpj = cpfCnpj;
@@ -27,6 +28,7 @@ public class Cliente {
 		this.telefoneCelular = telefoneCelular;
 		this.telefoneResidencial = telefoneResidencial;
 		this.cartaoDeCredito = cartaoDeCredito;
+		this.passaporteNumero = passaporteNumero;
 		this.endereco = endereco;		
 		
 	}
@@ -34,6 +36,16 @@ public class Cliente {
 	
 	public Cliente() {
 		
+	}
+
+
+	public String getPassaporteNumero() {
+		return passaporteNumero;
+	}
+
+
+	public void setPassaporteNumero(String passaporteNumero) {
+		this.passaporteNumero = passaporteNumero;
 	}
 
 

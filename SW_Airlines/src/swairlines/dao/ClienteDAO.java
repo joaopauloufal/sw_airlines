@@ -18,8 +18,8 @@ public class ClienteDAO implements ConsultasBancoCliente {
 	public boolean insereCliente(Cliente cliente) {
 		try {
 			ConexaoDAO cbd = new ConexaoDAO();
-			if(cbd.executar("INSERT INTO sw_airlines.cliente (rg, cpfcnpj, nome, sexo, data_de_nascimento, estado_civil, nacionalidade, telefone_celular, telefone_residencial, cartao_de_credito, rua, cidade, bairro, numero, estado) " +
-					"VALUES('" + cliente.getRg() +"','" + cliente.getCpfCnpj() +"','" + cliente.getNome() +"','" + cliente.getSexo() +"','" + cliente.getDataDeNascimento() +"','" + cliente.getEstadoCivil() +"','" + cliente.getNacionalidade() +"','" + cliente.getTelefoneCelular() +"','" + cliente.getTelefoneResidencial() +"','" + cliente.getCartaoDeCredito() +"','" 
+			if(cbd.executar("INSERT INTO sw_airlines.cliente (rg, cpfcnpj, nome, sexo, passaporte_numero, data_de_nascimento, estado_civil, nacionalidade, telefone_celular, telefone_residencial, cartao_de_credito, rua, cidade, bairro, numero, estado) " +
+					"VALUES('" + cliente.getRg() +"','" + cliente.getCpfCnpj() +"','" + cliente.getNome() +"','" + cliente.getSexo() +"','" + cliente.getPassaporteNumero() + "','" + cliente.getDataDeNascimento() +"','" + cliente.getEstadoCivil() +"','" + cliente.getNacionalidade() +"','" + cliente.getTelefoneCelular() +"','" + cliente.getTelefoneResidencial() +"','" + cliente.getCartaoDeCredito() +"','" 
 					+ cliente.getEndereco().getRua() + "','" + cliente.getEndereco().getCidade() + "','" + cliente.getEndereco().getBairro() + "','" + cliente.getEndereco().getNumero() + "','" + cliente.getEndereco().getEstado() + "');")) {
 				return true;
 			}
@@ -50,7 +50,7 @@ public class ClienteDAO implements ConsultasBancoCliente {
 	public boolean alteraCliente(Cliente cliente) {
 		try {
 			ConexaoDAO cbd = new ConexaoDAO();
-			if(cbd.executar("UPDATE sw_airlines.cliente SET cpfcnpj='" + cliente.getCpfCnpj() +"', nome='" + cliente.getNome() +"', sexo='" + cliente.getSexo() +"', data_de_nascimento='" + cliente.getDataDeNascimento() +"', estado_civil='" + cliente.getEstadoCivil() +"', nacionalidade='" + cliente.getNacionalidade() +"', telefone_celular='" + cliente.getTelefoneCelular() +"', telefone_residencial='" + cliente.getTelefoneResidencial() +"', cartao_de_credito='" + cliente.getCartaoDeCredito()
+			if(cbd.executar("UPDATE sw_airlines.cliente SET cpfcnpj='" + cliente.getCpfCnpj() +"', nome='" + cliente.getNome() +"', sexo='" + cliente.getSexo() + "', passaporte_numero='" + cliente.getPassaporteNumero() +"', data_de_nascimento='" + cliente.getDataDeNascimento() +"', estado_civil='" + cliente.getEstadoCivil() +"', nacionalidade='" + cliente.getNacionalidade() +"', telefone_celular='" + cliente.getTelefoneCelular() +"', telefone_residencial='" + cliente.getTelefoneResidencial() +"', cartao_de_credito='" + cliente.getCartaoDeCredito()
 					+ "', rua='" + cliente.getEndereco().getRua() +"', cidade='"+ cliente.getEndereco().getCidade() +"', bairro='"+ cliente.getEndereco().getBairro() +"', numero='" + cliente.getEndereco().getNumero() +"', estado='" + cliente.getEndereco().getEstado() +"' WHERE rg='" + cliente.getRg() +"';")) {
 				return true;
 			}
@@ -79,6 +79,7 @@ public class ClienteDAO implements ConsultasBancoCliente {
 				cliente.setCpfCnpj(rs.getString("cpfcnpj"));
 				cliente.setNome(rs.getString("nome"));
 				cliente.setSexo(rs.getString("sexo"));
+				cliente.setPassaporteNumero(rs.getString("passaporte_numero"));
 				cliente.setDataDeNascimento(rs.getString("data_de_nascimento"));
 				cliente.setEstadoCivil(rs.getString("estado_civil"));
 				cliente.setNacionalidade(rs.getString("nacionalidade"));

@@ -26,6 +26,7 @@ public class TelaEditCliente extends Stage {
 	private TextField txtNome;
 	private TextField txtCpfCnpj;
 	private Label lblRgValor;
+	private TextField txtPassaporte;
 	private ComboBox<String> listSexo;
 	private TextField txtNacionalidade;
 	private TextField txtDataDeNascimento;
@@ -62,6 +63,7 @@ public class TelaEditCliente extends Stage {
 		HBox hbox14 = new HBox(20);
 		HBox hbox15 = new HBox(20);
 		HBox hbox16 = new HBox(20);
+		HBox hbox17 = new HBox(20);
 		VBox vbox1 = new VBox(15);
 		
 		
@@ -88,6 +90,11 @@ public class TelaEditCliente extends Stage {
 		listSexo.setValue(cliente.getSexo());
 		listSexo.getItems().addAll("Masculino", "Feminino");
 		hbox4.getChildren().addAll(lblSexo, listSexo);
+		
+		Label lblPassaporte = new Label("Passaporte Nº:");
+		txtPassaporte = new TextField();
+		txtPassaporte.setText(cliente.getPassaporteNumero());
+		hbox17.getChildren().addAll(lblPassaporte, txtPassaporte);
 		
 		Label lblNacionalidade = new Label("Nacionalidade:");
 		txtNacionalidade = new TextField();
@@ -160,7 +167,7 @@ public class TelaEditCliente extends Stage {
 			public void handle(ActionEvent event) {
 				ClienteDAO clienteDao = new ClienteDAO();
 				Endereco endereco = new Endereco(txtRua.getText(), txtCidade.getText(), txtBairro.getText(), txtNumero.getText(), txtEstado.getText());
-				Cliente cliente  = new Cliente(txtNome.getText(), txtCpfCnpj.getText(), listSexo.getValue(), lblRgValor.getText(), txtDataDeNascimento.getText(), listEstadoCivil.getValue(), txtNacionalidade.getText(), txtTelefoneCelular.getText(), txtTelefoneResidencial.getText(), txtCartaoDeCredito.getText(), endereco);
+				Cliente cliente  = new Cliente(txtNome.getText(), txtCpfCnpj.getText(), listSexo.getValue(), lblRgValor.getText(), txtDataDeNascimento.getText(), listEstadoCivil.getValue(), txtNacionalidade.getText(), txtTelefoneCelular.getText(), txtTelefoneResidencial.getText(), txtCartaoDeCredito.getText(), txtPassaporte.getText(), endereco);
 				if (clienteDao.alteraCliente(cliente)) {
 					JOptionPane.showMessageDialog(null, "Cliente atualizado com sucesso!", "Atulaização Cliente", JOptionPane.INFORMATION_MESSAGE);
 					hide();
@@ -186,7 +193,7 @@ public class TelaEditCliente extends Stage {
 			
 		});
 		
-		vbox1.getChildren().addAll(hbox1, hbox2, hbox3, hbox4, hbox5, hbox6, hbox7, hbox8, hbox9, hbox10, hbox11, hbox12, hbox13, hbox14, hbox15, hbox16);
+		vbox1.getChildren().addAll(hbox1, hbox2, hbox3, hbox4, hbox17, hbox5, hbox6, hbox7, hbox8, hbox9, hbox10, hbox11, hbox12, hbox13, hbox14, hbox15, hbox16);
 		
 		GridPane.setConstraints(vbox1, 9, 4);
 		

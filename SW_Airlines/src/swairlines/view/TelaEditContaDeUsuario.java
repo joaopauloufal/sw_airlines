@@ -87,6 +87,7 @@ public class TelaEditContaDeUsuario extends Stage {
 						hide();
 					} else {
 						JOptionPane.showMessageDialog(null, "Erro ao atualizar!", "Erro", JOptionPane.ERROR_MESSAGE);
+						hide();
 					}					
 					
 				} else {

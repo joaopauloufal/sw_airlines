@@ -152,8 +152,10 @@ public class TelaCadFuncionario extends Stage {
 				Funcionario f1 = new Operador(txtNome.getText(), listSexo.getValue(), txtCpf.getText(), txtRg.getText(), txtDataDeNascimento.getText(), txtTelefoneCelular.getText(), listCargo.getValue(), txtTelefoneResidencial.getText(), txtNacionalidade.getText(), listEstadoCivil.getValue(), endereco);
 				if (funcDao.insereFuncionario(f1)) {
 					JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso!", "Cadastro Funcionário", JOptionPane.INFORMATION_MESSAGE);
+					hide();
 				} else {
 					JOptionPane.showMessageDialog(null, "Erro ao inserir.", "Erro", JOptionPane.ERROR_MESSAGE);
+					hide();
 				}
 				
 			}

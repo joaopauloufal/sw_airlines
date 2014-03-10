@@ -108,18 +108,16 @@ public class MenuBarPrincipal extends MenuBar {
 		});
 		
 		MenuItem itemChecarDisponibilidade = new MenuItem("Checar Disponibilidade...");
-		MenuItem itemAtrasarVoo = new MenuItem("Atrasar Voo..");
-		MenuItem listarVoos = new MenuItem("Listar Voos");
-		
-		listarVoos.setOnAction(new EventHandler<ActionEvent>() {
+		itemChecarDisponibilidade.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
-				Main.alterarTela(new TelaTabelaVoos(f));							
+				Main.alterarTela(new TelaTabelaVoos(f));
 				
 			}
 			
 		});
+		MenuItem itemAtrasarVoo = new MenuItem("Atrasar Voo..");
 		
 		MenuItem menuRealizarCompra = new MenuItem("Realizar Compra Passagem...");
 		menuCompra.getItems().addAll(menuRealizarCompra);
@@ -136,11 +134,11 @@ public class MenuBarPrincipal extends MenuBar {
 			
 		});				
 		
-		menuVoo.getItems().addAll(listarVoos, itemChecarDisponibilidade, itemAtrasarVoo, itemEditarVoo);
+		menuVoo.getItems().addAll(itemChecarDisponibilidade, itemAtrasarVoo, itemEditarVoo);
 		
-		MenuItem listarContasDeUsuario = new MenuItem("Listar Contas de Usuário");
+		MenuItem itemListarContasDeUsuario = new MenuItem("Listar Contas de Usuário");
 		
-		listarContasDeUsuario.setOnAction(new EventHandler<ActionEvent>() {
+		itemListarContasDeUsuario.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
@@ -149,9 +147,9 @@ public class MenuBarPrincipal extends MenuBar {
 			}
 			
 		});
-		MenuItem listarFuncionarios = new MenuItem("Listar Funcionários");
+		MenuItem itemListarFuncionarios = new MenuItem("Listar Funcionários");
 		
-		listarFuncionarios.setOnAction(new EventHandler<ActionEvent>() {
+		itemListarFuncionarios.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
@@ -160,9 +158,9 @@ public class MenuBarPrincipal extends MenuBar {
 			}
 			
 		});
-		MenuItem listarClientes = new MenuItem("Listar Clientes");
+		MenuItem itemListarClientes = new MenuItem("Listar Clientes");
 		
-		listarClientes.setOnAction(new EventHandler<ActionEvent>() {
+		itemListarClientes.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
@@ -173,17 +171,20 @@ public class MenuBarPrincipal extends MenuBar {
 		});
 		MenuItem listarCompras = new MenuItem("Listar Compras");
 		
-		menuListar.getItems().addAll(listarContasDeUsuario, listarClientes, listarFuncionarios, listarCompras);
+		menuListar.getItems().addAll(itemListarContasDeUsuario, itemListarClientes, itemListarFuncionarios, listarCompras);
 		
 		getMenus().addAll(menuArquivo, menuCadastro, menuEditar, menuListar, menuCompra, menuVoo, menuSobre);
 		
 		if (f.getConta().getTipoConta().equals(ContaDeUsuario.TIPO_CONTA_OPERADOR)) {
 			itemCadastrarFuncionario.setVisible(false);
 			itemCadastrarVoo.setVisible(false);
-			itemChecarDisponibilidade.setVisible(false);
 			itemEditarVoo.setVisible(false);
 			itemCadastroConta.setVisible(false);
 			itemAtrasarVoo.setVisible(false);
+			itemListarFuncionarios.setVisible(false);
+			itemCadastroConta.setVisible(false);
+			itemListarContasDeUsuario.setVisible(false);
+			
 		}
 	}
 

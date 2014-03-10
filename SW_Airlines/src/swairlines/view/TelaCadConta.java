@@ -95,8 +95,10 @@ public class TelaCadConta extends Stage {
 				if (c1.getSenha().equals(txtSenhaConfirmacao.getText())) {
 					if (contaDao.insereContaDeUsuario(c1)) {
 						JOptionPane.showMessageDialog(null, "Conta cadastrada com sucesso!");
+						hide();
 					} else {
 						JOptionPane.showMessageDialog(null, "Erro ao inserir!", "Erro", JOptionPane.ERROR_MESSAGE);
+						hide();
 					}					
 					
 				} else {

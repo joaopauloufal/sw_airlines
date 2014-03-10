@@ -113,8 +113,10 @@ public class TelaEditVoo extends Stage {
 					VooDAO vooDao = new VooDAO();
 					if (vooDao.alteraVoo(v1)){
 						JOptionPane.showMessageDialog(null, "Voo atualizado com sucesso!");
+						hide();
 					} else {
-						JOptionPane.showMessageDialog(null, "Erro ao atualizar!","Erro", 0);
+						JOptionPane.showMessageDialog(null, "Erro ao atualizar!","Erro", JOptionPane.ERROR_MESSAGE);
+						hide();
 					}
 				
 			}

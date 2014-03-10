@@ -47,6 +47,10 @@ public class TelaTabelaClientes extends BorderPane {
 		cpfColuna.setCellValueFactory(new PropertyValueFactory<Cliente, String>("cpfCnpj"));
 		cpfColuna.setMinWidth(140);
 		
+		TableColumn<Cliente, String> passaporteColuna = new TableColumn<>("Passaporte Nº");
+		passaporteColuna.setCellValueFactory(new PropertyValueFactory<Cliente, String>("passaporteNumero"));
+		passaporteColuna.setMaxWidth(140);
+		
 		TableColumn<Cliente, String> nomeColuna = new TableColumn<>("Nome");
 		nomeColuna.setCellValueFactory(new PropertyValueFactory<Cliente, String>("nome"));
 		nomeColuna.setMinWidth(140);
@@ -99,7 +103,7 @@ public class TelaTabelaClientes extends BorderPane {
 		estadoColuna.setCellValueFactory(new PropertyValueFactory<Cliente, String>("estado"));
 		estadoColuna.setMinWidth(140);
 		
-		tableView.getColumns().addAll(rgColuna, cpfColuna, nomeColuna, sexoColuna, dataDeNascimentoColuna, estadoCivilColuna, nacionalidadeColuna, telefoneCelularColuna, telefoneResidencialColuna, cartaoDeCreditoColuna, enderecoColuna);
+		tableView.getColumns().addAll(rgColuna, cpfColuna, nomeColuna, passaporteColuna, sexoColuna, dataDeNascimentoColuna, estadoCivilColuna, nacionalidadeColuna, telefoneCelularColuna, telefoneResidencialColuna, cartaoDeCreditoColuna, enderecoColuna);
 		tableView.setFocusTraversable(false);
 		
 		Button btnAtualizarValores = new Button("Atualizar Valores");

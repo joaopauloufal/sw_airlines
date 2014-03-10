@@ -89,7 +89,7 @@ public class TelaTabelaContasDeUsuario extends BorderPane {
 					if (resposta == JOptionPane.YES_OPTION) {
 						ContaDeUsuarioDAO contaDao = new ContaDeUsuarioDAO();
 						contaDao.excluiContaDeUsuario((tableView.getSelectionModel().getSelectedItem()));
-						JOptionPane.showMessageDialog(null, "Voo excluido.", "Exclusão de Voo", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Conta de usuário excluida.", "Exclusão de Conta de Usuário", JOptionPane.INFORMATION_MESSAGE);
 						Main.alterarTela(new TelaTabelaContasDeUsuario(f));
 					}
 				}

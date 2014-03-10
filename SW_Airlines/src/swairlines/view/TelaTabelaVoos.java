@@ -31,6 +31,7 @@ public class TelaTabelaVoos extends BorderPane {
 	@SuppressWarnings("unchecked")
 	public TelaTabelaVoos(final Funcionario f) {
 		
+		
 		dados = FXCollections.observableArrayList();
 		VooDAO vooDao = new VooDAO();
 		
@@ -40,7 +41,7 @@ public class TelaTabelaVoos extends BorderPane {
 		
 		HBox hbox = new HBox(20);
 		
-		TableColumn<Voo, Integer> idColuna = new TableColumn<>("Id");
+		TableColumn<Voo, Integer> idColuna = new TableColumn<>("Voo Nº");
 		idColuna.setCellValueFactory(new PropertyValueFactory<Voo, Integer>("id"));
 		idColuna.setMinWidth(60);
 		
@@ -93,6 +94,7 @@ public class TelaTabelaVoos extends BorderPane {
 					Voo v1 = dados.get(tableView.getSelectionModel().getSelectedIndex());
 					TelaEditVoo tela = new TelaEditVoo(v1);
 					tela.setTitle("Editar Voo");
+					
 				}				
 			}
 		});
@@ -109,7 +111,7 @@ public class TelaTabelaVoos extends BorderPane {
 			
 		});
 		
-		Button btnExcluirVoo = new Button("Excuir Voo");
+		Button btnExcluirVoo = new Button("Excluir Voo");
 		
 		btnExcluirVoo.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -130,13 +132,37 @@ public class TelaTabelaVoos extends BorderPane {
 			
 		});
 		
+		Button btnCancelarVoo = new Button("Cancelar Voo");
+		btnCancelarVoo.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				if (tableView.getSelectionModel().getSelectedIndex() != -1) {
+					if (dados.get(tableView.getSelectionModel().getSelectedIndex()).getStatus().equals("Cancelado")) {
+						JOptionPane.showMessageDialog(null, "Este voo já foi cancelado.", "Cancelamento Voo", JOptionPane.INFORMATION_MESSAGE);
+					} else {
+						int resposta = JOptionPane.showConfirmDialog(null, "Você tem certeza de que quer cancelar o Voo selecionado?", "Confirmação de Cancelamento Voo", JOptionPane.WARNING_MESSAGE, JOptionPane.WARNING_MESSAGE);
+						if (resposta == JOptionPane.YES_OPTION) {
+							Voo v1 = dados.get(tableView.getSelectionModel().getSelectedIndex());
+							VooDAO vd = new VooDAO();
+							vd.cancelarVoo(v1);
+							Main.alterarTela(new TelaTabelaVoos(f));
+						}
+					}
+					
+				}
+				
+			}
+			
+		});
+		
 		tableView.getColumns().addAll(idColuna, origemColuna, destinoColuna, statusColuna, qntPassageirosColuna, rotaColuna, horaPartidaColuna, horaChegadaColuna, dataPartidaColuna, dataChegadaColuna, tipoVooColuna);
 		tableView.setFocusTraversable(false);	
 		
 		VBox boxTop = new VBox(20);
 		Label titulo = new Label("Relação de Voos");
 		titulo.setFont(new Font(30));
-		hbox.getChildren().addAll(btnExcluirVoo, btnEditarVoo, btnAtualizarValores);
+		hbox.getChildren().addAll(btnExcluirVoo, btnAtualizarValores, btnEditarVoo, btnCancelarVoo);
 		hbox.setAlignment(Pos.BASELINE_CENTER);
 		boxTop.setAlignment(Pos.CENTER);
 		VBox boxTable = new VBox();
@@ -149,6 +175,7 @@ public class TelaTabelaVoos extends BorderPane {
 		
 		if (f.getConta().getTipoConta().equals(ContaDeUsuario.TIPO_CONTA_OPERADOR)) {
 			btnEditarVoo.setVisible(false);
+			btnExcluirVoo.setVisible(false);
 		}
 		
 		
