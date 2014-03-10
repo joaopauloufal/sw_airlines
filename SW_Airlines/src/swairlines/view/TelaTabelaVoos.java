@@ -176,6 +176,7 @@ public class TelaTabelaVoos extends BorderPane {
 		if (f.getConta().getTipoConta().equals(ContaDeUsuario.TIPO_CONTA_OPERADOR)) {
 			btnEditarVoo.setVisible(false);
 			btnExcluirVoo.setVisible(false);
+			btnCancelarVoo.setVisible(false);
 		}
 		
 		
