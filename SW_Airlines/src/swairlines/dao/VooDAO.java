@@ -50,7 +50,21 @@ public class VooDAO implements ConsultasBancoVoo {
 	public boolean alteraVoo(Voo v1) {
 		try {
 			ConexaoDAO cbd = new ConexaoDAO();
-			if (cbd.executar("UPDATE sw_airlines.voo SET origem='" + v1.getOrigem() +"', destino='" + v1.getDestino() + "', rota='" + v1.getRota() +"', horaPartida='" + v1.getHoraPartida() +"', horaChegada='" + v1.getHoraChegada() +"', dataPartida='" + v1.getDataPartida() + "', dataChegada='" + v1.getDataChegada() + "', tipo_voo='" + v1.getTipoVoo() + "' WHERE id='" + v1.getId() +"';")) {
+			if (cbd.executar("UPDATE sw_airlines.voo SET origem='" + v1.getOrigem() +"', destino='" + v1.getDestino() +"', quantidadeDePassageiros='" + v1.getQuantidadeDePassageiros() + "', rota='" + v1.getRota() +"', horaPartida='" + v1.getHoraPartida() +"', horaChegada='" + v1.getHoraChegada() +"', dataPartida='" + v1.getDataPartida() + "', dataChegada='" + v1.getDataChegada() + "', tipo_voo='" + v1.getTipoVoo() + "' WHERE id='" + v1.getId() +"';")) {
+				return true;
+			}			
+
+		} catch (SQLException ex) {
+			Logger.getLogger(VooDAO.class.getName()).log(Level.SEVERE, null, ex);
+			
+		}
+		return false;
+	}
+	
+	public boolean quantPass(Voo v1) {
+		try {
+			ConexaoDAO cbd = new ConexaoDAO();
+			if (cbd.executar("UPDATE sw_airlines.voo SET quantidadeDePassageiros='" + v1.getQuantidadeDePassageiros() + 1 + "' WHERE id='" + v1.getId() +"';")) {
 				return true;
 			}			
 

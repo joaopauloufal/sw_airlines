@@ -120,6 +120,16 @@ public class MenuBarPrincipal extends MenuBar {
 		MenuItem itemAtrasarVoo = new MenuItem("Atrasar Voo..");
 		
 		MenuItem menuRealizarCompra = new MenuItem("Realizar Compra Passagem...");
+		menuRealizarCompra.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				TelaCompra tela = new TelaCompra();
+				tela.setTitle("Compra");
+				
+			}
+
+		
+		});
 		menuCompra.getItems().addAll(menuRealizarCompra);
 		
 		MenuItem itemEditarVoo = new MenuItem("Editar Voo...");
