@@ -124,7 +124,7 @@ public class MenuBarPrincipal extends MenuBar {
 			@Override
 			public void handle(ActionEvent arg0) {
 				TelaCompra tela = new TelaCompra();
-				tela.setTitle("Compra");
+				tela.setTitle("Venda de Passagens");
 				
 			}
 

@@ -30,6 +30,7 @@ public class TelaEditVoo extends Stage {
 	private TextField txtHoraChegada;
 	private ComboBox<String> listTipoVoo;
 	private TextField txtDataChegada;
+	private TextField txtValor;
 	private Label lblValorId;
 	
 	public TelaEditVoo(Voo v1) {
@@ -49,6 +50,7 @@ public class TelaEditVoo extends Stage {
 		HBox hbox8 = new HBox(20);
 		HBox hbox9 = new HBox(20);
 		HBox hbox10 = new HBox(20);
+		HBox hbox11 = new HBox(20);
 		VBox vbox1 = new VBox(20);		
 		
 		Scene scene = new Scene(gPane, 620, 480, Color.SILVER);
@@ -102,13 +104,18 @@ public class TelaEditVoo extends Stage {
 		txtDataChegada.setText(v1.getDataChegada());
 		hbox9.getChildren().addAll(lblDataChegada, txtDataChegada);
 		
+		Label lblValor = new Label("Valor:");
+		txtValor = new TextField();
+		txtValor.setText(v1.getValor() + "");
+		hbox11.getChildren().addAll(lblValor, txtValor);
+		
 		
 		Button btnAtualizar = new Button("Atualizar");
 		btnAtualizar.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
 			public void handle(ActionEvent event) {								
-					Voo v1 = new Voo(txtOrigem.getText(), txtDestino.getText(), txtRota.getText(), txtHoraPartida.getText(), txtHoraChegada.getText(), txtDataPartida.getText(), txtDataChegada.getText(), listTipoVoo.getValue());
+					Voo v1 = new Voo(txtOrigem.getText(), txtDestino.getText(), txtRota.getText(), txtHoraPartida.getText(), txtHoraChegada.getText(), txtDataPartida.getText(), txtDataChegada.getText(), listTipoVoo.getValue(), Double.parseDouble(txtValor.getText()));
 					v1.setId(Integer.parseInt(lblValorId.getText()));
 					VooDAO vooDao = new VooDAO();
 					if (vooDao.alteraVoo(v1)){
@@ -135,7 +142,7 @@ public class TelaEditVoo extends Stage {
 		hbox7.getChildren().addAll(btnAtualizar, btnCancelar);
 		hbox7.setAlignment(Pos.CENTER);
 		
-		vbox1.getChildren().addAll(hbox10, hbox1, hbox2, hbox3, hbox4, hbox6, hbox5, hbox8, hbox9, hbox7);
+		vbox1.getChildren().addAll(hbox10, hbox1, hbox2, hbox3, hbox4, hbox6, hbox5, hbox8, hbox9, hbox11, hbox7);
 		
 		GridPane.setConstraints(vbox1, 9, 4);
 		

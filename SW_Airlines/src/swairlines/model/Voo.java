@@ -18,6 +18,7 @@ public class Voo {
 	private String dataChegada;
 	private int id;
 	private String tipoVoo;
+	private double valor;
 	
 	public Voo() {
 		
@@ -25,7 +26,7 @@ public class Voo {
 	
 
 	public Voo(String origem, String destino, String rota, String horaPartida,
-			String horaChegada, String dataPartida, String dataChegada, String tipoVoo) {	
+			String horaChegada, String dataPartida, String dataChegada, String tipoVoo, double valor) {	
 			
 		this.origem = origem;
 		this.destino = destino;
@@ -35,6 +36,7 @@ public class Voo {
 		this.tipoVoo = tipoVoo;
 		this.dataPartida = dataPartida;
 		this.dataChegada = dataChegada;
+		this.valor = valor;
 		
 	}
 	
@@ -131,6 +133,14 @@ public class Voo {
 	
 	public void setHoraChegada(String horaChegada) {
 		this.horaChegada = horaChegada;
+	}
+	
+	public double getValor() {
+		return valor;
+	}
+	
+	public void setValor(double valor) {
+		this.valor = valor;
 	}
 	
 	public Date retornaHoraDataPartida() throws ParseException {

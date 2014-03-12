@@ -104,5 +104,44 @@ public class ClienteDAO implements ConsultasBancoCliente {
 			return null;
 		}
 	}
+	public Cliente buscaCliente(String cpfCnpj) {
+		ConexaoDAO cbd = new ConexaoDAO();
+		Cliente cliente = new Cliente();
+		try {
+			
+			Connection con = cbd.abreConexao();
+			PreparedStatement stm = con.prepareStatement("SELECT * FROM sw_airlines.cliente where cpfcnpj='" + cpfCnpj +"';");
+			ResultSet rs = stm.executeQuery();
+			
+			while (rs.next()) {
+				Endereco endereco = new Endereco();
+				cliente.setRg(rs.getString("rg"));
+				cliente.setCpfCnpj(rs.getString("cpfcnpj"));
+				cliente.setNome(rs.getString("nome"));
+				cliente.setSexo(rs.getString("sexo"));
+				cliente.setPassaporteNumero(rs.getString("passaporte_numero"));
+				cliente.setDataDeNascimento(rs.getString("data_de_nascimento"));
+				cliente.setEstadoCivil(rs.getString("estado_civil"));
+				cliente.setNacionalidade(rs.getString("nacionalidade"));
+				cliente.setTelefoneCelular(rs.getString("telefone_celular"));
+				cliente.setTelefoneResidencial(rs.getString("telefone_residencial"));
+				cliente.setCartaoDeCredito(rs.getString("cartao_de_credito"));
+				endereco.setRua(rs.getString("rua"));
+				endereco.setCidade(rs.getString("cidade"));
+				endereco.setBairro(rs.getString("bairro"));
+				endereco.setNumero(rs.getString("numero"));
+				endereco.setEstado(rs.getString("estado"));
+				cliente.setEndereco(endereco);
+			}
+			
+			rs.close();
+			stm.close();
+			con.close();
+			return cliente;
+		} catch (SQLException e) {
+			Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, e);
+			return null;
+		}
+	}
 
 }
