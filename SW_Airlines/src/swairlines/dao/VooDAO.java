@@ -131,6 +131,58 @@ public class VooDAO implements ConsultasBancoVoo {
 		
 	}
 	
+	public Voo buscaVoo(Integer id) {
+		
+		Voo v1 = new Voo();	
+		Date horaAtual = new Date();
+		ConexaoDAO cbd = new ConexaoDAO();		
+		try {						
+			Connection con = cbd.abreConexao();
+			PreparedStatement stm = con.prepareStatement("SELECT * FROM sw_airlines.voo where id ='" + id + "';");
+			ResultSet rs = stm.executeQuery();			
+			
+			while (rs.next()) {	
+				v1.setId(rs.getInt("id"));
+				v1.setOrigem(rs.getString("origem"));
+				v1.setDestino(rs.getString("destino"));
+				v1.setQuantidadeDePassageiros(rs.getInt("quantidadeDePassageiros"));
+				v1.setRota(rs.getString("rota"));
+				v1.setHoraPartida(rs.getString(("horaPartida")));
+				v1.setHoraChegada(rs.getString("horaChegada"));
+				v1.setDataPartida(rs.getString("dataPartida"));
+				v1.setDataChegada(rs.getString("dataChegada"));
+				v1.setTipoVoo(rs.getString("tipo_voo"));
+				v1.setValor(rs.getDouble("valor"));
+				v1.setStatus(rs.getString("status"));
+				
+				try {
+					if (horaAtual.before(v1.retornaHoraDataPartida()) && !v1.getStatus().equals("Cancelado")) {
+						v1.setStatus("Não iniciado");
+					}
+					if (horaAtual.after(v1.retornaHoraDataPartida()) && horaAtual.before(v1.retornaHoraDataChegada()) && !v1.getStatus().equals("Cancelado")) {
+						v1.setStatus("Em andamento");
+					}
+					
+					if (horaAtual.after(v1.retornaHoraDataChegada()) && !v1.getStatus().equals("Cancelado")) {
+						v1.setStatus("Concluido");
+					}
+					
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}			
+			rs.close();
+			stm.close();
+			con.close();
+			return v1;
+			
+		} catch (SQLException e) {
+			Logger.getLogger(VooDAO.class.getName()).log(Level.SEVERE, null, e);
+			return null;			
+		}
+		
+	}
+	
 	public boolean cancelarVoo(Voo voo) {
 		ConexaoDAO conexaoDao = new ConexaoDAO();
 		try {
