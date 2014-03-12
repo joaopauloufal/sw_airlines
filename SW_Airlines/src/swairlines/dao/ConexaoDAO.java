@@ -27,9 +27,9 @@ public class ConexaoDAO implements ConexaoBDMySql {
 	
 	@Override
 	public Connection abreConexao() throws SQLException {
-		//35216493
+		//35216493 senha bd do Cid
         try {
-            c = DriverManager.getConnection("jdbc:mysql://localhost/","root","12345");
+            c = DriverManager.getConnection("jdbc:mysql://localhost/","root","35216493");
             return c;
         } catch (SQLException ex) {
         	JOptionPane.showMessageDialog(null, "Não foi possível conectar ao banco de dados. Tente novamente mais tarde.", "Erro de Conexão Com o Banco de Dados", JOptionPane.ERROR_MESSAGE);
