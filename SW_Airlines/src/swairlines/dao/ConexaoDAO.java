@@ -86,6 +86,7 @@ public class ConexaoDAO implements ConexaoBDMySql {
 				+ " dataPartida VARCHAR(20) NOT NULL,"
 				+ " dataChegada VARCHAR(20) NOT NULL,"
 				+ " tipo_voo VARCHAR(80) NOT NULL,"
+				+ " valor DOUBLE(15,2) NOT NULL,"
 				+ " status VARCHAR(40),"
 				+ " PRIMARY KEY (id)) "
 	            + " ENGINE = InnoDB "
