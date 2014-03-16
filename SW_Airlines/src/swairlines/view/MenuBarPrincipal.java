@@ -28,11 +28,10 @@ public class MenuBarPrincipal extends MenuBar {
 
 			@Override
 			public void handle(ActionEvent event) {
-				int resposta = JOptionPane.showConfirmDialog(null, "Você deseja realmente sair do sistema?", "Confirmação de Saida", JOptionPane.WARNING_MESSAGE, JOptionPane.WARNING_MESSAGE);
+				int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente sair do sistema?", "Confirmação de Saida", JOptionPane.WARNING_MESSAGE, JOptionPane.WARNING_MESSAGE);
 				if (resposta == JOptionPane.YES_OPTION) {
 					System.exit(0);
-				}
-				
+				}				
 				
 			}			
 			

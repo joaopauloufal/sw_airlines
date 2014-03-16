@@ -19,6 +19,7 @@ public class Voo {
 	private int id;
 	private String tipoVoo;
 	private double valor;
+	// falta o id da aeronave
 	
 	public Voo() {
 		

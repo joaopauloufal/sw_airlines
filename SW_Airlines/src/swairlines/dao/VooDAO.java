@@ -19,7 +19,7 @@ public class VooDAO implements ConsultasBancoVoo {
 	public boolean insereVoo(Voo v1) {
 		try {
 			ConexaoDAO cbd = new ConexaoDAO();			
-			if(cbd.executar("INSERT INTO sw_airlines.voo (origem, destino, quantidadeDePassageiros, rota, horaPartida, horaChegada, dataPartida, dataChegada, tipo_voo, valor, status) " +
+			if (cbd.executar("INSERT INTO sw_airlines.voo (origem, destino, quantidadeDePassageiros, rota, horaPartida, horaChegada, dataPartida, dataChegada, tipo_voo, valor, status) " +
 					"VALUES('" + v1.getOrigem() +"','" + v1.getDestino() +"','" + v1.getQuantidadeDePassageiros() +"','" + v1.getRota() +"','" + v1.getHoraPartida() +"','" + v1.getHoraChegada() +"','" + v1.getDataPartida() + "','" + v1.getDataChegada() + "','" + v1.getTipoVoo() + "','" + v1.getValor() + "', 'Não Estipulado');")) {
 				return true;
 			}			
@@ -132,7 +132,7 @@ public class VooDAO implements ConsultasBancoVoo {
 		
 	}
 	
-	public Voo buscaVoo(Integer id) {
+	public Voo buscaVooPorId(Integer id) {
 		
 		Voo v1 = new Voo();	
 		Date horaAtual = new Date();
@@ -185,6 +185,7 @@ public class VooDAO implements ConsultasBancoVoo {
 	}
 	
 	public boolean cancelarVoo(Voo voo) {
+		// é preciso também, implementar a exclusão de vendas quando o voo for cancelado.
 		ConexaoDAO conexaoDao = new ConexaoDAO();
 		try {
 			if (conexaoDao.executar("UPDATE sw_airlines.voo SET status='Cancelado' WHERE id='" + voo.getId() + "';"));

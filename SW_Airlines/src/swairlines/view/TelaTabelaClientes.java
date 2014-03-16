@@ -49,7 +49,7 @@ public class TelaTabelaClientes extends BorderPane {
 		
 		TableColumn<Cliente, String> passaporteColuna = new TableColumn<>("Passaporte Nº");
 		passaporteColuna.setCellValueFactory(new PropertyValueFactory<Cliente, String>("passaporteNumero"));
-		passaporteColuna.setMaxWidth(140);
+		passaporteColuna.setMinWidth(140);
 		
 		TableColumn<Cliente, String> nomeColuna = new TableColumn<>("Nome");
 		nomeColuna.setCellValueFactory(new PropertyValueFactory<Cliente, String>("nome"));

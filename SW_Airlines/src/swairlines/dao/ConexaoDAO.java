@@ -71,6 +71,7 @@ public class ConexaoDAO implements ConexaoBDMySql {
 		criarTabelaFuncionario();
 		criarTabelaUsuario();
 		criarTabelaVoo();
+		criarTabelaVendas();
 	}
 
 	
@@ -148,7 +149,7 @@ public class ConexaoDAO implements ConexaoBDMySql {
 
 	private void criarTabelaCliente() throws SQLException {
 		sql = "CREATE TABLE IF NOT EXISTS sw_airlines.cliente("
-				+ " rg VARCHAR(25) NOT NULL,"
+				+ " rg VARCHAR(80) NOT NULL,"
 				+ " cpfcnpj VARCHAR(40) NOT NULL,"
 				+ " nome VARCHAR(80) NOT NULL,"
 				+ " sexo VARCHAR(40) NOT NULL,"
@@ -171,7 +172,28 @@ public class ConexaoDAO implements ConexaoBDMySql {
 		abreConexao();
 		executar(sql);
 		
-	}	
+	}
+	
+	private void criarTabelaVendas() throws SQLException {
+		sql = "CREATE TABLE IF NOT EXISTS sw_airlines.vendas("
+				+ " rg_cliente VARCHAR(40) NOT NULL,"
+				+ " id_voo_venda INT NOT NULL,"
+				+ " tipo_venda VARCHAR(40) NOT NULL,"
+				+ " data_venda VARCHAR(40) NOT NULL,"
+				+ " PRIMARY KEY (rg_cliente, id_voo_venda), "
+				+ " CONSTRAINT rg_cliente_rg"
+				+ " FOREIGN KEY (rg_cliente)"
+				+ " REFERENCES sw_airlines.cliente (rg)"
+				+ " ON DELETE CASCADE,"
+				+ " CONSTRAINT id_voo_id"
+				+ " FOREIGN KEY (id_voo_venda)"
+				+ " REFERENCES sw_airlines.voo (id)"
+				+ " ON DELETE CASCADE)"
+				+ " ENGINE = InnoDB"
+				+ " DEFAULT CHARACTER SET = utf8;";
+		abreConexao();
+		executar(sql);
+	}
 	
 
 }

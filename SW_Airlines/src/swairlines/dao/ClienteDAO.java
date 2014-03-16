@@ -104,13 +104,13 @@ public class ClienteDAO implements ConsultasBancoCliente {
 			return null;
 		}
 	}
-	public Cliente buscaCliente(String cpfCnpj) {
+	public Cliente buscaClientePorRg(String rg) {
 		ConexaoDAO cbd = new ConexaoDAO();
 		Cliente cliente = new Cliente();
 		try {
 			
 			Connection con = cbd.abreConexao();
-			PreparedStatement stm = con.prepareStatement("SELECT * FROM sw_airlines.cliente where cpfcnpj='" + cpfCnpj +"';");
+			PreparedStatement stm = con.prepareStatement("SELECT * FROM sw_airlines.cliente where rg='" + rg +"';");
 			ResultSet rs = stm.executeQuery();
 			
 			while (rs.next()) {
