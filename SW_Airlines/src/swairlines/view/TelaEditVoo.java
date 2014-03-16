@@ -53,7 +53,7 @@ public class TelaEditVoo extends Stage {
 		HBox hbox11 = new HBox(20);
 		VBox vbox1 = new VBox(20);		
 		
-		Scene scene = new Scene(gPane, 620, 480, Color.SILVER);
+		Scene scene = new Scene(gPane, 620, 490, Color.SILVER);
 		setScene(scene);
 		
 		Label lblId = new Label("Id:");

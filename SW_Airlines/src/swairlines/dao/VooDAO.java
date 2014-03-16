@@ -103,6 +103,7 @@ public class VooDAO implements ConsultasBancoVoo {
 				v1.setStatus(rs.getString("status"));
 				
 				try {
+					// é melhor usar um switch-case
 					if (horaAtual.before(v1.retornaHoraDataPartida()) && !v1.getStatus().equals("Cancelado")) {
 						v1.setStatus("Não iniciado");
 					}

@@ -51,7 +51,7 @@ public class TelaCadVoo extends Stage {
 		HBox hbox10 = new HBox(20);
 		VBox vbox1 = new VBox(20);		
 		
-		Scene scene = new Scene(gPane, 620, 480, Color.SILVER);
+		Scene scene = new Scene(gPane, 620, 490, Color.SILVER);
 		setScene(scene);
 		
 		Label lblOrigem = new Label("Origem:");

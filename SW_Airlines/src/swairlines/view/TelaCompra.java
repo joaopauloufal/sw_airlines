@@ -28,9 +28,9 @@ import swairlines.dao.VooDAO;
 import swairlines.model.Cliente;
 import swairlines.model.Voo;
 
-public class TelaCompra extends Stage{
+public class TelaCompra extends Stage {
 	
-	private TextField txtValor;
+	private TextField txtValorParcela;
 	private TextField txtParcela;
 	private ComboBox<String> listVoos;
 	private ComboBox<String> listClientes;
@@ -39,10 +39,15 @@ public class TelaCompra extends Stage{
 	private ClienteDAO clienteDao;
 	private Label lblNomeCliente;
 	private Label lblCartaoCredCliente;
+	private Label lblCartaoCredClienteValor;
 	private Label lblOrigemVoo;
 	private Label lblDestinoVoo;
 	private Label lblValorVoo;
 	private Label lblParcelasCartao;
+	private ToggleGroup buttonGroup;
+	private RadioButton aVista;
+	private RadioButton cartao;
+	private Label lblValorParcela;
 
 
 	
@@ -55,6 +60,7 @@ public class TelaCompra extends Stage{
 		clienteDao = new ClienteDAO();
 		lblNomeCliente = new Label("Nome: ");
 		lblCartaoCredCliente = new Label("N° Cartão de Crédito: ");
+		lblCartaoCredClienteValor = new Label();
 		lblOrigemVoo = new Label("Origem: ");
 		lblDestinoVoo = new Label("Origem: ");	
 		lblValorVoo = new Label("Valor: ");
@@ -74,12 +80,13 @@ public class TelaCompra extends Stage{
 		HBox hbox2 = new HBox(20);
 		HBox hbox3 = new HBox(20);
 		HBox hbox4 = new HBox(20);
+		HBox hbox5 = new HBox(20);
 		
 		
-		Scene scene = new Scene(gPane, 450, 350, Color.SILVER);
+		Scene scene = new Scene(gPane, 450, 400, Color.SILVER);
 		setScene(scene);
 		
-		Label lblCpfClientes = new Label("Clientes:");
+		Label lblCpfClientes = new Label("CPF Clientes:");
 		listClientes = new ComboBox<String>();
 		hbox1.getChildren().addAll(lblCpfClientes, listClientes);
 		
@@ -89,7 +96,7 @@ public class TelaCompra extends Stage{
 		
 		listClientes.getItems().addAll(clientes);
 		
-		Label lblVoos = new Label("Destinos:");
+		Label lblVoos = new Label("Voos ID's:");
 		listVoos = new ComboBox<String>();
 		hbox1.getChildren().addAll(lblVoos, listVoos);
 		
@@ -101,56 +108,51 @@ public class TelaCompra extends Stage{
 		}
 		
 		listVoos.getItems().addAll(voos);
-		listClientes.setOnKeyReleased(new EventHandler<Event>() {
-
-			@Override
-			public void handle(Event arg0) {
-				Cliente c = clienteDao.buscaCliente(listClientes.getValue());
-				lblNomeCliente.setText("Nome: " + c.getNome());	
-				lblCartaoCredCliente.setText("N° Cartão de Crédito: " + c.getCartaoDeCredito());
-			}
-		});
-		listClientes.setOnMouseClicked(new EventHandler<Event>() {
-
-			@Override
-			public void handle(Event arg0) {
-				Cliente c = clienteDao.buscaCliente(listClientes.getValue());
-				lblNomeCliente.setText("Nome: " + c.getNome());	
-				lblCartaoCredCliente.setText("N° Cartão de Crédito: " + c.getCartaoDeCredito());				
-			}
-		});
-
-		vbox.getChildren().addAll(lblNomeCliente, lblCartaoCredCliente);
 		
-		listVoos.setOnKeyReleased(new EventHandler<Event>() {
+		listClientes.setOnHidden(new EventHandler<Event>() {
 
 			@Override
-			public void handle(Event arg0) {
-				int id = Integer.parseInt(listVoos.getValue());
-				Voo v = vooDao.buscaVoo(id);
-				lblOrigemVoo.setText("Origem: " + v.getOrigem());
-				lblDestinoVoo.setText("Destino: " + v.getDestino());	
-				lblValorVoo.setText("Valor: R$" + v.getValor());
+			public void handle(Event event) {
+				Cliente c = clienteDao.buscaCliente(listClientes.getValue());
+				if (listClientes.getSelectionModel().getSelectedIndex() != -1) {
+					lblNomeCliente.setText("Nome: " + c.getNome());	
+					lblCartaoCredClienteValor.setText(c.getCartaoDeCredito());					
+					
+				}				
+				
+				
 			}
+			
 		});
 		
-		listVoos.setOnMouseClicked(new EventHandler<Event>() {
+		hbox5.getChildren().addAll(lblCartaoCredCliente, lblCartaoCredClienteValor);
+
+		vbox.getChildren().addAll(lblNomeCliente, hbox5);
+		
+		listVoos.setOnHidden(new EventHandler<Event>() {
 
 			@Override
-			public void handle(Event arg0) {
-				int id = Integer.parseInt(listVoos.getValue());
-				Voo v = vooDao.buscaVoo(id);
-				lblOrigemVoo.setText("Origem: " + v.getOrigem());
-				lblDestinoVoo.setText("Destino: " + v.getDestino());	
-				lblValorVoo.setText("Valor: R$" + v.getValor());				
+			public void handle(Event event) {
+				if (listVoos.getSelectionModel().getSelectedIndex() != -1) {
+					int id = Integer.parseInt(listVoos.getValue());
+					Voo v = vooDao.buscaVoo(id);
+					lblOrigemVoo.setText("Origem: " + v.getOrigem());
+					lblDestinoVoo.setText("Destino: " + v.getDestino());	
+					lblValorVoo.setText("Valor: R$ " + v.getValor());					
+					
+					
+					
+				}
+				
 			}
+			
 		});
 
 		vbox.getChildren().addAll(lblOrigemVoo, lblDestinoVoo, lblValorVoo);
 		
-		final ToggleGroup buttonGroup = new ToggleGroup();
-		final RadioButton aVista = new RadioButton("A Vista");
-		final RadioButton cartao = new RadioButton("Cartão");
+		buttonGroup = new ToggleGroup();
+		aVista = new RadioButton("A Vista");
+		cartao = new RadioButton("Cartão");
 		
 		aVista.setToggleGroup(buttonGroup);
 		cartao.setToggleGroup(buttonGroup);
@@ -161,6 +163,8 @@ public class TelaCompra extends Stage{
 			public void handle(ActionEvent event) {
 				lblParcelasCartao.setVisible(false);
 				txtParcela.setVisible(false);
+				lblValorParcela.setVisible(false);
+				txtValorParcela.setVisible(false);
 			}
 		});
 		
@@ -169,7 +173,10 @@ public class TelaCompra extends Stage{
 			@Override
 			public void handle(ActionEvent event) {
 				lblParcelasCartao.setVisible(true);
-				txtParcela.setVisible(true);				
+				txtParcela.setVisible(true);
+				lblValorParcela.setVisible(true);
+				txtValorParcela.setVisible(true);
+				
 			}
 		});
 		
@@ -180,14 +187,18 @@ public class TelaCompra extends Stage{
 		txtParcela = new TextField();
 		txtParcela.setPrefColumnCount(5);
 		txtParcela.setVisible(false);
+		
+		
 		hbox4.getChildren().addAll(aVista, cartao, lblParcelasCartao, txtParcela);
 
 		
 		
-		Label lblValorPago = new Label("R$:");
-		txtValor = new TextField();
-		txtValor.setPrefColumnCount(15);
-		hbox2.getChildren().addAll(lblValorPago, txtValor);
+		lblValorParcela = new Label("Valor Parcela R$:");
+		lblValorParcela.setVisible(false);
+		txtValorParcela = new TextField();
+		txtValorParcela.setVisible(false);
+		txtValorParcela.setPrefColumnCount(6);
+		hbox2.getChildren().addAll(lblValorParcela, txtValorParcela);
 		
 				
 		Button btnComprar = new Button("Comprar");
@@ -205,7 +216,7 @@ public class TelaCompra extends Stage{
 						hide();
 					}					
 					
-				}else if(buttonGroup.getSelectedToggle().equals(cartao)){
+				} else if (buttonGroup.getSelectedToggle().equals(cartao)){
 					if (vooDao.quantPass(voo)) {
 						JOptionPane.showMessageDialog(null, "No cartão - Venda realizada com sucesso!");
 						hide();
@@ -228,6 +239,7 @@ public class TelaCompra extends Stage{
 			}
 			
 		});
+		
 		hbox3.getChildren().addAll(btnComprar, btnCancelar);
 		hbox3.setAlignment(Pos.CENTER);
 		
