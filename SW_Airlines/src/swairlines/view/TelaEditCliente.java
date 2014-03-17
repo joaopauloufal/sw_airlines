@@ -24,8 +24,8 @@ import javafx.stage.Stage;
 public class TelaEditCliente extends Stage {
 	
 	private TextField txtNome;
-	private TextField txtCpfCnpj;
-	private Label lblRgValor;
+	private Label lblCpfCnpjValor;
+	private TextField txtRgValor;
 	private TextField txtPassaporte;
 	private ComboBox<String> listSexo;
 	private TextField txtNacionalidade;
@@ -77,13 +77,12 @@ public class TelaEditCliente extends Stage {
 		hbox1.getChildren().addAll(lblNome, txtNome);		
 		
 		Label lblCpfCnpj = new Label("CPF/CNPJ:");
-		txtCpfCnpj = new TextField();
-		txtCpfCnpj.setText(cliente.getCpfCnpj());
-		hbox2.getChildren().addAll(lblCpfCnpj, txtCpfCnpj);		
+		lblCpfCnpjValor = new Label(cliente.getCpfCnpj());
+		hbox2.getChildren().addAll(lblCpfCnpj, lblCpfCnpjValor);		
 		
 		Label lblRg = new Label("RG:");
-		lblRgValor = new Label(cliente.getRg());
-		hbox3.getChildren().addAll(lblRg, lblRgValor);
+		txtRgValor = new TextField(cliente.getRg());
+		hbox3.getChildren().addAll(lblRg, txtRgValor);
 		
 		Label lblSexo = new Label("Sexo:");
 		listSexo = new ComboBox<String>();
@@ -167,7 +166,7 @@ public class TelaEditCliente extends Stage {
 			public void handle(ActionEvent event) {
 				ClienteDAO clienteDao = new ClienteDAO();
 				Endereco endereco = new Endereco(txtRua.getText(), txtCidade.getText(), txtBairro.getText(), txtNumero.getText(), txtEstado.getText());
-				Cliente cliente  = new Cliente(txtNome.getText(), txtCpfCnpj.getText(), listSexo.getValue(), lblRgValor.getText(), txtDataDeNascimento.getText(), listEstadoCivil.getValue(), txtNacionalidade.getText(), txtTelefoneCelular.getText(), txtTelefoneResidencial.getText(), txtCartaoDeCredito.getText(), txtPassaporte.getText(), endereco);
+				Cliente cliente  = new Cliente(txtNome.getText(), lblCpfCnpjValor.getText(), listSexo.getValue(), txtRgValor.getText(), txtDataDeNascimento.getText(), listEstadoCivil.getValue(), txtNacionalidade.getText(), txtTelefoneCelular.getText(), txtTelefoneResidencial.getText(), txtCartaoDeCredito.getText(), txtPassaporte.getText(), endereco);
 				if (clienteDao.alteraCliente(cliente)) {
 					JOptionPane.showMessageDialog(null, "Cliente atualizado com sucesso!", "Atulaização Cliente", JOptionPane.INFORMATION_MESSAGE);
 					hide();
