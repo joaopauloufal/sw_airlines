@@ -24,8 +24,10 @@ import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
 import swairlines.dao.ClienteDAO;
+import swairlines.dao.VendaDAO;
 import swairlines.dao.VooDAO;
 import swairlines.model.Cliente;
+import swairlines.model.Venda;
 import swairlines.model.Voo;
 
 public class TelaCompra extends Stage {
@@ -70,7 +72,7 @@ public class TelaCompra extends Stage {
 		lblOrigemVooValor = new Label();
 		lblDestinoVoo = new Label("Destino: ");
 		lblDestinoVooValor = new Label();
-		lblValorVoo = new Label("Valor: ");
+		lblValorVoo = new Label("Valor R$: ");
 		lblValorVooPreco = new Label();
 		
 	
@@ -243,19 +245,27 @@ public class TelaCompra extends Stage {
 			
 			@Override
 			public void handle(ActionEvent event) {
+				VendaDAO vendaDao = new VendaDAO();
+				VooDAO vooDao = new VooDAO();
+				Cliente cliente = new Cliente();
+				cliente.setCpfCnpj(listClientes.getValue());
 				
 				if (buttonGroup.getSelectedToggle().equals(aVista)) {
-					if (vooDao.quantPass(voo)) {
+					Venda venda = new Venda("À Vista", voo, cliente);		
+					if (vendaDao.insereVenda(venda)) {
 						JOptionPane.showMessageDialog(null, "A vista - Venda realizada com sucesso!");
+						vooDao.quantPass(voo);
 						hide();
 					} else {
 						JOptionPane.showMessageDialog(null, "Erro na compra", "Erro", JOptionPane.ERROR_MESSAGE);
 						hide();
-					}					
+					}				
 					
 				} else if (buttonGroup.getSelectedToggle().equals(cartao)){
-					if (vooDao.quantPass(voo)) {
+					Venda venda = new Venda("Cartão", voo, cliente, Integer.parseInt(txtParcela.getText()), Float.parseFloat(lblValorParcela.getText()));
+					if (vendaDao.insereVenda(venda)) {
 						JOptionPane.showMessageDialog(null, "No cartão - Venda realizada com sucesso!");
+						vooDao.quantPass(voo);
 						hide();
 					} else {
 						JOptionPane.showMessageDialog(null, "Erro na compra", "Erro", JOptionPane.ERROR_MESSAGE);
