@@ -165,7 +165,7 @@ public class ConexaoDAO implements ConexaoBDMySql {
 				+ " bairro VARCHAR(80) NOT NULL,"
 				+ " numero VARCHAR(20) NOT NULL,"
 				+ " estado VARCHAR(80) NOT NULL,"
-				+ " PRIMARY KEY (rg),"
+				+ " PRIMARY KEY (cpfcnpj),"
 				+ " UNIQUE (rg, cpfcnpj))"
 	            + " ENGINE = InnoDB"
 	            + " DEFAULT CHARACTER SET = utf8;";
@@ -176,14 +176,14 @@ public class ConexaoDAO implements ConexaoBDMySql {
 	
 	private void criarTabelaVendas() throws SQLException {
 		sql = "CREATE TABLE IF NOT EXISTS sw_airlines.vendas("
-				+ " rg_cliente VARCHAR(40) NOT NULL,"
+				+ " cpf_cliente VARCHAR(40) NOT NULL,"
 				+ " id_voo_venda INT NOT NULL,"
 				+ " tipo_venda VARCHAR(40) NOT NULL,"
 				+ " data_venda VARCHAR(40) NOT NULL,"
-				+ " PRIMARY KEY (rg_cliente, id_voo_venda), "
-				+ " CONSTRAINT rg_cliente_rg"
-				+ " FOREIGN KEY (rg_cliente)"
-				+ " REFERENCES sw_airlines.cliente (rg)"
+				+ " PRIMARY KEY (cpf_cliente, id_voo_venda), "
+				+ " CONSTRAINT cpf_cliente_cpfcnpj"
+				+ " FOREIGN KEY (cpf_cliente)"
+				+ " REFERENCES sw_airlines.cliente (cpfcnpj)"
 				+ " ON DELETE CASCADE,"
 				+ " CONSTRAINT id_voo_id"
 				+ " FOREIGN KEY (id_voo_venda)"

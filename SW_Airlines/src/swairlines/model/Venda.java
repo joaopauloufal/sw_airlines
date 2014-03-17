@@ -12,7 +12,7 @@ public class Venda {
 	private Cliente cliente;
 	private String dataVenda;
 	
-	public Venda(String tipoVenda, Voo voo, Cliente cliente) {
+	public Venda (String tipoVenda, Voo voo, Cliente cliente) {
 		Date dataHoraAtual = new Date();
 		SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyy HH:mm");
 		if (tipoVenda.equals(Venda.TIPO_VENDA_A_VISTA)) {
@@ -23,6 +23,10 @@ public class Venda {
 		this.voo = voo;
 		this.cliente = cliente;
 		this.dataVenda = sd.format(dataHoraAtual);
+		
+	}
+	
+	public Venda() {
 		
 	}
 

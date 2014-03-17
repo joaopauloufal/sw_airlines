@@ -98,9 +98,9 @@ public class TelaCompra extends Stage {
 		Scene scene = new Scene(gPane, 500, 400, Color.SILVER);
 		setScene(scene);
 		
-		Label lblRgClientes = new Label("RG Clientes:");
+		Label lblCpfClientes = new Label("CPF Clientes:");
 		listClientes = new ComboBox<String>();
-		hbox1.getChildren().addAll(lblRgClientes, listClientes);
+		hbox1.getChildren().addAll(lblCpfClientes, listClientes);
 		
 		btnCalcular = new Button("Calcular");
 		btnCalcular.setOnAction(new EventHandler<ActionEvent>() {
@@ -122,7 +122,7 @@ public class TelaCompra extends Stage {
 		});
 		
 		for (Cliente c : clienteDao.buscaClientes()) {
-			clientes.add(c.getRg());
+			clientes.add(c.getCpfCnpj());
 		}
 		
 		listClientes.getItems().addAll(clientes);
@@ -144,7 +144,7 @@ public class TelaCompra extends Stage {
 
 			@Override
 			public void handle(Event event) {
-				Cliente c = clienteDao.buscaClientePorRg(listClientes.getValue());
+				Cliente c = clienteDao.buscaClientePorCpf(listClientes.getValue());
 				if (listClientes.getSelectionModel().getSelectedIndex() != -1) {
 					lblNomeClienteValor.setText(c.getNome());	
 					lblCartaoCredClienteValor.setText(c.getCartaoDeCredito());					
