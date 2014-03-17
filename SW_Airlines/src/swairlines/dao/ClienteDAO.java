@@ -35,7 +35,7 @@ public class ClienteDAO implements ConsultasBancoCliente {
 	public boolean excluiCliente(Cliente cliente) {
 		try {
 			ConexaoDAO cbd = new ConexaoDAO();
-			cbd.executar("DELETE FROM sw_airlines.cliente WHERE rg= '" + cliente.getRg()+"';");
+			cbd.executar("DELETE FROM sw_airlines.cliente WHERE cpfcnpj= '" + cliente.getCpfCnpj()+"';");
 			return true;
 			
 			
@@ -50,8 +50,8 @@ public class ClienteDAO implements ConsultasBancoCliente {
 	public boolean alteraCliente(Cliente cliente) {
 		try {
 			ConexaoDAO cbd = new ConexaoDAO();
-			cbd.executar("UPDATE sw_airlines.cliente SET cpfcnpj='" + cliente.getCpfCnpj() +"', nome='" + cliente.getNome() +"', sexo='" + cliente.getSexo() + "', passaporte_numero='" + cliente.getPassaporteNumero() +"', data_de_nascimento='" + cliente.getDataDeNascimento() +"', estado_civil='" + cliente.getEstadoCivil() +"', nacionalidade='" + cliente.getNacionalidade() +"', telefone_celular='" + cliente.getTelefoneCelular() +"', telefone_residencial='" + cliente.getTelefoneResidencial() +"', cartao_de_credito='" + cliente.getCartaoDeCredito()
-					+ "', rua='" + cliente.getEndereco().getRua() +"', cidade='"+ cliente.getEndereco().getCidade() +"', bairro='"+ cliente.getEndereco().getBairro() +"', numero='" + cliente.getEndereco().getNumero() +"', estado='" + cliente.getEndereco().getEstado() +"' WHERE rg='" + cliente.getRg() +"';");
+			cbd.executar("UPDATE sw_airlines.cliente SET rg='" + cliente.getRg() +"', nome='" + cliente.getNome() +"', sexo='" + cliente.getSexo() + "', passaporte_numero='" + cliente.getPassaporteNumero() +"', data_de_nascimento='" + cliente.getDataDeNascimento() +"', estado_civil='" + cliente.getEstadoCivil() +"', nacionalidade='" + cliente.getNacionalidade() +"', telefone_celular='" + cliente.getTelefoneCelular() +"', telefone_residencial='" + cliente.getTelefoneResidencial() +"', cartao_de_credito='" + cliente.getCartaoDeCredito()
+					+ "', rua='" + cliente.getEndereco().getRua() +"', cidade='"+ cliente.getEndereco().getCidade() +"', bairro='"+ cliente.getEndereco().getBairro() +"', numero='" + cliente.getEndereco().getNumero() +"', estado='" + cliente.getEndereco().getEstado() +"' WHERE cpfcnpj='" + cliente.getCpfCnpj() +"';");
 			return true;
 			
 		} catch (SQLException ex) {
