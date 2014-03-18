@@ -34,7 +34,7 @@ public class Venda {
 		
 	}
 	
-	public Venda (String tipoVenda, int idVoo, String origemVoo, String destinoVoo, Double valorVoo, String nomeCliente, String cpfcnpjCliente) {
+	public Venda (String tipoVenda, int idVoo, String origemVoo, String destinoVoo, Double valorVoo, String nomeCliente, String cpfcnpjCliente, String cartaoCreditoCliente) {
 		Date dataHoraAtual = new Date();
 		SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyy HH:mm");
 		this.tipoVenda = tipoVenda;
@@ -45,6 +45,8 @@ public class Venda {
 		this.nomeCliente = nomeCliente;
 		this.cpfCnpjCliente = cpfcnpjCliente;
 		this.idVoo = idVoo;
+		this.parcelas = 1;
+		this.cartaoCreditoCliente = cartaoCreditoCliente;
 	}
 	
 	public Venda() {

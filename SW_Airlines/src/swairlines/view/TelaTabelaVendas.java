@@ -101,6 +101,24 @@ public class TelaTabelaVendas extends BorderPane {
 		});
 		
 		Button btnAlterarVenda = new Button("Alterar Venda...");
+		btnAlterarVenda.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				if (tableView.getSelectionModel().getSelectedIndex() != -1) {
+					Venda venda = dados.get(tableView.getSelectionModel().getSelectedIndex());
+					if (venda.getCartaoCreditoCliente() == null) {
+						JOptionPane.showMessageDialog(null, "Não é possível alterar o tipo da venda. Cliente não possui cartão de crédito", "Alteração de Vendas", JOptionPane.WARNING_MESSAGE);
+					} else {
+						TelaEditVenda tela = new TelaEditVenda(venda);
+						tela.setTitle("Alterar Venda");
+					}
+					
+				}
+				
+			}
+			
+		});
 		
 		tableView.getColumns().addAll(vooColuna, origemVooColuna, destinoVooColuna, tipoVendaColuna, valorVooColuna, dataHoraVenda, cpfCnpjClienteColuna, nomeClienteColuna, cartaoClienteColuna, parcelasColuna, valorParcelasColuna);
 		tableView.setFocusTraversable(false);

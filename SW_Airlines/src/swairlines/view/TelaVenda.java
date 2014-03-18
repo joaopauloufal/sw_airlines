@@ -111,10 +111,14 @@ public class TelaVenda extends Stage {
 			public void handle(ActionEvent event) {
 				try {
 					float resultado = Float.parseFloat(lblValorVooPreco.getText()) / Integer.parseInt(txtParcela.getText());
-					lblValorParcela.setText(String.valueOf(resultado));
+					if (Float.isInfinite(resultado) || txtParcela.getText().equals("1")) {
+						JOptionPane.showMessageDialog(null, "Número de Parcelas não pode ser 0 e nem 1.", "Erro no Campo Parcelas", JOptionPane.WARNING_MESSAGE);
+					} else {
+						lblValorParcela.setText(String.valueOf(resultado));
+					}
 					
 				} catch (NumberFormatException n){
-					JOptionPane.showMessageDialog(null, "Verifique se existe algum campo em branco.", "Erro ao calcular", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Digite somente números no campo (Parcelas)", "Erro ao calcular", JOptionPane.ERROR_MESSAGE);
 					
 				}
 				
@@ -149,9 +153,15 @@ public class TelaVenda extends Stage {
 				Cliente c = clienteDao.buscaClientePorCpf(listClientes.getValue());
 				if (listClientes.getSelectionModel().getSelectedIndex() != -1) {
 					lblNomeClienteValor.setText(c.getNome());	
-					lblCartaoCredClienteValor.setText(c.getCartaoDeCredito());					
+					lblCartaoCredClienteValor.setText(c.getCartaoDeCredito());
+					if (lblCartaoCredClienteValor.getText() == null) {
+						cartao.setVisible(false);
+					} else {
+						cartao.setVisible(true);
+					}
 					
-				}				
+				}
+				
 				
 				
 			}
@@ -188,7 +198,7 @@ public class TelaVenda extends Stage {
 		vbox.getChildren().addAll(hbox8, hbox9, hbox6);
 		
 		buttonGroup = new ToggleGroup();
-		aVista = new RadioButton("A Vista");
+		aVista = new RadioButton("À Vista");
 		cartao = new RadioButton("Cartão");
 		
 		aVista.setToggleGroup(buttonGroup);
@@ -240,18 +250,16 @@ public class TelaVenda extends Stage {
 		hbox2.getChildren().addAll(lblParcela, lblValorParcela, btnCalcular);
 		
 				
-		Button btnComprar = new Button("Comprar");
+		Button btnComprar = new Button("Finalizar Compra");
 		btnComprar.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
 			public void handle(ActionEvent event) {
 				VendaDAO vendaDao = new VendaDAO();
 				VooDAO vooDao = new VooDAO();
-				Cliente cliente = new Cliente();
-				cliente.setCpfCnpj(listClientes.getValue());
 				
 				if (buttonGroup.getSelectedToggle().equals(aVista)) {
-					Venda venda = new Venda("À Vista", Integer.parseInt(listVoos.getValue()), lblOrigemVooValor.getText(), lblDestinoVooValor.getText(), Double.parseDouble(lblValorVooPreco.getText()), lblNomeClienteValor.getText(), listClientes.getValue());		
+					Venda venda = new Venda("À Vista", Integer.parseInt(listVoos.getValue()), lblOrigemVooValor.getText(), lblDestinoVooValor.getText(), Double.parseDouble(lblValorVooPreco.getText()), lblNomeClienteValor.getText(), listClientes.getValue(), lblCartaoCredClienteValor.getText());		
 					if (vendaDao.insereVenda(venda)) {
 						JOptionPane.showMessageDialog(null, "A vista - Venda realizada com sucesso!");
 						vooDao.quantPass(voo);
