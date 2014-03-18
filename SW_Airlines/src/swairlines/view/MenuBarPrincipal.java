@@ -122,7 +122,7 @@ public class MenuBarPrincipal extends MenuBar {
 		menuRealizarCompra.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				TelaCompra tela = new TelaCompra();
+				TelaVenda tela = new TelaVenda();
 				tela.setTitle("Venda de Passagens");
 				
 			}
@@ -178,9 +178,19 @@ public class MenuBarPrincipal extends MenuBar {
 			}
 			
 		});
-		MenuItem listarCompras = new MenuItem("Listar Compras");
+		MenuItem listarVendas = new MenuItem("Listar Vendas");
+		listarVendas.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				Main.alterarTela(new TelaTabelaVendas(f));
+				
+			}
+			
+		});
 		
-		menuListar.getItems().addAll(itemListarContasDeUsuario, itemListarClientes, itemListarFuncionarios, listarCompras);
+		
+		menuListar.getItems().addAll(itemListarContasDeUsuario, itemListarClientes, itemListarFuncionarios, listarVendas);
 		
 		getMenus().addAll(menuArquivo, menuCadastro, menuEditar, menuListar, menuCompra, menuVoo, menuSobre);
 		

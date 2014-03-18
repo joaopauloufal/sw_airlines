@@ -19,10 +19,12 @@ public class FuncionarioDAO implements ConsultasBancoFuncionario {
 	public boolean insereFuncionario(Funcionario f1) {
 		try {
 			ConexaoDAO cbd = new ConexaoDAO();
-			cbd.executar("INSERT INTO sw_airlines.funcionario(cpf, nome, sexo, rg, cargo, data_de_nascimento, estado_civil, nacionalidade, telefone_celular, telefone_residencial, rua, cidade, bairro, numero, estado) " +
+			if(cbd.executar("INSERT INTO sw_airlines.funcionario(cpf, nome, sexo, rg, cargo, data_de_nascimento, estado_civil, nacionalidade, telefone_celular, telefone_residencial, rua, cidade, bairro, numero, estado) " +
 					"VALUES('" + f1.getCpf() +"','" + f1.getNome() +"','" + f1.getSexo() +"','" + f1.getRg() +"','" + f1.getCargo() +"','" + f1.getDataDeNascimento() +"','" + f1.getEstadoCivil() +"','" + f1.getNacionalidade() +"','" + f1.getTelefoneCelular() +"','" + f1.getTelefoneResidencial() + "','" 
-					+ f1.getEndereco().getRua() + "','" + f1.getEndereco().getCidade() + "','" + f1.getEndereco().getBairro() + "','" + f1.getEndereco().getNumero() + "','" + f1.getEndereco().getEstado() + "');");
-			return true;
+					+ f1.getEndereco().getRua() + "','" + f1.getEndereco().getCidade() + "','" + f1.getEndereco().getBairro() + "','" + f1.getEndereco().getNumero() + "','" + f1.getEndereco().getEstado() + "');")) {
+				return true;
+			}
+			
 			
 			
 		} catch (SQLException ex) {
@@ -35,8 +37,10 @@ public class FuncionarioDAO implements ConsultasBancoFuncionario {
 	public boolean excluiFuncionario(Funcionario f1) {
 		try {
 			ConexaoDAO cbd = new ConexaoDAO();
-			cbd.executar("DELETE FROM sw_airlines.funcionario WHERE cpf= '" + f1.getCpf() +"';");
-			return true;
+			if(cbd.executar("DELETE FROM sw_airlines.funcionario WHERE cpf= '" + f1.getCpf() +"';")) {
+				return true;
+			}
+			
 			
 			
 		} catch (SQLException ex) {
@@ -51,9 +55,11 @@ public class FuncionarioDAO implements ConsultasBancoFuncionario {
 	public boolean alteraFuncionario(Funcionario f1) {
 		try {
 			ConexaoDAO cbd = new ConexaoDAO();
-			cbd.executar("UPDATE sw_airlines.funcionario set nome='" + f1.getNome() +"', sexo='" + f1.getSexo() +"', rg='" + f1.getRg() +"', cargo='" + f1.getCargo() +"', data_de_nascimento='" + f1.getDataDeNascimento() +"', estado_civil='" + f1.getEstadoCivil() +"', nacionalidade='" + f1.getNacionalidade() +"', telefone_celular='" + f1.getTelefoneCelular() +"', telefone_residencial='" + f1.getTelefoneResidencial() 
-					+"', rua='" + f1.getEndereco().getRua() +"', cidade='" + f1.getEndereco().getCidade() +"', bairro='" + f1.getEndereco().getBairro() +"', numero='" + f1.getEndereco().getNumero() +"', estado='"+ f1.getEndereco().getEstado() +"' WHERE cpf='" + f1.getCpf() +"';");
-			return true;
+			if(cbd.executar("UPDATE sw_airlines.funcionario set nome='" + f1.getNome() +"', sexo='" + f1.getSexo() +"', rg='" + f1.getRg() +"', cargo='" + f1.getCargo() +"', data_de_nascimento='" + f1.getDataDeNascimento() +"', estado_civil='" + f1.getEstadoCivil() +"', nacionalidade='" + f1.getNacionalidade() +"', telefone_celular='" + f1.getTelefoneCelular() +"', telefone_residencial='" + f1.getTelefoneResidencial() 
+					+"', rua='" + f1.getEndereco().getRua() +"', cidade='" + f1.getEndereco().getCidade() +"', bairro='" + f1.getEndereco().getBairro() +"', numero='" + f1.getEndereco().getNumero() +"', estado='"+ f1.getEndereco().getEstado() +"' WHERE cpf='" + f1.getCpf() +"';")) {
+				return true;
+			}
+			
 			
 		} catch (SQLException ex) {
 			Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);

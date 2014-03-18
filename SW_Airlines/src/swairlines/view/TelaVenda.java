@@ -30,7 +30,7 @@ import swairlines.model.Cliente;
 import swairlines.model.Venda;
 import swairlines.model.Voo;
 
-public class TelaCompra extends Stage {
+public class TelaVenda extends Stage {
 	
 	private Label lblValorParcela;
 	private TextField txtParcela;
@@ -57,7 +57,7 @@ public class TelaCompra extends Stage {
 	private Button btnCalcular;
 
 	
-	public TelaCompra() {
+	public TelaVenda() {
 		
 		ObservableList<String> voos;
 		voos = FXCollections.observableArrayList();		
@@ -251,7 +251,7 @@ public class TelaCompra extends Stage {
 				cliente.setCpfCnpj(listClientes.getValue());
 				
 				if (buttonGroup.getSelectedToggle().equals(aVista)) {
-					Venda venda = new Venda("À Vista", voo, cliente);		
+					Venda venda = new Venda("À Vista", Integer.parseInt(listVoos.getValue()), lblOrigemVooValor.getText(), lblDestinoVooValor.getText(), Double.parseDouble(lblValorVooPreco.getText()), lblNomeClienteValor.getText(), listClientes.getValue());		
 					if (vendaDao.insereVenda(venda)) {
 						JOptionPane.showMessageDialog(null, "A vista - Venda realizada com sucesso!");
 						vooDao.quantPass(voo);
@@ -262,7 +262,7 @@ public class TelaCompra extends Stage {
 					}				
 					
 				} else if (buttonGroup.getSelectedToggle().equals(cartao)){
-					Venda venda = new Venda("Cartão", voo, cliente, Integer.parseInt(txtParcela.getText()), Float.parseFloat(lblValorParcela.getText()));
+					Venda venda = new Venda("Cartão", Integer.parseInt(listVoos.getValue()), lblOrigemVooValor.getText(), lblDestinoVooValor.getText(), lblNomeClienteValor.getText(), listClientes.getValue(), Integer.parseInt(txtParcela.getText()), Double.parseDouble(lblValorParcela.getText()), Double.parseDouble(lblValorVooPreco.getText()), lblCartaoCredClienteValor.getText());
 					if (vendaDao.insereVenda(venda)) {
 						JOptionPane.showMessageDialog(null, "No cartão - Venda realizada com sucesso!");
 						vooDao.quantPass(voo);

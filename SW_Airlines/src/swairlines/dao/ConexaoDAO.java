@@ -92,7 +92,6 @@ public class ConexaoDAO implements ConexaoBDMySql {
 				+ " PRIMARY KEY (id)) "
 	            + " ENGINE = InnoDB "
 	            + " DEFAULT CHARACTER SET = utf8;";
-		abreConexao();
 		executar(sql);	
 	}
 	
@@ -109,7 +108,7 @@ public class ConexaoDAO implements ConexaoBDMySql {
 				+ "	CONSTRAINT fk_cpf_usuario"
 				+ " FOREIGN KEY (cpf_func)"
 				+ " REFERENCES sw_airlines.funcionario (cpf)"
-				+ " ON DELETE CASCADE)"
+				+ " ON DELETE CASCADE ON UPDATE CASCADE)"
 	            + " ENGINE = InnoDB "
 	            + " DEFAULT CHARACTER SET = utf8;";
 		abreConexao();
@@ -140,7 +139,6 @@ public class ConexaoDAO implements ConexaoBDMySql {
 				+ " UNIQUE (cpf))"
 	            + " ENGINE = InnoDB"
 	            + " DEFAULT CHARACTER SET = utf8;" ;
-		abreConexao();
 		executar(sql);
 		sql = "INSERT IGNORE sw_airlines.funcionario(cpf, nome, sexo, rg, cargo, data_de_nascimento, estado_civil, nacionalidade, telefone_celular, telefone_residencial, rua, cidade, bairro, numero, estado) "
 				+ "VALUES('000.000.000-00', 'admin', 'anônimo', '0000000-0', 'Gerente', '00/00/0000', 'anônimo', 'anônimo', '0000', '0000', 'anônimo', 'anônimo', 'anônimo', 'anônimo', 'anônimo');";
@@ -169,7 +167,6 @@ public class ConexaoDAO implements ConexaoBDMySql {
 				+ " UNIQUE (rg, cpfcnpj))"
 	            + " ENGINE = InnoDB"
 	            + " DEFAULT CHARACTER SET = utf8;";
-		abreConexao();
 		executar(sql);
 		
 	}
@@ -177,21 +174,27 @@ public class ConexaoDAO implements ConexaoBDMySql {
 	private void criarTabelaVendas() throws SQLException {
 		sql = "CREATE TABLE IF NOT EXISTS sw_airlines.vendas("
 				+ " cpf_cliente VARCHAR(40) NOT NULL,"
+				+ " nome_cliente VARCHAR(80) NOT NULL,"
+				+ " cartao_cliente VARCHAR(80) NOT NULL,"
 				+ " id_voo_venda INT NOT NULL,"
 				+ " tipo_venda VARCHAR(40) NOT NULL,"
 				+ " data_venda VARCHAR(40) NOT NULL,"
+				+ " parcelas INT(20),"
+				+ " valor_parcela DOUBLE(15,2),"
+				+ " valor_voo DOUBLE(15,2) NOT NULL,"
+				+ " origem_voo VARCHAR(80) NOT NULL,"
+				+ " destino_voo VARCHAR(80) NOT NULL,"				
 				+ " PRIMARY KEY (cpf_cliente, id_voo_venda), "
 				+ " CONSTRAINT cpf_cliente_cpfcnpj"
 				+ " FOREIGN KEY (cpf_cliente)"
 				+ " REFERENCES sw_airlines.cliente (cpfcnpj)"
-				+ " ON DELETE CASCADE,"
+				+ " ON DELETE CASCADE ON UPDATE CASCADE,"
 				+ " CONSTRAINT id_voo_id"
 				+ " FOREIGN KEY (id_voo_venda)"
 				+ " REFERENCES sw_airlines.voo (id)"
-				+ " ON DELETE CASCADE)"
+				+ " ON DELETE CASCADE ON UPDATE CASCADE)"
 				+ " ENGINE = InnoDB"
 				+ " DEFAULT CHARACTER SET = utf8;";
-		abreConexao();
 		executar(sql);
 	}
 	

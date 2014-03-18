@@ -9,9 +9,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import swairlines.model.Cliente;
 import swairlines.model.Venda;
-import swairlines.model.Voo;
 
 public class VendaDAO implements ConsultasBancoVenda {
 
@@ -19,9 +17,11 @@ public class VendaDAO implements ConsultasBancoVenda {
 	public boolean insereVenda(Venda venda) {
 		try {
 			ConexaoDAO conDao = new ConexaoDAO();
-			conDao.executar("INSERT INTO sw_airlines.vendas (cpf_cliente, id_voo_venda, tipo_venda, data_venda) " + 
-			"VALUES('"+ venda.getCliente().getCpfCnpj() +"','" + venda.getVoo().getId() +"','" + venda.getTipoVenda() + "','" + venda.getDataVenda() +"');");
-			return true;
+			if(conDao.executar("INSERT INTO sw_airlines.vendas (cpf_cliente, nome_cliente, cartao_cliente, id_voo_venda, tipo_venda, data_venda, parcelas, valor_parcela, valor_voo, origem_voo, destino_voo) " + 
+			"VALUES('"+ venda.getCpfCnpjCliente() +"','" + venda.getNomeCliente() +"','" + venda.getCartaoCreditoCliente() + "','" + venda.getIdVoo() +"','"+ venda.getTipoVenda() + "','" + venda.getDataVenda() + "','" + venda.getParcelas() + "','" + venda.getValorParcela() + "','" + venda.getValorVoo() + "','" + venda.getOrigemVoo() + "','" + venda.getDestinoVoo() +"');")) {
+				return true;
+			}
+			
 			
 		} catch (SQLException ex) {
 			Logger.getLogger(VendaDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -33,8 +33,10 @@ public class VendaDAO implements ConsultasBancoVenda {
 	public boolean excluiVenda(Venda venda) {
 		try {
 			ConexaoDAO conDao = new ConexaoDAO();
-			conDao.executar("DELETE FROM sw_airlines.vendas WHERE id_voo_venda='" + venda.getVoo().getId() + "';");
-			return true;
+			if(conDao.executar("DELETE FROM sw_airlines.vendas WHERE id_voo_venda='" + venda.getIdVoo() + "';")) {
+				return true;
+			}
+			
 			
 		} catch (SQLException ex) {
 			Logger.getLogger(VendaDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -46,8 +48,10 @@ public class VendaDAO implements ConsultasBancoVenda {
 	public boolean alteraVenda(Venda venda) {
 		try {
 			ConexaoDAO conDao = new ConexaoDAO();
-			conDao.executar("UPDATE sw_airlines.vendas SET cpf_cliente='" + venda.getCliente().getRg() + "', tipo_venda='" + venda.getTipoVenda() + "', data_venda='" + venda.getDataVenda() + "' WHERE id_voo_venda='" + venda.getVoo().getId() + "';");
-			return true;
+			if(conDao.executar("UPDATE sw_airlines.vendas SET cpf_cliente='" + venda.getCpfCnpjCliente() + "', tipo_venda='" + venda.getTipoVenda() + "', data_venda='" + venda.getDataVenda() + "', parcelas='" + venda.getParcelas() + "', valor_parcela='" + venda.getValorParcela() + "', valor_voo='" + venda.getValorVoo() +"', origem_voo='" + venda.getOrigemVoo() + "', destino_voo='" + venda.getDestinoVoo() + "' WHERE id_voo_venda='" + venda.getIdVoo() + "';")) {
+				return true;
+			}
+			
 			
 		} catch (SQLException ex) {
 			Logger.getLogger(VendaDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -62,19 +66,22 @@ public class VendaDAO implements ConsultasBancoVenda {
 		ConexaoDAO conDao = new ConexaoDAO();
 		try {
 			Connection con = conDao.abreConexao();
-			PreparedStatement stm = con.prepareStatement("SELECT * FROM sw_airlines.clientes;");
+			PreparedStatement stm = con.prepareStatement("SELECT * FROM sw_airlines.vendas;");
 			ResultSet rs = stm.executeQuery();
 			
 			while (rs.next()) {
 				Venda venda = new Venda();
-				Voo voo = new Voo();
-				Cliente cliente = new Cliente();
-				cliente.setRg(rs.getString("cpf_cliente"));
-				voo.setId(rs.getInt("id_voo_venda"));
+				venda.setCpfCnpjCliente(rs.getString("cpf_cliente"));
+				venda.setNomeCliente(rs.getString("nome_cliente"));
+				venda.setCartaoCreditoCliente(rs.getString("cartao_cliente"));
+				venda.setIdVoo(rs.getInt("id_voo_venda"));
 				venda.setTipoVenda(rs.getString("tipo_venda"));
-				venda.setDataVenda("data_venda");
-				venda.setVoo(voo);
-				venda.setCliente(cliente);
+				venda.setDataVenda(rs.getString("data_venda"));
+				venda.setParcelas(rs.getInt("parcelas"));
+				venda.setValorParcela(rs.getDouble("valor_parcela"));
+				venda.setValorVoo(rs.getDouble("valor_voo"));
+				venda.setOrigemVoo(rs.getString("origem_voo"));
+				venda.setDestinoVoo(rs.getString("destino_voo"));
 				vendas.add(venda);
 			}
 			rs.close();
