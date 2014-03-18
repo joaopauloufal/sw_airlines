@@ -122,9 +122,9 @@ public class MenuBarPrincipal extends MenuBar {
 		menuRealizarCompra.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
-				TelaVenda tela = new TelaVenda();
-				tela.setTitle("Venda de Passagens");
-				
+//				TelaVenda tela = new TelaVenda();
+//				tela.setTitle("Venda de Passagens");
+//				
 			}
 
 		
@@ -183,7 +183,7 @@ public class MenuBarPrincipal extends MenuBar {
 
 			@Override
 			public void handle(ActionEvent event) {
-				Main.alterarTela(new TelaTabelaVendas(f));
+//				Main.alterarTela(new TelaTabelaVendas(f));
 				
 			}
 			

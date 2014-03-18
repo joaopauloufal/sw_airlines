@@ -1,9 +1,5 @@
 package swairlines.view;
 
-import javax.swing.JOptionPane;
-
-import swairlines.dao.VooDAO;
-import swairlines.model.Voo;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -19,6 +15,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import javax.swing.JOptionPane;
+
+import swairlines.dao.VooDAO;
+import swairlines.model.Voo;
 
 public class TelaCadVoo extends Stage {
 	
@@ -101,16 +102,27 @@ public class TelaCadVoo extends Stage {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				VooDAO vooDao = new VooDAO();
-				Voo v1 = new Voo(txtOrigem.getText(), txtDestino.getText(), txtRota.getText(), txtHoraPartida.getText(), txtHoraChegada.getText(), txtDataPartida.getText(), txtDataChegada.getText(), listTipoVoo.getValue(), Double.parseDouble(txtValor.getText()));
-				if(vooDao.insereVoo(v1)){
-					JOptionPane.showMessageDialog(null, "Voo cadastrado com sucesso!", "Cadastro Voo", JOptionPane.INFORMATION_MESSAGE);
-					hide();
-				} else {
-					JOptionPane.showMessageDialog(null, "Erro ao cadastrar!", "Erro", JOptionPane.ERROR_MESSAGE);
-					hide();
-				}
 				
+				String  padrao  =  ("(0[1-9]|[12][0-9]|3[01])[-  /.](0[1-9]|[0-9]|1[012])[-  /.]((19|20)\\d\\d)");
+
+				if ((txtDataPartida.getText().matches(padrao) == false) && (txtDataChegada.getText().matches(padrao) == false)) {
+					System.out.println("invalido");
+					JOptionPane.showMessageDialog(null, "Error, formato da data deve ser 00/00/0000", "Error, formato da data", JOptionPane.ERROR_MESSAGE);					
+					
+				} else {
+					System.out.println("valido");
+					
+					VooDAO vooDao = new VooDAO();
+					Voo v1 = new Voo(txtOrigem.getText(), txtDestino.getText(), txtRota.getText(), txtHoraPartida.getText(), txtHoraChegada.getText(), txtDataPartida.getText(), txtDataChegada.getText(), listTipoVoo.getValue(), Double.parseDouble(txtValor.getText()));
+					if(vooDao.insereVoo(v1)){
+						JOptionPane.showMessageDialog(null, "Voo cadastrado com sucesso!", "Cadastro Voo", JOptionPane.INFORMATION_MESSAGE);
+						hide();
+					} else {
+						JOptionPane.showMessageDialog(null, "Erro ao cadastrar!", "Erro", JOptionPane.ERROR_MESSAGE);
+						hide();
+					}
+				}
+	
 			}
 		});
 		

@@ -114,7 +114,17 @@ public class TelaEditVoo extends Stage {
 		btnAtualizar.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
-			public void handle(ActionEvent event) {								
+			public void handle(ActionEvent event) {		
+				
+				String  padrao  =  ("(0[1-9]|[12][0-9]|3[01])[-  /.](0[1-9]|[0-9]|1[012])[-  /.]((19|20)\\d\\d)");
+
+				if ((txtDataPartida.getText().matches(padrao) == false) && (txtDataChegada.getText().matches(padrao) == false)) {
+					System.out.println("invalido");
+					JOptionPane.showMessageDialog(null, "Error, formato da data deve ser 00/00/0000", "Error, formato da data", JOptionPane.ERROR_MESSAGE);					
+					
+				} else {
+					System.out.println("valido");
+					
 					Voo v1 = new Voo(txtOrigem.getText(), txtDestino.getText(), txtRota.getText(), txtHoraPartida.getText(), txtHoraChegada.getText(), txtDataPartida.getText(), txtDataChegada.getText(), listTipoVoo.getValue(), Double.parseDouble(txtValor.getText()));
 					v1.setId(Integer.parseInt(lblValorId.getText()));
 					VooDAO vooDao = new VooDAO();
@@ -125,6 +135,9 @@ public class TelaEditVoo extends Stage {
 						JOptionPane.showMessageDialog(null, "Erro ao atualizar!","Erro", JOptionPane.ERROR_MESSAGE);
 						hide();
 					}
+				}
+				
+
 				
 			}
 		});

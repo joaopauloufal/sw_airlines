@@ -164,16 +164,28 @@ public class TelaEditCliente extends Stage {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				ClienteDAO clienteDao = new ClienteDAO();
-				Endereco endereco = new Endereco(txtRua.getText(), txtCidade.getText(), txtBairro.getText(), txtNumero.getText(), txtEstado.getText());
-				Cliente cliente  = new Cliente(txtNome.getText(), lblCpfCnpjValor.getText(), listSexo.getValue(), txtRgValor.getText(), txtDataDeNascimento.getText(), listEstadoCivil.getValue(), txtNacionalidade.getText(), txtTelefoneCelular.getText(), txtTelefoneResidencial.getText(), txtCartaoDeCredito.getText(), txtPassaporte.getText(), endereco);
-				if (clienteDao.alteraCliente(cliente)) {
-					JOptionPane.showMessageDialog(null, "Cliente atualizado com sucesso!", "Atulaização Cliente", JOptionPane.INFORMATION_MESSAGE);
-					hide();
+				String  padrao  =  ("(0[1-9]|[12][0-9]|3[01])[-  /.](0[1-9]|[0-9]|1[012])[-  /.]((19|20)\\d\\d)");
+
+				if (txtDataDeNascimento.getText().matches(padrao) == false) {
+					System.out.println("invalido");
+					JOptionPane.showMessageDialog(null, "Error, formato da data deve ser 00/00/0000", "Error, formato da data", JOptionPane.ERROR_MESSAGE);					
+					
 				} else {
-					JOptionPane.showMessageDialog(null, "Erro ao atualizar.", "Erro", JOptionPane.ERROR_MESSAGE);
-					hide();
+					System.out.println("valido");
+					
+					ClienteDAO clienteDao = new ClienteDAO();
+					Endereco endereco = new Endereco(txtRua.getText(), txtCidade.getText(), txtBairro.getText(), txtNumero.getText(), txtEstado.getText());
+					Cliente cliente  = new Cliente(txtNome.getText(), lblCpfCnpjValor.getText(), listSexo.getValue(), txtRgValor.getText(), txtDataDeNascimento.getText(), listEstadoCivil.getValue(), txtNacionalidade.getText(), txtTelefoneCelular.getText(), txtTelefoneResidencial.getText(), txtCartaoDeCredito.getText(), txtPassaporte.getText(), endereco);
+					if (clienteDao.alteraCliente(cliente)) {
+						JOptionPane.showMessageDialog(null, "Cliente atualizado com sucesso!", "Atulaização Cliente", JOptionPane.INFORMATION_MESSAGE);
+						hide();
+					} else {
+						JOptionPane.showMessageDialog(null, "Erro ao atualizar.", "Erro", JOptionPane.ERROR_MESSAGE);
+						hide();
+					}
 				}
+				
+
 				
 			}
 		});

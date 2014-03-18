@@ -1,11 +1,5 @@
 package swairlines.view;
 
-import javax.swing.JOptionPane;
-
-import swairlines.dao.FuncionarioDAO;
-import swairlines.model.Endereco;
-import swairlines.model.Funcionario;
-import swairlines.model.Operador;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -21,6 +15,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import javax.swing.JOptionPane;
+
+import swairlines.dao.FuncionarioDAO;
+import swairlines.model.Endereco;
+import swairlines.model.Funcionario;
+import swairlines.model.Operador;
 
 
 public class TelaCadFuncionario extends Stage {
@@ -147,16 +148,30 @@ public class TelaCadFuncionario extends Stage {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				FuncionarioDAO funcDao = new FuncionarioDAO();
-				Endereco endereco = new Endereco(txtRua.getText(), txtCidade.getText(), txtBairro.getText(), txtNumero.getText(), txtEstado.getText());
-				Funcionario f1 = new Operador(txtNome.getText(), listSexo.getValue(), txtCpf.getText(), txtRg.getText(), txtDataDeNascimento.getText(), txtTelefoneCelular.getText(), listCargo.getValue(), txtTelefoneResidencial.getText(), txtNacionalidade.getText(), listEstadoCivil.getValue(), endereco);
-				if (funcDao.insereFuncionario(f1)) {
-					JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso!", "Cadastro Funcionário", JOptionPane.INFORMATION_MESSAGE);
-					hide();
+				
+				String  padrao  =  ("(0[1-9]|[12][0-9]|3[01])[-  /.](0[1-9]|[0-9]|1[012])[-  /.]((19|20)\\d\\d)");
+
+				if (txtDataDeNascimento.getText().matches(padrao) == false) {
+					System.out.println("invalido");
+					JOptionPane.showMessageDialog(null, "Error, formato da data deve ser 00/00/0000", "Error, formato da data", JOptionPane.ERROR_MESSAGE);					
+					
 				} else {
-					JOptionPane.showMessageDialog(null, "Erro ao inserir.", "Erro", JOptionPane.ERROR_MESSAGE);
-					hide();
+					System.out.println("valido");
+					
+					
+					FuncionarioDAO funcDao = new FuncionarioDAO();
+					Endereco endereco = new Endereco(txtRua.getText(), txtCidade.getText(), txtBairro.getText(), txtNumero.getText(), txtEstado.getText());
+					Funcionario f1 = new Operador(txtNome.getText(), listSexo.getValue(), txtCpf.getText(), txtRg.getText(), txtDataDeNascimento.getText(), txtTelefoneCelular.getText(), listCargo.getValue(), txtTelefoneResidencial.getText(), txtNacionalidade.getText(), listEstadoCivil.getValue(), endereco);
+					if (funcDao.insereFuncionario(f1)) {
+						JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso!", "Cadastro Funcionário", JOptionPane.INFORMATION_MESSAGE);
+						hide();
+					} else {
+						JOptionPane.showMessageDialog(null, "Erro ao inserir.", "Erro", JOptionPane.ERROR_MESSAGE);
+						hide();
+					}
 				}
+				
+
 				
 			}
 		});
