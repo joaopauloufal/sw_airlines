@@ -87,4 +87,36 @@ public class BagagemDAO implements ConsultasBancoBagagem {
 		
 	}
 
+	@Override
+	public ObservableList<Bagagem> buscaBagagensPorCpfCliente(String cpfCnpCliente) {
+		ObservableList<Bagagem> bagagens;
+		bagagens = FXCollections.observableArrayList();
+		ConexaoDAO conDao = new ConexaoDAO();
+		try {
+			Connection con = conDao.abreConexao();
+			PreparedStatement stm = con.prepareStatement("SELECT * FROM sw_airlines.bagagens;");
+			ResultSet rs = stm.executeQuery();
+			
+			while (rs.next()) {
+				Bagagem bagagem = new Bagagem();
+				bagagem.setCpfCnpjCliente(rs.getString("cpf_cliente_bagagem"));
+				bagagem.setNomeCliente(rs.getString("nome_cliente"));
+				bagagem.setVooId(rs.getInt("voo_id"));
+				bagagem.setOrigemVoo(rs.getString("origem_voo"));
+				bagagem.setDestinoVoo(rs.getString("destino_voo"));
+				bagagem.setPesoBagagem(rs.getDouble("peso_bagagem"));
+				bagagem.setPrecoTotalBagagem(rs.getDouble("preco_total_bagagem"));
+				bagagens.add(bagagem);
+			}
+			
+			rs.close();
+			stm.close();
+			con.close();
+			return bagagens;
+		} catch (SQLException ex) {
+			Logger.getLogger(BagagemDAO.class.getName()).log(Level.SEVERE, null, ex);
+			return null;
+		}
+	}
+
 }

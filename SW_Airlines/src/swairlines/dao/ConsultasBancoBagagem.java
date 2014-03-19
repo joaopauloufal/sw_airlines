@@ -9,5 +9,6 @@ public interface ConsultasBancoBagagem {
 	public boolean removeBagagem(Bagagem bagagem);
 	public boolean alteraBagagem(Bagagem bagagem);
 	public ObservableList<Bagagem> buscaBagagens();
+	public ObservableList<Bagagem> buscaBagagensPorCpfCliente(String cpfCnpjCliente);
 
 }

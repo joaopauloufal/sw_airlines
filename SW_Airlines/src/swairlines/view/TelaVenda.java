@@ -233,7 +233,7 @@ public class TelaVenda extends Stage {
 		
 		aVista.setSelected(true);
 		
-		lblParcelasCartao = new Label("Parcelas: ");
+		lblParcelasCartao = new Label("Parcelas:");
 		lblParcelasCartao.setVisible(false);
 		txtParcela = new TextField();
 		txtParcela.setPrefColumnCount(5);
