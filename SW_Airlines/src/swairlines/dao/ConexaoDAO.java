@@ -72,6 +72,7 @@ public class ConexaoDAO implements ConexaoBDMySql {
 		criarTabelaUsuario();
 		criarTabelaVoo();
 		criarTabelaVendas();
+		criarTabelaBagagens();
 	}
 
 	
@@ -193,6 +194,29 @@ public class ConexaoDAO implements ConexaoBDMySql {
 				+ " CONSTRAINT id_voo_id"
 				+ " FOREIGN KEY (id_voo_venda)"
 				+ " REFERENCES sw_airlines.voo (id)"
+				+ " ON DELETE CASCADE ON UPDATE CASCADE)"
+				+ " ENGINE = InnoDB"
+				+ " DEFAULT CHARACTER SET = utf8;";
+		executar(sql);
+	}
+	
+	private void criarTabelaBagagens() throws SQLException {
+		sql = "CREATE TABLE IF NOT EXISTS sw_airlines.bagagens("
+				+ " cpf_cliente_bagagem VARCHAR(40) NOT NULL,"
+				+ " nome_cliente VARCHAR(120) NOT NULL,"
+				+ " voo_id INT NOT NULL,"
+				+ " origem_voo VARCHAR(80) NOT NULL,"
+				+ " destino_voo VARCHAR(80) NOT NULL,"
+				+ " peso_bagagem DOUBLE(15,2) NOT NULL,"
+				+ " preco_total_bagagem DOUBLE(15,2) NOT NULL,"
+				+ " PRIMARY KEY (cpf_cliente_bagagem, voo_id),"
+				+ " CONSTRAINT cpf_bagagem_cpf_cliente"
+				+ " FOREIGN KEY (cpf_cliente_bagagem)"
+				+ " REFERENCES sw_airlines.vendas (cpf_cliente)"
+				+ " ON DELETE CASCADE ON UPDATE CASCADE,"
+				+ " CONSTRAINT voo_id_id_voo_venda"
+				+ " FOREIGN KEY (voo_id)"
+				+ " REFERENCES sw_airlines.vendas (id_voo_venda)"
 				+ " ON DELETE CASCADE ON UPDATE CASCADE)"
 				+ " ENGINE = InnoDB"
 				+ " DEFAULT CHARACTER SET = utf8;";

@@ -266,7 +266,7 @@ public class TelaVenda extends Stage {
 						JOptionPane.showMessageDialog(null, "A vista - Venda realizada com sucesso!");						
 						hide();
 					} else {
-						JOptionPane.showMessageDialog(null, "Erro na compra, quantidade máxima de passageiros (100) ultrapassada. Tente escolher outro voo", "Limite de passageiros execedido.", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Erro na compra, quantidade máxima de passageiros (100) ultrapassada. Tente escolher outro voo", "Limite de passageiros excedido.", JOptionPane.ERROR_MESSAGE);
 						hide();
 					}				
 					
@@ -280,7 +280,7 @@ public class TelaVenda extends Stage {
 								JOptionPane.showMessageDialog(null, "No cartão - Venda realizada com sucesso!");								
 								hide();
 							} else {
-								JOptionPane.showMessageDialog(null, "Erro na compra, quantidade máxima de passageiros (100) ultrapassada. Tente escolher outro voo.", "Limite de passageiros execedido.", JOptionPane.ERROR_MESSAGE);
+								JOptionPane.showMessageDialog(null, "Erro na compra, quantidade máxima de passageiros (100) ultrapassada. Tente escolher outro voo.", "Limite de passageiros excedido.", JOptionPane.ERROR_MESSAGE);
 								hide();
 							}
 							

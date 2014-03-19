@@ -131,6 +131,16 @@ public class MenuBarPrincipal extends MenuBar {
 		});
 		
 		MenuItem menuRealizarCheckin = new MenuItem("Realizar Check-in...");
+		menuRealizarCheckin.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				TelaCheckin tela = new TelaCheckin();
+				tela.setTitle("Realizar Check-In");
+				
+			}
+			
+		});
 		menuCompra.getItems().addAll(menuRealizarCompra, menuRealizarCheckin);
 		
 		MenuItem itemEditarVoo = new MenuItem("Editar Voo...");
