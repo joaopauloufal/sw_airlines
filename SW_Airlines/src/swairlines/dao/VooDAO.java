@@ -71,11 +71,14 @@ public class VooDAO implements ConsultasBancoVoo {
 	public boolean inserirPassageiro(Voo v1) {
 		try {
 			ConexaoDAO cbd = new ConexaoDAO();
-			int quant = v1.getQuantidadeDePassageiros() + 1;
-			if (cbd.executar("UPDATE sw_airlines.voo SET quantidadeDePassageiros='" + quant + "' WHERE id='" + v1.getId() +"';")) {
-				return true;
-			}			
-
+			if (v1.getQuantidadeDePassageiros() == 100) {
+				return false;
+			} else {
+				int quant = v1.getQuantidadeDePassageiros() + 1;
+				if (cbd.executar("UPDATE sw_airlines.voo SET quantidadeDePassageiros='" + quant + "' WHERE id='" + v1.getId() +"';")) {
+					return true;
+				}	
+			}
 		} catch (SQLException ex) {
 			Logger.getLogger(VooDAO.class.getName()).log(Level.SEVERE, null, ex);
 			
@@ -140,8 +143,7 @@ public class VooDAO implements ConsultasBancoVoo {
 	}
 	
 	@Override
-	public Voo buscaVooPorId(int id) {
-		
+	public Voo buscaVooPorId(int id) {		
 		Voo v1 = new Voo();	
 		Date horaAtual = new Date();
 		ConexaoDAO cbd = new ConexaoDAO();		
@@ -223,7 +225,18 @@ public class VooDAO implements ConsultasBancoVoo {
 
 	@Override
 	public boolean removerPassageiro(Voo voo) {
-		// TODO Auto-generated method stub
+		try {
+			ConexaoDAO cbd = new ConexaoDAO();
+			if (voo.getQuantidadeDePassageiros() > 0) {
+				int quant = voo.getQuantidadeDePassageiros() - 1;
+				if (cbd.executar("UPDATE sw_airlines.voo SET quantidadeDePassageiros='" + quant + "' WHERE id='" + voo.getId() +"';")) {
+					return true;
+				}
+			}
+		} catch (SQLException ex) {
+			Logger.getLogger(VooDAO.class.getName()).log(Level.SEVERE, null, ex);
+			
+		}
 		return false;
 	}
 	

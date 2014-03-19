@@ -181,10 +181,10 @@ public class TelaVenda extends Stage {
 			public void handle(Event event) {
 				if (listVoos.getSelectionModel().getSelectedIndex() != -1) {
 					int id = Integer.parseInt(listVoos.getValue());
-					Voo v = vooDao.buscaVooPorId(id);
-					lblOrigemVooValor.setText(v.getOrigem());
-					lblDestinoVooValor.setText(v.getDestino());	
-					lblValorVooPreco.setText(String.valueOf(v.getValor()));					
+					voo = vooDao.buscaVooPorId(id);
+					lblOrigemVooValor.setText(voo.getOrigem());
+					lblDestinoVooValor.setText(voo.getDestino());	
+					lblValorVooPreco.setText(String.valueOf(voo.getValor()));					
 					
 					
 				}
@@ -262,12 +262,11 @@ public class TelaVenda extends Stage {
 				
 				if (buttonGroup.getSelectedToggle().equals(aVista)) {
 					Venda venda = new Venda("À Vista", Integer.parseInt(listVoos.getValue()), lblOrigemVooValor.getText(), lblDestinoVooValor.getText(), Double.parseDouble(lblValorVooPreco.getText()), lblNomeClienteValor.getText(), listClientes.getValue(), lblCartaoCredClienteValor.getText());		
-					if (vendaDao.insereVenda(venda)) {
-						JOptionPane.showMessageDialog(null, "A vista - Venda realizada com sucesso!");
-						vooDao.inserirPassageiro(voo);
+					if (vendaDao.insereVenda(venda) && vooDao.inserirPassageiro(voo)) {
+						JOptionPane.showMessageDialog(null, "A vista - Venda realizada com sucesso!");						
 						hide();
 					} else {
-						JOptionPane.showMessageDialog(null, "Erro na compra", "Erro", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Erro na compra, quantidade máxima de passageiros (100) ultrapassada. Tente escolher outro voo", "Limite de passageiros execedido.", JOptionPane.ERROR_MESSAGE);
 						hide();
 					}				
 					
@@ -277,12 +276,11 @@ public class TelaVenda extends Stage {
 						if (lblValorParcela.getText().equals("")) {
 							JOptionPane.showMessageDialog(null, "Faltou calcular as parcelas.", "Cálculo de parcelas", JOptionPane.WARNING_MESSAGE);
 						} else {
-							if (vendaDao.insereVenda(venda)) {
-								JOptionPane.showMessageDialog(null, "No cartão - Venda realizada com sucesso!");
-								vooDao.inserirPassageiro(voo);
+							if (vendaDao.insereVenda(venda) && vooDao.inserirPassageiro(voo)) {
+								JOptionPane.showMessageDialog(null, "No cartão - Venda realizada com sucesso!");								
 								hide();
 							} else {
-								JOptionPane.showMessageDialog(null, "Erro na compra", "Erro", JOptionPane.ERROR_MESSAGE);
+								JOptionPane.showMessageDialog(null, "Erro na compra, quantidade máxima de passageiros (100) ultrapassada. Tente escolher outro voo.", "Limite de passageiros execedido.", JOptionPane.ERROR_MESSAGE);
 								hide();
 							}
 							

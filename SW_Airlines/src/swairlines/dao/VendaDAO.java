@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import swairlines.model.Venda;
+import swairlines.model.Voo;
 
 public class VendaDAO implements ConsultasBancoVenda {
 
@@ -31,9 +32,12 @@ public class VendaDAO implements ConsultasBancoVenda {
 
 	@Override
 	public boolean excluiVenda(Venda venda) {
+		VooDAO vooDao = new VooDAO();
+		Voo voo = vooDao.buscaVooPorId(venda.getIdVoo());
 		try {
 			ConexaoDAO conDao = new ConexaoDAO();
-			if(conDao.executar("DELETE FROM sw_airlines.vendas WHERE id_voo_venda='" + venda.getIdVoo() + "';")) {
+			if (conDao.executar("DELETE FROM sw_airlines.vendas WHERE id_voo_venda='" + venda.getIdVoo() + "';")) {
+				vooDao.removerPassageiro(voo);
 				return true;
 			}
 			
