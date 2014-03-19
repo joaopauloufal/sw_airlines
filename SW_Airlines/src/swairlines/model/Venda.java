@@ -45,7 +45,7 @@ public class Venda {
 		this.nomeCliente = nomeCliente;
 		this.cpfCnpjCliente = cpfcnpjCliente;
 		this.idVoo = idVoo;
-		this.parcelas = 1;
+		this.parcelas = 0;
 		this.cartaoCreditoCliente = cartaoCreditoCliente;
 	}
 	

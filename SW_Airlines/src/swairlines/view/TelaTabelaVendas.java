@@ -120,13 +120,24 @@ public class TelaTabelaVendas extends BorderPane {
 			
 		});
 		
+		Button btnAtualizarValores = new Button("Atualizar Valores");
+		btnAtualizarValores.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				Main.alterarTela(new TelaTabelaVendas(f));
+				
+			}
+			
+		});
+		
 		tableView.getColumns().addAll(vooColuna, origemVooColuna, destinoVooColuna, tipoVendaColuna, valorVooColuna, dataHoraVenda, cpfCnpjClienteColuna, nomeClienteColuna, cartaoClienteColuna, parcelasColuna, valorParcelasColuna);
 		tableView.setFocusTraversable(false);
 		
 		VBox boxTop = new VBox(20);
 		Label titulo = new Label("Lista de Vendas");
 		titulo.setFont(new Font(30));
-		hbox.getChildren().addAll(btnAlterarVenda, btnRemoverVenda);
+		hbox.getChildren().addAll(btnAlterarVenda, btnRemoverVenda, btnAtualizarValores);
 		hbox.setAlignment(Pos.BASELINE_CENTER);
 		boxTop.setAlignment(Pos.CENTER);
 		VBox vboxTabela = new VBox();

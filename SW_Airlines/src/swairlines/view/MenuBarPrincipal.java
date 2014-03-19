@@ -129,7 +129,9 @@ public class MenuBarPrincipal extends MenuBar {
 
 		
 		});
-		menuCompra.getItems().addAll(menuRealizarCompra);
+		
+		MenuItem menuRealizarCheckin = new MenuItem("Realizar Check-in...");
+		menuCompra.getItems().addAll(menuRealizarCompra, menuRealizarCheckin);
 		
 		MenuItem itemEditarVoo = new MenuItem("Editar Voo...");
 		

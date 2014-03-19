@@ -78,6 +78,7 @@ public class ConexaoDAO implements ConexaoBDMySql {
 	private void criarTabelaVoo() throws SQLException {
 		sql = "CREATE TABLE IF NOT EXISTS sw_airlines.voo("
 				+ " id INT NOT NULL AUTO_INCREMENT,"
+				+ " aeronave_numero VARCHAR(80) NOT NULL,"
 				+ " origem VARCHAR(60) NOT NULL,"
 				+ " destino VARCHAR(60) NOT NULL,"
 				+ " quantidadeDePassageiros INT NOT NULL,"

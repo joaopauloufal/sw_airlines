@@ -32,6 +32,7 @@ public class TelaCadVoo extends Stage {
 	private ComboBox<String> listTipoVoo;
 	private TextField txtDataChegada;
 	private TextField txtValor;
+	private TextField txtAeronave;
 	
 	public TelaCadVoo() {
 		
@@ -50,10 +51,16 @@ public class TelaCadVoo extends Stage {
 		HBox hbox8 = new HBox(20);
 		HBox hbox9 = new HBox(20);
 		HBox hbox10 = new HBox(20);
+		HBox hbox11 = new HBox(20);
 		VBox vbox1 = new VBox(20);		
 		
-		Scene scene = new Scene(gPane, 620, 490, Color.SILVER);
+		Scene scene = new Scene(gPane, 620, 520, Color.SILVER);
 		setScene(scene);
+		
+		Label lblAeronave = new Label("Aeronave Nº:");
+		txtAeronave = new TextField();
+		txtAeronave.setPrefColumnCount(10);
+		hbox11.getChildren().addAll(lblAeronave, txtAeronave);
 		
 		Label lblOrigem = new Label("Origem:");
 		txtOrigem = new TextField();
@@ -113,7 +120,7 @@ public class TelaCadVoo extends Stage {
 					System.out.println("valido");
 					
 					VooDAO vooDao = new VooDAO();
-					Voo v1 = new Voo(txtOrigem.getText(), txtDestino.getText(), txtRota.getText(), txtHoraPartida.getText(), txtHoraChegada.getText(), txtDataPartida.getText(), txtDataChegada.getText(), listTipoVoo.getValue(), Double.parseDouble(txtValor.getText()));
+					Voo v1 = new Voo(txtAeronave.getText(),txtOrigem.getText(), txtDestino.getText(), txtRota.getText(), txtHoraPartida.getText(), txtHoraChegada.getText(), txtDataPartida.getText(), txtDataChegada.getText(), listTipoVoo.getValue(), Double.parseDouble(txtValor.getText()));
 					if(vooDao.insereVoo(v1)){
 						JOptionPane.showMessageDialog(null, "Voo cadastrado com sucesso!", "Cadastro Voo", JOptionPane.INFORMATION_MESSAGE);
 						hide();
@@ -139,7 +146,7 @@ public class TelaCadVoo extends Stage {
 		hbox7.getChildren().addAll(btnCadastrar, btnCancelar);
 		hbox7.setAlignment(Pos.CENTER);
 		
-		vbox1.getChildren().addAll(hbox1, hbox2, hbox3, hbox4, hbox6, hbox5, hbox8, hbox9, hbox10, hbox7);
+		vbox1.getChildren().addAll(hbox11, hbox1, hbox2, hbox3, hbox4, hbox6, hbox5, hbox8, hbox9, hbox10, hbox7);
 		
 		GridPane.setConstraints(vbox1, 9, 4);
 		

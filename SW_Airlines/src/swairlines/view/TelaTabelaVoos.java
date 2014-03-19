@@ -45,6 +45,10 @@ public class TelaTabelaVoos extends BorderPane {
 		idColuna.setCellValueFactory(new PropertyValueFactory<Voo, Integer>("id"));
 		idColuna.setMinWidth(60);
 		
+		TableColumn<Voo, String> aeronaveColuna = new TableColumn<>("Aeronave Nº");
+		aeronaveColuna.setCellValueFactory(new PropertyValueFactory<Voo, String>("aeronaveNumero"));
+		aeronaveColuna.setMinWidth(140);
+		
 		TableColumn<Voo, String> origemColuna = new TableColumn<>("Origem");
 		origemColuna.setCellValueFactory(new PropertyValueFactory<Voo, String>("origem"));
 		origemColuna.setMinWidth(140);
@@ -141,7 +145,7 @@ public class TelaTabelaVoos extends BorderPane {
 					if (dados.get(tableView.getSelectionModel().getSelectedIndex()).getStatus().equals("Cancelado")) {
 						JOptionPane.showMessageDialog(null, "Este voo já foi cancelado.", "Cancelamento Voo", JOptionPane.INFORMATION_MESSAGE);
 					} else {
-						int resposta = JOptionPane.showConfirmDialog(null, "Você tem certeza de que quer cancelar o Voo selecionado?", "Confirmação de Cancelamento Voo", JOptionPane.WARNING_MESSAGE, JOptionPane.WARNING_MESSAGE);
+						int resposta = JOptionPane.showConfirmDialog(null, "Você tem certeza de que quer cancelar o Voo selecionado? Se houver vendas associadas, elas serão removidas.", "Confirmação de Cancelamento Voo", JOptionPane.WARNING_MESSAGE, JOptionPane.WARNING_MESSAGE);
 						if (resposta == JOptionPane.YES_OPTION) {
 							Voo v1 = dados.get(tableView.getSelectionModel().getSelectedIndex());
 							VooDAO vd = new VooDAO();
@@ -156,13 +160,16 @@ public class TelaTabelaVoos extends BorderPane {
 			
 		});
 		
-		tableView.getColumns().addAll(idColuna, origemColuna, destinoColuna, statusColuna, qntPassageirosColuna, rotaColuna, horaPartidaColuna, horaChegadaColuna, dataPartidaColuna, dataChegadaColuna, tipoVooColuna);
+		Button btnAtrasarVoo = new Button("Atrasar Voo");
+		
+		
+		tableView.getColumns().addAll(idColuna, aeronaveColuna, origemColuna, destinoColuna, statusColuna, qntPassageirosColuna, rotaColuna, horaPartidaColuna, horaChegadaColuna, dataPartidaColuna, dataChegadaColuna, tipoVooColuna);
 		tableView.setFocusTraversable(false);	
 		
 		VBox boxTop = new VBox(20);
 		Label titulo = new Label("Relação de Voos");
 		titulo.setFont(new Font(30));
-		hbox.getChildren().addAll(btnExcluirVoo, btnAtualizarValores, btnEditarVoo, btnCancelarVoo);
+		hbox.getChildren().addAll(btnExcluirVoo, btnEditarVoo, btnAtualizarValores, btnCancelarVoo, btnAtrasarVoo);
 		hbox.setAlignment(Pos.BASELINE_CENTER);
 		boxTop.setAlignment(Pos.CENTER);
 		VBox boxTable = new VBox();

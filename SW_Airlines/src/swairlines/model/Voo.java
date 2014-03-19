@@ -19,14 +19,14 @@ public class Voo {
 	private int id;
 	private String tipoVoo;
 	private double valor;
-	// falta o id da aeronave
+	private String aeronaveNumero;
 	
 	public Voo() {
 		
 	}
 	
 
-	public Voo(String origem, String destino, String rota, String horaPartida,
+	public Voo(String aeronaveNumero, String origem, String destino, String rota, String horaPartida,
 			String horaChegada, String dataPartida, String dataChegada, String tipoVoo, double valor) {	
 			
 		this.origem = origem;
@@ -38,9 +38,20 @@ public class Voo {
 		this.dataPartida = dataPartida;
 		this.dataChegada = dataChegada;
 		this.valor = valor;
+		this.aeronaveNumero = aeronaveNumero;
 		
 	}
 	
+
+	public String getAeronaveNumero() {
+		return aeronaveNumero;
+	}
+
+
+	public void setAeronaveNumero(String aeronaveNumero) {
+		this.aeronaveNumero = aeronaveNumero;
+	}
+
 
 	public String getDataChegada() {
 		return dataChegada;

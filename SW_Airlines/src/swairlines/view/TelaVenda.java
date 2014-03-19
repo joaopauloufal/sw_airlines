@@ -111,14 +111,14 @@ public class TelaVenda extends Stage {
 			public void handle(ActionEvent event) {
 				try {
 					float resultado = Float.parseFloat(lblValorVooPreco.getText()) / Integer.parseInt(txtParcela.getText());
-					if (Float.isInfinite(resultado) || txtParcela.getText().equals("1")) {
-						JOptionPane.showMessageDialog(null, "Número de Parcelas não pode ser 0 e nem 1.", "Erro no Campo Parcelas", JOptionPane.WARNING_MESSAGE);
+					if (Float.isInfinite(resultado)) {
+						JOptionPane.showMessageDialog(null, "Número de Parcelas não pode ser 0.", "Erro ao calcular.", JOptionPane.WARNING_MESSAGE);
 					} else {
 						lblValorParcela.setText(String.valueOf(resultado));
 					}
 					
 				} catch (NumberFormatException n){
-					JOptionPane.showMessageDialog(null, "Digite somente números no campo (Parcelas)", "Erro ao calcular", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Verifique se digitou apenas números no campo Parcelas.", "Erro ao calcular", JOptionPane.WARNING_MESSAGE);
 					
 				}
 				
@@ -154,13 +154,15 @@ public class TelaVenda extends Stage {
 				if (listClientes.getSelectionModel().getSelectedIndex() != -1) {
 					lblNomeClienteValor.setText(c.getNome());	
 					lblCartaoCredClienteValor.setText(c.getCartaoDeCredito());
-					if (lblCartaoCredClienteValor.getText() == null) {
+					if (lblCartaoCredClienteValor.getText().equals("")) {
 						cartao.setVisible(false);
 					} else {
 						cartao.setVisible(true);
 					}
 					
 				}
+				
+				
 				
 				
 				
@@ -270,15 +272,26 @@ public class TelaVenda extends Stage {
 					}				
 					
 				} else if (buttonGroup.getSelectedToggle().equals(cartao)){
-					Venda venda = new Venda("Cartão", Integer.parseInt(listVoos.getValue()), lblOrigemVooValor.getText(), lblDestinoVooValor.getText(), lblNomeClienteValor.getText(), listClientes.getValue(), Integer.parseInt(txtParcela.getText()), Double.parseDouble(lblValorParcela.getText()), Double.parseDouble(lblValorVooPreco.getText()), lblCartaoCredClienteValor.getText());
-					if (vendaDao.insereVenda(venda)) {
-						JOptionPane.showMessageDialog(null, "No cartão - Venda realizada com sucesso!");
-						vooDao.quantPass(voo);
-						hide();
-					} else {
-						JOptionPane.showMessageDialog(null, "Erro na compra", "Erro", JOptionPane.ERROR_MESSAGE);
-						hide();
-					}	
+					try {
+						Venda venda = new Venda("Cartão", Integer.parseInt(listVoos.getValue()), lblOrigemVooValor.getText(), lblDestinoVooValor.getText(), lblNomeClienteValor.getText(), listClientes.getValue(), Integer.parseInt(txtParcela.getText()), Double.parseDouble(lblValorParcela.getText()), Double.parseDouble(lblValorVooPreco.getText()), lblCartaoCredClienteValor.getText());
+						if (lblValorParcela.getText().equals("")) {
+							JOptionPane.showMessageDialog(null, "Faltou calcular as parcelas.", "Cálculo de parcelas", JOptionPane.WARNING_MESSAGE);
+						} else {
+							if (vendaDao.insereVenda(venda)) {
+								JOptionPane.showMessageDialog(null, "No cartão - Venda realizada com sucesso!");
+								vooDao.quantPass(voo);
+								hide();
+							} else {
+								JOptionPane.showMessageDialog(null, "Erro na compra", "Erro", JOptionPane.ERROR_MESSAGE);
+								hide();
+							}
+							
+						}
+					
+					} catch (NumberFormatException e) {
+						JOptionPane.showMessageDialog(null, "Faltou calcular as parcelas.", "Cálculo de parcelas", JOptionPane.WARNING_MESSAGE);
+					}
+						
 				}
 				
 			}
@@ -294,6 +307,8 @@ public class TelaVenda extends Stage {
 			}
 			
 		});
+		
+		cartao.setVisible(false);
 		
 		hbox3.getChildren().addAll(btnComprar, btnCancelar);
 		hbox3.setAlignment(Pos.CENTER);

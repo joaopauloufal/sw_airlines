@@ -84,7 +84,7 @@ public class TelaEditVenda extends Stage {
 		
 		Label lblOrigemVoo = new Label("Origem:");
 		lblOrigemVooValor = new Label();
-		lblOrigemVooValor.setText(venda.getTipoVenda());
+		lblOrigemVooValor.setText(venda.getOrigemVoo());
 		hbox4.getChildren().addAll(lblOrigemVoo, lblOrigemVooValor);
 		
 		Label lblDestinoVoo = new Label("Destino:");
@@ -157,8 +157,10 @@ public class TelaEditVenda extends Stage {
 			public void handle(ActionEvent arg0) {
 				try {
 					float resultado = Float.parseFloat(lblValorVooPreco.getText()) / Integer.parseInt(txtParcelaValor.getText());
-					if (Float.isInfinite(resultado) || txtParcelaValor.getText().equals("1")) {
-						JOptionPane.showMessageDialog(null, "Número de Parcelas não pode ser 0 e nem 1.", "Erro no Campo Parcelas", JOptionPane.WARNING_MESSAGE);
+					
+					if (Float.isInfinite(resultado)) {
+						JOptionPane.showMessageDialog(null, "Número de Parcelas não pode ser 0", "Erro no Campo Parcelas", JOptionPane.WARNING_MESSAGE);		
+					
 					} else {
 						lblParcelaValor.setText(String.valueOf(resultado));
 					}
@@ -191,12 +193,18 @@ public class TelaEditVenda extends Stage {
 					}
 				} else if (buttonGroup.getSelectedToggle().equals(cartao)) {
 					Venda venda = new Venda("Cartão", Integer.parseInt(lblVooIdValor.getText()), lblOrigemVooValor.getText(), lblDestinoVooValor.getText(), lblNomeClienteValor.getText(), lblCpfClientesValor.getText(), Integer.parseInt(txtParcelaValor.getText()), Double.parseDouble(lblParcelaValor.getText()), Double.parseDouble(lblValorVooPreco.getText()), lblCartaoCredClienteValor.getText());
-					if (vendaDao.alteraVenda(venda)) {
-						JOptionPane.showMessageDialog(null, "No cartão - Venda atualizada com sucesso!");
-						hide();
+					if (lblParcelaValor.getText().equals("0.0")) {
+						JOptionPane.showMessageDialog(null, "Faltou calcular as parcelas.", "Cálculo de parcelas", JOptionPane.WARNING_MESSAGE);
 					} else {
-						JOptionPane.showMessageDialog(null, "Erro na compra", "Erro", JOptionPane.ERROR_MESSAGE);
+						if (vendaDao.alteraVenda(venda)) {
+							JOptionPane.showMessageDialog(null, "No cartão - Venda atualizada com sucesso!");
+							hide();
+						} else {
+							JOptionPane.showMessageDialog(null, "Erro na compra", "Erro", JOptionPane.ERROR_MESSAGE);
+						}
+						
 					}
+					
 				}
 				
 			}

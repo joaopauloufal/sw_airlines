@@ -32,6 +32,7 @@ public class TelaEditVoo extends Stage {
 	private TextField txtDataChegada;
 	private TextField txtValor;
 	private Label lblValorId;
+	private TextField txtAeronave;
 	
 	public TelaEditVoo(Voo v1) {
 		
@@ -51,14 +52,21 @@ public class TelaEditVoo extends Stage {
 		HBox hbox9 = new HBox(20);
 		HBox hbox10 = new HBox(20);
 		HBox hbox11 = new HBox(20);
+		HBox hbox12 = new HBox(20);
 		VBox vbox1 = new VBox(20);		
 		
-		Scene scene = new Scene(gPane, 620, 490, Color.SILVER);
+		Scene scene = new Scene(gPane, 620, 550, Color.SILVER);
 		setScene(scene);
 		
 		Label lblId = new Label("Id:");
 		lblValorId = new Label(String.valueOf(v1.getId()));
 		hbox10.getChildren().addAll(lblId, lblValorId);
+		
+		Label lblAeronave = new Label("Aeronave Nº:");
+		txtAeronave = new TextField();
+		txtAeronave.setText(v1.getAeronaveNumero());
+		txtAeronave.setPrefColumnCount(10);
+		hbox12.getChildren().addAll(lblAeronave, txtAeronave);
 		
 		Label lblOrigem = new Label("Origem:");
 		txtOrigem = new TextField();
@@ -125,7 +133,7 @@ public class TelaEditVoo extends Stage {
 				} else {
 					System.out.println("valido");
 					
-					Voo v1 = new Voo(txtOrigem.getText(), txtDestino.getText(), txtRota.getText(), txtHoraPartida.getText(), txtHoraChegada.getText(), txtDataPartida.getText(), txtDataChegada.getText(), listTipoVoo.getValue(), Double.parseDouble(txtValor.getText()));
+					Voo v1 = new Voo(txtAeronave.getText(), txtOrigem.getText(), txtDestino.getText(), txtRota.getText(), txtHoraPartida.getText(), txtHoraChegada.getText(), txtDataPartida.getText(), txtDataChegada.getText(), listTipoVoo.getValue(), Double.parseDouble(txtValor.getText()));
 					v1.setId(Integer.parseInt(lblValorId.getText()));
 					VooDAO vooDao = new VooDAO();
 					if (vooDao.alteraVoo(v1)){
@@ -155,7 +163,7 @@ public class TelaEditVoo extends Stage {
 		hbox7.getChildren().addAll(btnAtualizar, btnCancelar);
 		hbox7.setAlignment(Pos.CENTER);
 		
-		vbox1.getChildren().addAll(hbox10, hbox1, hbox2, hbox3, hbox4, hbox6, hbox5, hbox8, hbox9, hbox11, hbox7);
+		vbox1.getChildren().addAll(hbox10, hbox12, hbox1, hbox2, hbox3, hbox4, hbox6, hbox5, hbox8, hbox9, hbox11, hbox7);
 		
 		GridPane.setConstraints(vbox1, 9, 4);
 		

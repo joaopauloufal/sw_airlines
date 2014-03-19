@@ -48,7 +48,7 @@ public class VendaDAO implements ConsultasBancoVenda {
 	public boolean alteraVenda(Venda venda) {
 		try {
 			ConexaoDAO conDao = new ConexaoDAO();
-			if(conDao.executar("UPDATE sw_airlines.vendas SET cpf_cliente='" + venda.getCpfCnpjCliente() + "', tipo_venda='" + venda.getTipoVenda() + "', data_venda='" + venda.getDataVenda() + "', parcelas='" + venda.getParcelas() + "', valor_parcela='" + venda.getValorParcela() + "', valor_voo='" + venda.getValorVoo() +"', origem_voo='" + venda.getOrigemVoo() + "', destino_voo='" + venda.getDestinoVoo() + "' WHERE id_voo_venda='" + venda.getIdVoo() + "';")) {
+			if (conDao.executar("UPDATE sw_airlines.vendas SET cpf_cliente='" + venda.getCpfCnpjCliente() + "', tipo_venda='" + venda.getTipoVenda() + "', data_venda='" + venda.getDataVenda() + "', parcelas='" + venda.getParcelas() + "', valor_parcela='" + venda.getValorParcela() + "', valor_voo='" + venda.getValorVoo() +"', origem_voo='" + venda.getOrigemVoo() + "', destino_voo='" + venda.getDestinoVoo() + "' WHERE id_voo_venda='" + venda.getIdVoo() + "';")) {
 				return true;
 			}
 			
