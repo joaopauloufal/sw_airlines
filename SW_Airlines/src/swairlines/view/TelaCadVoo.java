@@ -98,7 +98,7 @@ public class TelaCadVoo extends Stage {
 		txtDataChegada = new TextField();
 		hbox9.getChildren().addAll(lblDataChegada, txtDataChegada);
 		
-		Label lblValor = new Label("Valor:");
+		Label lblValor = new Label("Valor R$:");
 		txtValor = new TextField();
 		hbox10.getChildren().addAll(lblValor, txtValor);
 		

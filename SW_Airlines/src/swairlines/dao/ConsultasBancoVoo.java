@@ -9,5 +9,10 @@ public interface ConsultasBancoVoo {
 	public boolean excluiVoo(Voo f1);
 	public boolean alteraVoo(Voo f1);
 	public ObservableList<Voo> buscaVoos();
+	public Voo buscaVooPorId(int id);
+	public boolean cancelarVoo(Voo voo);
+	public boolean atrasarVoo(Voo voo);
+	public boolean inserirPassageiro(Voo voo);
+	public boolean removerPassageiro(Voo voo);
 
 }

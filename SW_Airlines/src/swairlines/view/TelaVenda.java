@@ -264,7 +264,7 @@ public class TelaVenda extends Stage {
 					Venda venda = new Venda("À Vista", Integer.parseInt(listVoos.getValue()), lblOrigemVooValor.getText(), lblDestinoVooValor.getText(), Double.parseDouble(lblValorVooPreco.getText()), lblNomeClienteValor.getText(), listClientes.getValue(), lblCartaoCredClienteValor.getText());		
 					if (vendaDao.insereVenda(venda)) {
 						JOptionPane.showMessageDialog(null, "A vista - Venda realizada com sucesso!");
-						vooDao.quantPass(voo);
+						vooDao.inserirPassageiro(voo);
 						hide();
 					} else {
 						JOptionPane.showMessageDialog(null, "Erro na compra", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -279,7 +279,7 @@ public class TelaVenda extends Stage {
 						} else {
 							if (vendaDao.insereVenda(venda)) {
 								JOptionPane.showMessageDialog(null, "No cartão - Venda realizada com sucesso!");
-								vooDao.quantPass(voo);
+								vooDao.inserirPassageiro(voo);
 								hide();
 							} else {
 								JOptionPane.showMessageDialog(null, "Erro na compra", "Erro", JOptionPane.ERROR_MESSAGE);

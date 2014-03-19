@@ -61,6 +61,10 @@ public class TelaTabelaVoos extends BorderPane {
 		statusColuna.setCellValueFactory(new PropertyValueFactory<Voo, String>("status"));
 		statusColuna.setMinWidth(140);
 		
+		TableColumn<Voo, Double> vooValorColuna = new TableColumn<>("Valor R$");
+		vooValorColuna.setCellValueFactory(new PropertyValueFactory<Voo, Double>("valor"));
+		vooValorColuna.setMinWidth(140);
+		
 		TableColumn<Voo, Integer> qntPassageirosColuna = new TableColumn<>("Quantidade de Passageiros");
 		qntPassageirosColuna.setCellValueFactory(new PropertyValueFactory<Voo, Integer>("quantidadeDePassageiros"));
 		qntPassageirosColuna.setMinWidth(210);
@@ -160,16 +164,14 @@ public class TelaTabelaVoos extends BorderPane {
 			
 		});
 		
-		Button btnAtrasarVoo = new Button("Atrasar Voo");
 		
-		
-		tableView.getColumns().addAll(idColuna, aeronaveColuna, origemColuna, destinoColuna, statusColuna, qntPassageirosColuna, rotaColuna, horaPartidaColuna, horaChegadaColuna, dataPartidaColuna, dataChegadaColuna, tipoVooColuna);
+		tableView.getColumns().addAll(idColuna, aeronaveColuna, origemColuna, destinoColuna, statusColuna, vooValorColuna, qntPassageirosColuna, rotaColuna, horaPartidaColuna, horaChegadaColuna, dataPartidaColuna, dataChegadaColuna, tipoVooColuna);
 		tableView.setFocusTraversable(false);	
 		
 		VBox boxTop = new VBox(20);
 		Label titulo = new Label("Relação de Voos");
 		titulo.setFont(new Font(30));
-		hbox.getChildren().addAll(btnExcluirVoo, btnEditarVoo, btnAtualizarValores, btnCancelarVoo, btnAtrasarVoo);
+		hbox.getChildren().addAll(btnExcluirVoo, btnEditarVoo, btnAtualizarValores, btnCancelarVoo);
 		hbox.setAlignment(Pos.BASELINE_CENTER);
 		boxTop.setAlignment(Pos.CENTER);
 		VBox boxTable = new VBox();

@@ -67,7 +67,8 @@ public class VooDAO implements ConsultasBancoVoo {
 		return false;
 	}
 	
-	public boolean quantPass(Voo v1) {
+	@Override
+	public boolean inserirPassageiro(Voo v1) {
 		try {
 			ConexaoDAO cbd = new ConexaoDAO();
 			int quant = v1.getQuantidadeDePassageiros() + 1;
@@ -110,8 +111,7 @@ public class VooDAO implements ConsultasBancoVoo {
 				v1.setStatus(rs.getString("status"));
 				
 				try {
-					// é melhor usar um switch-case
-					if (horaAtual.before(v1.retornaHoraDataPartida()) && !v1.getStatus().equals("Cancelado")) {
+					if (horaAtual.before(v1.retornaHoraDataPartida()) && !v1.getStatus().equals("Cancelado") && !v1.getStatus().equals("Atrasado")) {
 						v1.setStatus("Não iniciado");
 					}
 					if (horaAtual.after(v1.retornaHoraDataPartida()) && horaAtual.before(v1.retornaHoraDataChegada()) && !v1.getStatus().equals("Cancelado")) {
@@ -139,7 +139,8 @@ public class VooDAO implements ConsultasBancoVoo {
 		
 	}
 	
-	public Voo buscaVooPorId(Integer id) {
+	@Override
+	public Voo buscaVooPorId(int id) {
 		
 		Voo v1 = new Voo();	
 		Date horaAtual = new Date();
@@ -165,7 +166,7 @@ public class VooDAO implements ConsultasBancoVoo {
 				v1.setStatus(rs.getString("status"));
 				
 				try {
-					if (horaAtual.before(v1.retornaHoraDataPartida()) && !v1.getStatus().equals("Cancelado")) {
+					if (horaAtual.before(v1.retornaHoraDataPartida()) && !v1.getStatus().equals("Cancelado") && !v1.getStatus().equals("Atrasado")) {
 						v1.setStatus("Não iniciado");
 					}
 					if (horaAtual.after(v1.retornaHoraDataPartida()) && horaAtual.before(v1.retornaHoraDataChegada()) && !v1.getStatus().equals("Cancelado")) {
@@ -192,8 +193,8 @@ public class VooDAO implements ConsultasBancoVoo {
 		
 	}
 	
+	@Override
 	public boolean cancelarVoo(Voo voo) {
-		// é preciso também, implementar a exclusão de vendas quando o voo for cancelado.
 		ConexaoDAO conexaoDao = new ConexaoDAO();
 		try {
 			if (conexaoDao.executar("UPDATE sw_airlines.voo SET status='Cancelado' WHERE id='" + voo.getId() + "';")) {
@@ -204,6 +205,25 @@ public class VooDAO implements ConsultasBancoVoo {
 		} catch (SQLException ex) {
 			Logger.getLogger(VooDAO.class.getName()).log(Level.SEVERE, null, ex);
 		}
+		return false;
+	}
+	
+	@Override
+	public boolean atrasarVoo(Voo voo) {
+		ConexaoDAO conDao = new ConexaoDAO();
+		try {
+			if (conDao.executar("UPDATE sw_airlines.voo SET status='Atrasado' WHERE id='" + voo.getId() + "';")) {
+				return true;
+			}
+		} catch (SQLException ex) {
+			Logger.getLogger(VooDAO.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		return false;
+	}
+
+	@Override
+	public boolean removerPassageiro(Voo voo) {
+		// TODO Auto-generated method stub
 		return false;
 	}
 	

@@ -1,5 +1,6 @@
 package swairlines.view;
 
+import java.text.ParseException;
 import javax.swing.JOptionPane;
 
 import javafx.event.ActionEvent;
@@ -34,7 +35,7 @@ public class TelaEditVoo extends Stage {
 	private Label lblValorId;
 	private TextField txtAeronave;
 	
-	public TelaEditVoo(Voo v1) {
+	public TelaEditVoo(final Voo v1) {
 		
 		GridPane gPane = new GridPane();
 		gPane.setPadding(new Insets(10, 10, 10, 10));
@@ -112,7 +113,7 @@ public class TelaEditVoo extends Stage {
 		txtDataChegada.setText(v1.getDataChegada());
 		hbox9.getChildren().addAll(lblDataChegada, txtDataChegada);
 		
-		Label lblValor = new Label("Valor:");
+		Label lblValor = new Label("Valor R$:");
 		txtValor = new TextField();
 		txtValor.setText(v1.getValor() + "");
 		hbox11.getChildren().addAll(lblValor, txtValor);
@@ -122,7 +123,7 @@ public class TelaEditVoo extends Stage {
 		btnAtualizar.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
-			public void handle(ActionEvent event) {		
+			public void handle(ActionEvent event) {
 				
 				String  padrao  =  ("(0[1-9]|[12][0-9]|3[01])[-  /.](0[1-9]|[0-9]|1[012])[-  /.]((19|20)\\d\\d)");
 
@@ -133,10 +134,20 @@ public class TelaEditVoo extends Stage {
 				} else {
 					System.out.println("valido");
 					
-					Voo v1 = new Voo(txtAeronave.getText(), txtOrigem.getText(), txtDestino.getText(), txtRota.getText(), txtHoraPartida.getText(), txtHoraChegada.getText(), txtDataPartida.getText(), txtDataChegada.getText(), listTipoVoo.getValue(), Double.parseDouble(txtValor.getText()));
-					v1.setId(Integer.parseInt(lblValorId.getText()));
+					Voo voo = new Voo(txtAeronave.getText(), txtOrigem.getText(), txtDestino.getText(), txtRota.getText(), txtHoraPartida.getText(), txtHoraChegada.getText(), txtDataPartida.getText(), txtDataChegada.getText(), listTipoVoo.getValue(), Double.parseDouble(txtValor.getText()));
+					voo.setId(Integer.parseInt(lblValorId.getText()));
 					VooDAO vooDao = new VooDAO();
-					if (vooDao.alteraVoo(v1)){
+					try {
+						if (v1.retornaHoraDataPartida().before(voo.retornaHoraDataPartida())) {
+							if (vooDao.atrasarVoo(voo)) {
+								JOptionPane.showMessageDialog(null, "Voo atrasado.", "Atraso Voo", JOptionPane.INFORMATION_MESSAGE);
+							}
+							
+						}
+					} catch (ParseException e) {
+						JOptionPane.showMessageDialog(null, "Error, formato da data deve ser 00/00/0000", "Error, formato da data", JOptionPane.ERROR_MESSAGE);
+					}
+					if (vooDao.alteraVoo(voo)){
 						JOptionPane.showMessageDialog(null, "Voo atualizado com sucesso!");
 						hide();
 					} else {
