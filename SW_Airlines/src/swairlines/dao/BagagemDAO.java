@@ -38,7 +38,7 @@ public class BagagemDAO implements ConsultasBancoBagagem {
 	public boolean removeBagagem(Bagagem bagagem) {
 		try {
 			ConexaoDAO conDao = new ConexaoDAO();
-			if (conDao.executar("DELETE FROM sw_airlines.bagagem WHERE cpf_cliente='" + bagagem.getCpfCnpjCliente() + "';")) {
+			if (conDao.executar("DELETE FROM sw_airlines.bagagens WHERE cpf_cliente_bagagem='" + bagagem.getCpfCnpjCliente() + "';")) {
 				return true;
 			}
 		} catch (SQLException ex) {
@@ -51,7 +51,7 @@ public class BagagemDAO implements ConsultasBancoBagagem {
 	public boolean alteraBagagem(Bagagem bagagem) {
 		try {
 			ConexaoDAO conDao = new ConexaoDAO();
-			if (conDao.executar("UPDATE sw_airlines.bagagem SET peso_bagagem='" + bagagem.getPesoBagagem() + "' WHERE cpf_cliente='" + bagagem.getCpfCnpjCliente() + "';")) {
+			if (conDao.executar("UPDATE sw_airlines.bagagem SET peso_bagagem='" + bagagem.getPesoBagagem() + "' WHERE cpf_cliente_bagagem='" + bagagem.getCpfCnpjCliente() + "';")) {
 				return true;
 			}
 		} catch (SQLException ex) {

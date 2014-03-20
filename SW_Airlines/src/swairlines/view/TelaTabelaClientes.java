@@ -141,7 +141,7 @@ public class TelaTabelaClientes extends BorderPane {
 					if (resposta == JOptionPane.YES_OPTION) {
 						ClienteDAO clienteDao = new ClienteDAO();
 						clienteDao.excluiCliente(tableView.getSelectionModel().getSelectedItem());
-						JOptionPane.showMessageDialog(null, "Cliente excluido.", "Exclusãa de Cliente", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Cliente excluido.", "Exclusão de Cliente", JOptionPane.INFORMATION_MESSAGE);
 						Main.alterarTela(new TelaTabelaClientes(f));
 					}
 				}
