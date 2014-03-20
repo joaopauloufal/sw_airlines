@@ -226,7 +226,6 @@ public class ConexaoDAO implements ConexaoBDMySql {
 				+ " origem_voo VARCHAR(80) NOT NULL,"
 				+ " destino_voo VARCHAR(80) NOT NULL,"
 				+ " peso_bagagem DOUBLE(15,2) NOT NULL,"
-				+ " preco_total_bagagem DOUBLE(15,2) NOT NULL,"
 				+ " PRIMARY KEY (cpf_cliente_bagagem, voo_id),"
 				+ " CONSTRAINT cpf_bagagem_cpf_cliente"
 				+ " FOREIGN KEY (cpf_cliente_bagagem)"

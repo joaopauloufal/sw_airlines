@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import swairlines.model.Bagagem;
+import swairlines.model.Venda;
 
 public class BagagemDAO implements ConsultasBancoBagagem {
 
@@ -17,8 +18,13 @@ public class BagagemDAO implements ConsultasBancoBagagem {
 	public boolean insereBagagem(Bagagem bagagem) {
 		try {
 			ConexaoDAO conDao = new ConexaoDAO();
-			if (conDao.executar("INSERT INTO sw_airlines.bagagens (cpf_cliente_bagagem, nome_cliente, voo_id, origem_voo, destino_voo, peso_bagagem, preco_total_bagagem)" + 
-					"VALUES('" + bagagem.getCpfCnpjCliente() + "','" + bagagem.getNomeCliente() + "','" + bagagem.getVooId() + "','" + bagagem.getOrigemVoo() + "','" + bagagem.getDestinoVoo() + "','" + bagagem.getPesoBagagem() + "','" + bagagem.getPrecoTotalBagagem() + "');")) {
+			if (conDao.executar("INSERT INTO sw_airlines.bagagens (cpf_cliente_bagagem, nome_cliente, voo_id, origem_voo, destino_voo, peso_bagagem)" + 
+					"VALUES('" + bagagem.getCpfCnpjCliente() + "','" + bagagem.getNomeCliente() + "','" + bagagem.getVooId() + "','" + bagagem.getOrigemVoo() + "','" + bagagem.getDestinoVoo() + "','" + bagagem.getPesoBagagem() + "');")) {
+				if (bagagem.getTaxa() != 0.0) {
+					double valor = retornaValorVooPorid(bagagem.getCpfCnpjCliente());
+					valor += valor * bagagem.getTaxa();
+					conDao.executar("UPDATE sw_airlines.vendas SET valor_voo='" + valor + "' WHERE cpf_cliente='" + bagagem.getCpfCnpjCliente() + "';");
+				}
 				return true;
 			}
 		} catch (SQLException ex) {
@@ -32,7 +38,7 @@ public class BagagemDAO implements ConsultasBancoBagagem {
 	public boolean removeBagagem(Bagagem bagagem) {
 		try {
 			ConexaoDAO conDao = new ConexaoDAO();
-			if (conDao.executar("DELETE FROM sw_airlines.bagagem WHERE cpf_cliente='" + bagagem.getCpfCnpjCliente() + "';")) {
+			if (conDao.executar("DELETE FROM sw_airlines.bagagens WHERE cpf_cliente_bagagem='" + bagagem.getCpfCnpjCliente() + "';")) {
 				return true;
 			}
 		} catch (SQLException ex) {
@@ -45,7 +51,7 @@ public class BagagemDAO implements ConsultasBancoBagagem {
 	public boolean alteraBagagem(Bagagem bagagem) {
 		try {
 			ConexaoDAO conDao = new ConexaoDAO();
-			if (conDao.executar("UPDATE sw_airlines.bagagem SET peso_bagagem='" + bagagem.getPesoBagagem() + "', preco_total_bagagem='" + bagagem.getPrecoTotalBagagem() + "';")) {
+			if (conDao.executar("UPDATE sw_airlines.bagagem SET peso_bagagem='" + bagagem.getPesoBagagem() + "' WHERE cpf_cliente_bagagem='" + bagagem.getCpfCnpjCliente() + "';")) {
 				return true;
 			}
 		} catch (SQLException ex) {
@@ -72,7 +78,6 @@ public class BagagemDAO implements ConsultasBancoBagagem {
 				bagagem.setOrigemVoo(rs.getString("origem_voo"));
 				bagagem.setDestinoVoo(rs.getString("destino_voo"));
 				bagagem.setPesoBagagem(rs.getDouble("peso_bagagem"));
-				bagagem.setPrecoTotalBagagem(rs.getDouble("preco_total_bagagem"));
 				bagagens.add(bagagem);
 			}
 			
@@ -105,7 +110,6 @@ public class BagagemDAO implements ConsultasBancoBagagem {
 				bagagem.setOrigemVoo(rs.getString("origem_voo"));
 				bagagem.setDestinoVoo(rs.getString("destino_voo"));
 				bagagem.setPesoBagagem(rs.getDouble("peso_bagagem"));
-				bagagem.setPrecoTotalBagagem(rs.getDouble("preco_total_bagagem"));
 				bagagens.add(bagagem);
 			}
 			
@@ -117,6 +121,29 @@ public class BagagemDAO implements ConsultasBancoBagagem {
 			Logger.getLogger(BagagemDAO.class.getName()).log(Level.SEVERE, null, ex);
 			return null;
 		}
+	}
+	
+	private Double retornaValorVooPorid(String cpf) {
+		ConexaoDAO conDao = new ConexaoDAO();
+		Connection con;
+		Venda venda = new Venda();
+		try {
+			con = conDao.abreConexao();
+			PreparedStatement stm = con.prepareStatement("SELECT valor_voo FROM sw_airlines.vendas WHERE cpf_cliente='"+cpf+"';");
+			ResultSet rs = stm.executeQuery();
+			
+			while (rs.next()) {				
+				venda.setValorVoo(rs.getDouble("valor_voo"));
+			}
+			rs.close();
+			stm.close();
+			con.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return venda.getValorVoo();
+		
 	}
 
 }

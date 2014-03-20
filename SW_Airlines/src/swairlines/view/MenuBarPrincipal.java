@@ -14,13 +14,12 @@ import javafx.scene.control.MenuItem;
 public class MenuBarPrincipal extends MenuBar {
 	
 	public MenuBarPrincipal(final Funcionario f) {
-		Menu menuArquivo = new Menu("Arquivo");
+		Menu menuSistema = new Menu("Sistema");
 		Menu menuCadastro = new Menu("Cadastro");
-		Menu menuEditar = new Menu("Editar");
 		Menu menuListar = new Menu("Listar");
 		Menu menuVoo = new Menu("Voo");
 		Menu menuCompra = new Menu("Compra");
-		Menu menuSobre = new Menu("Sobre");		
+		Menu menuAjuda = new Menu("Ajuda");		
 		
 		MenuItem itemSair = new MenuItem("Sair");
 		
@@ -49,9 +48,20 @@ public class MenuBarPrincipal extends MenuBar {
 				}
 								
 			}			
-		});		
+		});
 		
-		menuArquivo.getItems().addAll(itemLogout, itemSair);
+		MenuItem itemIncio = new MenuItem("Inicio");
+		itemIncio.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				Main.alterarTela(new TelaPrincipal(f));
+				
+			}
+			
+		});
+		
+		menuSistema.getItems().addAll(itemIncio,itemLogout, itemSair);
 
 		
 		MenuItem itemCadastrarFuncionario = new MenuItem("Cadastrar Funcionário...");
@@ -116,7 +126,6 @@ public class MenuBarPrincipal extends MenuBar {
 			}
 			
 		});
-		MenuItem itemAtrasarVoo = new MenuItem("Atrasar Voo..");
 		
 		MenuItem menuRealizarCompra = new MenuItem("Realizar Compra Passagem...");
 		menuRealizarCompra.setOnAction(new EventHandler<ActionEvent>() {
@@ -141,23 +150,11 @@ public class MenuBarPrincipal extends MenuBar {
 			}
 			
 		});
-		menuCompra.getItems().addAll(menuRealizarCompra, menuRealizarCheckin);
+		menuCompra.getItems().addAll(menuRealizarCompra, menuRealizarCheckin);			
 		
-		MenuItem itemEditarVoo = new MenuItem("Editar Voo...");
+		menuVoo.getItems().addAll(itemChecarDisponibilidade);
 		
-		itemEditarVoo.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-				// Para fazer				
-				
-			}
-			
-		});				
-		
-		menuVoo.getItems().addAll(itemChecarDisponibilidade, itemAtrasarVoo, itemEditarVoo);
-		
-		MenuItem itemListarContasDeUsuario = new MenuItem("Listar Contas de Usuário");
+		MenuItem itemListarContasDeUsuario = new MenuItem("Listar Contas de Usuário...");
 		
 		itemListarContasDeUsuario.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -168,7 +165,7 @@ public class MenuBarPrincipal extends MenuBar {
 			}
 			
 		});
-		MenuItem itemListarFuncionarios = new MenuItem("Listar Funcionários");
+		MenuItem itemListarFuncionarios = new MenuItem("Listar Funcionários...");
 		
 		itemListarFuncionarios.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -179,7 +176,7 @@ public class MenuBarPrincipal extends MenuBar {
 			}
 			
 		});
-		MenuItem itemListarClientes = new MenuItem("Listar Clientes");
+		MenuItem itemListarClientes = new MenuItem("Listar Clientes...");
 		
 		itemListarClientes.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -190,7 +187,7 @@ public class MenuBarPrincipal extends MenuBar {
 			}
 			
 		});
-		MenuItem listarVendas = new MenuItem("Listar Vendas");
+		MenuItem listarVendas = new MenuItem("Listar Vendas...");
 		listarVendas.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -201,17 +198,29 @@ public class MenuBarPrincipal extends MenuBar {
 			
 		});
 		
+		MenuItem listarBagagens = new MenuItem("Listar Bagagens...");
+		listarBagagens.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				Main.alterarTela(new TelaTabelaBagagens(f));
+				
+			}
+			
+		});
 		
-		menuListar.getItems().addAll(itemListarContasDeUsuario, itemListarClientes, itemListarFuncionarios, listarVendas);
 		
-		getMenus().addAll(menuArquivo, menuCadastro, menuEditar, menuListar, menuCompra, menuVoo, menuSobre);
+		menuListar.getItems().addAll(itemListarContasDeUsuario, itemListarClientes, itemListarFuncionarios, listarVendas, listarBagagens);
+		
+		MenuItem itemAjuda = new MenuItem("Sobre SW Airlines...");
+		menuAjuda.getItems().addAll(itemAjuda);
+		
+		getMenus().addAll(menuSistema, menuCadastro, menuListar, menuCompra, menuVoo, menuAjuda);
 		
 		if (f.getConta().getTipoConta().equals(ContaDeUsuario.TIPO_CONTA_OPERADOR)) {
 			itemCadastrarFuncionario.setVisible(false);
 			itemCadastrarVoo.setVisible(false);
-			itemEditarVoo.setVisible(false);
 			itemCadastroConta.setVisible(false);
-			itemAtrasarVoo.setVisible(false);
 			itemListarFuncionarios.setVisible(false);
 			itemCadastroConta.setVisible(false);
 			itemListarContasDeUsuario.setVisible(false);
