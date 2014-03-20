@@ -48,9 +48,20 @@ public class MenuBarPrincipal extends MenuBar {
 				}
 								
 			}			
-		});		
+		});
 		
-		menuSistema.getItems().addAll(itemLogout, itemSair);
+		MenuItem itemIncio = new MenuItem("Inicio");
+		itemIncio.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				Main.alterarTela(new TelaPrincipal(f));
+				
+			}
+			
+		});
+		
+		menuSistema.getItems().addAll(itemIncio,itemLogout, itemSair);
 
 		
 		MenuItem itemCadastrarFuncionario = new MenuItem("Cadastrar Funcionário...");
