@@ -82,6 +82,9 @@ public class TelaVenda extends Stage {
 		gPane.setVgap(5);
 		gPane.setHgap(5);
 		
+		Scene scene = new Scene(gPane, 500, 400, Color.SILVER);
+		setScene(scene);
+		
 		VBox vbox = new VBox(20);
 		VBox vbox1 = new VBox(20);
 		VBox vbox0 = new VBox(15);
@@ -96,9 +99,6 @@ public class TelaVenda extends Stage {
 		HBox hbox8 = new HBox(20);
 		HBox hbox9 = new HBox(20);
 		
-		
-		Scene scene = new Scene(gPane, 500, 400, Color.SILVER);
-		setScene(scene);
 		
 		Label lblCpfClientes = new Label("CPF Clientes:");
 		listClientes = new ComboBox<String>();
@@ -160,10 +160,7 @@ public class TelaVenda extends Stage {
 						cartao.setVisible(true);
 					}
 					
-				}
-				
-				
-				
+				}				
 				
 				
 			}
@@ -185,7 +182,6 @@ public class TelaVenda extends Stage {
 					lblOrigemVooValor.setText(voo.getOrigem());
 					lblDestinoVooValor.setText(voo.getDestino());	
 					lblValorVooPreco.setText(String.valueOf(voo.getValor()));					
-					
 					
 				}
 				
