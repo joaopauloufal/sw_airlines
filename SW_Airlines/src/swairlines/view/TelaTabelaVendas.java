@@ -6,12 +6,10 @@ package swairlines.view;
  * @name TelaTabelaVendas
  */
 
-import javax.swing.JOptionPane;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-import swairlines.Main;
-import swairlines.dao.VendaDAO;
-import swairlines.model.Funcionario;
-import swairlines.model.Venda;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,16 +20,26 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
+import javax.swing.JOptionPane;
+
+import swairlines.Main;
+import swairlines.dao.VendaDAO;
+import swairlines.model.Funcionario;
+import swairlines.model.Venda;
+
 public class TelaTabelaVendas extends BorderPane {
 	
 	private TableView<Venda> tableView = new TableView<Venda>();
 	private ObservableList<Venda> dados;
+	private TextField txtBuscaPeriodoInicial;
+	private TextField txtBuscaPeriodoFim;
 	
 	@SuppressWarnings("unchecked")
 	public TelaTabelaVendas(final Funcionario f) {
@@ -146,6 +154,34 @@ public class TelaTabelaVendas extends BorderPane {
 		tableView.getColumns().addAll(vooColuna, origemVooColuna, destinoVooColuna, tipoVendaColuna, valorVooColuna, dataHoraVenda, cpfCnpjClienteColuna, nomeClienteColuna, cartaoClienteColuna, parcelasColuna, valorParcelasColuna);
 		tableView.setFocusTraversable(false);
 		
+		Label lblBuscaPeriodoInicial = new Label("Data inicial:");
+		txtBuscaPeriodoInicial = new TextField();
+		Label lblBuscaPeriodoFim = new Label("Data final");
+		txtBuscaPeriodoFim = new TextField();
+		
+		Button btnBuscaPorPeriodo = new Button("Buscar pelo periodo");
+		btnBuscaPorPeriodo.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent arg0) {
+				SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyy");
+				Date inicial;
+				try {
+					inicial = sd.parse(txtBuscaPeriodoInicial.getText());
+					Date fim = sd.parse(txtBuscaPeriodoFim.getText());
+					dados.setAll(new VendaDAO().buscaPorPeriodo(inicial, fim));
+					tableView.setItems(dados);
+				} catch (ParseException e) {
+					JOptionPane.showMessageDialog(null, "Data inválida","Atençaõ",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		HBox hbox2 = new HBox(20);
+		hbox2.setAlignment(Pos.BASELINE_CENTER);
+		hbox2.getChildren().addAll(lblBuscaPeriodoInicial,txtBuscaPeriodoInicial,
+				lblBuscaPeriodoFim, txtBuscaPeriodoFim,btnBuscaPorPeriodo);
+		
 		VBox boxTop = new VBox(20);
 		Label titulo = new Label("Lista de Vendas");
 		titulo.setFont(new Font(30));
@@ -155,7 +191,7 @@ public class TelaTabelaVendas extends BorderPane {
 		VBox vboxTabela = new VBox();
 		vboxTabela.setPadding(new Insets(0, 10, 0, 10));
 		vboxTabela.getChildren().add(tableView);
-		boxTop.getChildren().addAll(new TelaPrincipal(f), titulo, vboxTabela, hbox);
+		boxTop.getChildren().addAll(new TelaPrincipal(f), titulo, vboxTabela, hbox,hbox2);
 		setTop(boxTop);
 		
 		tableView.setItems(dados);

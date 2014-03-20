@@ -9,15 +9,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import swairlines.model.Venda;
 import swairlines.model.Voo;
+
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 public class VendaDAO implements ConsultasBancoVenda {
 	
@@ -134,6 +137,25 @@ public class VendaDAO implements ConsultasBancoVenda {
 		
 	}
 	
+	public ObservableList<Venda> buscaPorPeriodo(Date inicial, Date fim){
+		SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyy");
+		ObservableList<Venda> tempList;
+		tempList = FXCollections.observableArrayList();
+		for(Venda v: buscaVendas()){
+			Date tempDate;
+			try {
+				tempDate = sd.parse(v.getDataVenda());
+				if((tempDate.after(inicial) || tempDate.equals(inicial))
+					&&tempDate.before(fim)){
+					tempList.add(v);
+				}
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return tempList;
+	}
 	
 	
 

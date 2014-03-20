@@ -224,7 +224,7 @@ public class MenuBarPrincipal extends MenuBar {
 
 			@Override
 			public void handle(ActionEvent event) {
-				JOptionPane.showMessageDialog(null, "Versão 1.4", "Sw Airlines", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Versão 1.5", "Sw Airlines", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		menuAjuda.getItems().addAll(itemAjuda);

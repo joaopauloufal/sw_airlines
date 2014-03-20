@@ -32,10 +32,9 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		try {
-			Main.SCENE = new Scene(new TelaLogin(), 1024, 700, Color.SILVER);
+			Main.SCENE = new Scene(new TelaLogin(), 1024, 700,Color.SILVER);
 			primaryStage.setScene(Main.SCENE);
-			primaryStage.setTitle("SW Airlines 1.4");
-			//SCENE.getStylesheets().add("swairlines/stylo.css");
+			primaryStage.setTitle("SW Airlines 1.5");
 			primaryStage.show();
 			
 		} catch (Exception e) {
