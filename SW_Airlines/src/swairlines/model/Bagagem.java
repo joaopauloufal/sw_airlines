@@ -1,4 +1,9 @@
 package swairlines.model;
+/**
+* @author João Paulo, Danilo Victor, Pedro Victor
+* @since 2014
+* @name Bagagem
+*/
 
 public class Bagagem {
 	

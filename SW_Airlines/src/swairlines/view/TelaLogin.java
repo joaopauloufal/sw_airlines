@@ -1,4 +1,9 @@
 package swairlines.view;
+/**
+ * @author João Paulo, Danilo Victor, Pedro Victor
+ * @since 2014
+ * @name TelaLogin
+ */
 
 import javax.swing.JOptionPane;
 
@@ -31,7 +36,9 @@ public class TelaLogin extends BorderPane {
 		txtSenha = new PasswordField();
 		
 		Label lblUsuario = new Label("Usuário:");
-		Label lblSenha = new Label("Senha:");				
+		Label lblSenha = new Label("Senha:");	
+		
+		/**Verifica os usuário e senha*/
 		
 		Button btnLogin = new Button("Login");
 		btnLogin.setOnAction(new EventHandler<ActionEvent>() {

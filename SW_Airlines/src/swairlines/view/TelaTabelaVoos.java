@@ -1,5 +1,11 @@
 package swairlines.view;
 
+/**
+ * @author João Paulo, Danilo Victor, Pedro Victor
+ * @since 2014
+ * @name TelaTabelaVoos
+ */
+
 import javax.swing.JOptionPane;
 
 import swairlines.Main;
@@ -91,7 +97,9 @@ public class TelaTabelaVoos extends BorderPane {
 		
 		TableColumn<Voo, String> tipoVooColuna = new TableColumn<>("Tipo de Voo");
 		tipoVooColuna.setCellValueFactory(new PropertyValueFactory<Voo, String>("tipoVoo"));
-		tipoVooColuna.setMinWidth(140);		
+		tipoVooColuna.setMinWidth(140);	
+		
+		/**Edita voo no banco*/
 		
 		Button btnEditarVoo = new Button("Editar Voo");
 		btnEditarVoo.setOnAction(new EventHandler<ActionEvent>() {
@@ -107,6 +115,8 @@ public class TelaTabelaVoos extends BorderPane {
 			}
 		});
 		
+		/**Atualiza dados*/
+		
 		Button btnAtualizarValores = new Button("Atualizar Valores");
 		
 		btnAtualizarValores.setOnAction(new EventHandler<ActionEvent>() {
@@ -120,7 +130,7 @@ public class TelaTabelaVoos extends BorderPane {
 		});
 		
 		Button btnExcluirVoo = new Button("Excluir Voo");
-		
+		/**Exclui voo do banco*/
 		btnExcluirVoo.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -140,6 +150,7 @@ public class TelaTabelaVoos extends BorderPane {
 			
 		});
 		
+		/**Cancela o voo*/
 		Button btnCancelarVoo = new Button("Cancelar Voo");
 		btnCancelarVoo.setOnAction(new EventHandler<ActionEvent>() {
 

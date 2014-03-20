@@ -1,5 +1,9 @@
 package swairlines.view;
-
+/**
+ * @author João Paulo, Danilo Victor, Pedro Victor
+ * @since 2014
+ * @name TelaCadConta
+ */
 import javax.swing.JOptionPane;
 
 import swairlines.dao.ContaDeUsuarioDAO;
@@ -84,12 +88,17 @@ public class TelaCadConta extends Stage {
 		
 		listCpfFuncionarios.getItems().addAll(funcionariosCpf);
 		
-				
+		/**Cadastra uma conta*/
 		Button btnCadastrar = new Button("Cadastrar");
 		btnCadastrar.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
 			public void handle(ActionEvent event) {
+				if(txtUsuario.getText().isEmpty()||txtSenha.getText().isEmpty()||listTipoConta.getValue().isEmpty()||
+						listCpfFuncionarios.getValue().isEmpty()||txtSenhaConfirmacao.getText().isEmpty()){
+					JOptionPane.showMessageDialog(null, "Campo(s) vazio(s)!","Alerta!",JOptionPane.ERROR_MESSAGE);	
+				}
+				else{
 				ContaDeUsuarioDAO contaDao = new ContaDeUsuarioDAO();
 				ContaDeUsuario c1 = new ContaDeUsuario(txtUsuario.getText(), txtSenha.getText(), listTipoConta.getValue(), listCpfFuncionarios.getValue());
 				if (c1.getSenha().equals(txtSenhaConfirmacao.getText())) {
@@ -97,14 +106,14 @@ public class TelaCadConta extends Stage {
 						JOptionPane.showMessageDialog(null, "Conta cadastrada com sucesso!");
 						hide();
 					} else {
-						JOptionPane.showMessageDialog(null, "Erro ao inserir!", "Erro", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Erro ao inserir! Usuário já cadastrado.", "Erro", JOptionPane.ERROR_MESSAGE);
 						hide();
 					}					
 					
 				} else {
 					JOptionPane.showMessageDialog(null, "A senha digitada não confere com a confirmação!", "Erro de Confirmação", JOptionPane.ERROR_MESSAGE);
 				}
-				
+				}
 			}
 		});
 		

@@ -1,5 +1,11 @@
 package swairlines.view;
 
+/**
+ * @author João Paulo, Danilo Victor, Pedro Victor
+ * @since 2014
+ * @name TelaTabelaVendas
+ */
+
 import javax.swing.JOptionPane;
 
 import swairlines.Main;
@@ -82,6 +88,8 @@ public class TelaTabelaVendas extends BorderPane {
 		valorParcelasColuna.setCellValueFactory(new PropertyValueFactory<Venda, Double>("valorParcela"));
 		valorParcelasColuna.setMinWidth(140);
 		
+		/** Remove venda do banco*/
+		
 		Button btnRemoverVenda = new Button("Remover Venda");
 		btnRemoverVenda.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -99,6 +107,8 @@ public class TelaTabelaVendas extends BorderPane {
 				
 			}
 		});
+		
+		/** Altera venda do banco*/
 		
 		Button btnAlterarVenda = new Button("Alterar Venda...");
 		btnAlterarVenda.setOnAction(new EventHandler<ActionEvent>() {
@@ -119,6 +129,8 @@ public class TelaTabelaVendas extends BorderPane {
 			}
 			
 		});
+		
+		/**Atualiza dados*/
 		
 		Button btnAtualizarValores = new Button("Atualizar Valores");
 		btnAtualizarValores.setOnAction(new EventHandler<ActionEvent>() {

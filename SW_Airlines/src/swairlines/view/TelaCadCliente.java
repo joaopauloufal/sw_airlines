@@ -1,5 +1,11 @@
 package swairlines.view;
 
+/**
+ * @author João Paulo, Danilo Victor, Pedro Victor
+ * @since 2014
+ * @name TelaCadCliente
+ */
+
 import javax.swing.JOptionPane;
 
 import swairlines.dao.ClienteDAO;
@@ -145,12 +151,18 @@ public class TelaCadCliente extends Stage {
 		Label lblPassaporte = new Label("Passaporte Nº:");
 		txtPassaporte = new TextField();
 		hbox17.getChildren().addAll(lblPassaporte, txtPassaporte);
-		
+		/** Cadastra um Cliente*/
 		Button btnCadastrar = new Button("Cadastrar");
 		btnCadastrar.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
 			public void handle(ActionEvent event) {
+				if(txtRua.getText().isEmpty()||txtCidade.getText().isEmpty()||txtBairro.getText().isEmpty()||txtNumero.getText().isEmpty()||txtEstado.getText().isEmpty()||
+						txtNome.getText().isEmpty()||txtCpfCnpj.getText().isEmpty()|| listSexo.getValue().isEmpty()||txtRg.getText().isEmpty()||txtDataDeNascimento.getText().isEmpty()||
+						listEstadoCivil.getValue().isEmpty()||txtNacionalidade.getText().isEmpty()||txtTelefoneCelular.getText().isEmpty()){
+					JOptionPane.showMessageDialog(null, "Campo(s) vazio(s).","Atenção!",JOptionPane.ERROR_MESSAGE);
+				}
+				else{
 				String  padrao  =  ("(0[1-9]|[12][0-9]|3[01])[-  /.](0[1-9]|[0-9]|1[012])[-  /.]((19|20)\\d\\d)");
 
 				if (txtDataDeNascimento.getText().matches(padrao) == false) {
@@ -171,7 +183,7 @@ public class TelaCadCliente extends Stage {
 						hide();
 					}
 				}
-			}
+			}}
 		});
 		
 		Button btnCancelar = new Button("Cancelar");

@@ -1,5 +1,11 @@
 package swairlines.view;
 
+/**
+ * @author João Paulo, Danilo Victor, Pedro Victor
+ * @since 2014
+ * @name TelaEditContaDeUsuario
+ */
+
 import javax.swing.JOptionPane;
 
 import swairlines.dao.ContaDeUsuarioDAO;
@@ -73,12 +79,17 @@ public class TelaEditContaDeUsuario extends Stage {
 		lblCpfValor = new Label(conta.getCpfFuncionario());
 		hbox6.getChildren().addAll(lblCpfFuncionario, lblCpfValor);
 		
-				
+		/**Atualiza os dados*/
 		Button btnAtualizar = new Button("Atualizar");
 		btnAtualizar.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
 			public void handle(ActionEvent event) {
+				if(txtUsuario.getText().isEmpty()||txtSenha.getText().isEmpty()||listTipoConta.getValue().isEmpty()||
+						txtSenhaConfirmacao.getText().isEmpty()){
+					JOptionPane.showMessageDialog(null, "Campo(s) vazio(s)!","Alerta!",JOptionPane.ERROR_MESSAGE);	
+				}
+				else{
 				ContaDeUsuarioDAO contaDao = new ContaDeUsuarioDAO();
 				ContaDeUsuario c1 = new ContaDeUsuario(txtUsuario.getText(), txtSenha.getText(), listTipoConta.getValue(), lblCpfValor.getText());
 				if (c1.getSenha().equals(txtSenhaConfirmacao.getText())) {
@@ -93,7 +104,7 @@ public class TelaEditContaDeUsuario extends Stage {
 				} else {
 					JOptionPane.showMessageDialog(null, "A senha digitada não confere com a confirmação!", "Erro de Confirmação", JOptionPane.ERROR_MESSAGE);
 				}
-				
+				}
 			}
 		});
 		

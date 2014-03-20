@@ -1,5 +1,11 @@
 package swairlines.model;
 
+/**
+ * @author João Paulo, Danilo Victor, Pedro Victor
+ * @since 2014
+ * @name Operador
+ */
+
 public class Operador extends Funcionario {
 	
 	public static final String TIPO_CONTA = "Operador";

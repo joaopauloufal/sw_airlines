@@ -1,5 +1,11 @@
 package swairlines.dao;
 
+/**
+ * @author João Paulo, Danilo Victor, Pedro Victor
+ * @since 2014
+ * @name FuncionarioDAO
+ */
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +20,13 @@ import swairlines.model.Funcionario;
 import swairlines.model.Gerente;
 
 public class FuncionarioDAO implements ConsultasBancoFuncionario {
+	
+	/**
+	 * insereFuncionario, insere funcionario no banco
+	 * @param Funcionario
+	 * @return boolean
+	 * @throws SQLException
+	 */
 	
 	@Override
 	public boolean insereFuncionario(Funcionario f1) {
@@ -33,6 +46,13 @@ public class FuncionarioDAO implements ConsultasBancoFuncionario {
 		return false;
 	}
 	
+	/**
+	 * exclui funcionario no banco
+	 * @param Funcionario
+	 * @return boolean
+	 * @throws SQLException
+	 */
+	
 	@Override
 	public boolean excluiFuncionario(Funcionario f1) {
 		try {
@@ -50,7 +70,12 @@ public class FuncionarioDAO implements ConsultasBancoFuncionario {
 		return false;
 	}
 	
-	
+	/**
+	 * altera funcionario no banco
+	 * @param Funcionario
+	 * @return boolean
+	 * @throws SQLException
+	 */
 	@Override
 	public boolean alteraFuncionario(Funcionario f1) {
 		try {
@@ -67,6 +92,12 @@ public class FuncionarioDAO implements ConsultasBancoFuncionario {
 		return false;
 		
 	}
+	
+	/**
+	 * busca funcionarios no banco
+	 * @return {@link ObservableList}
+	 * @throws SQLException
+	 */
 	
 	@Override
 	public ObservableList<Funcionario> buscaFuncionarios() {

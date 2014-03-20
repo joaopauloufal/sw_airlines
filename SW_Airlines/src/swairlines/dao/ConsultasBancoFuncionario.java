@@ -1,5 +1,11 @@
 package swairlines.dao;
 
+/**
+ * @author João Paulo, Danilo Victor, Pedro Victor
+ * @since 2014
+ * @name ConsultasBancoFuncionario
+ */
+
 import swairlines.model.Funcionario;
 import javafx.collections.ObservableList;
 

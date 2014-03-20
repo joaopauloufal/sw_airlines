@@ -1,5 +1,11 @@
 package swairlines.view;
 
+/**
+ * @author João Paulo, Danilo Victor, Pedro Victor
+ * @since 2014
+ * @name Bagagem
+ */
+
 import javax.swing.JOptionPane;
 
 import swairlines.Main;
@@ -106,6 +112,8 @@ public class TelaTabelaClientes extends BorderPane {
 		tableView.getColumns().addAll(rgColuna, cpfColuna, nomeColuna, passaporteColuna, sexoColuna, dataDeNascimentoColuna, estadoCivilColuna, nacionalidadeColuna, telefoneCelularColuna, telefoneResidencialColuna, cartaoDeCreditoColuna, enderecoColuna);
 		tableView.setFocusTraversable(false);
 		
+		/** Atualizar os dados*/
+		
 		Button btnAtualizarValores = new Button("Atualizar Valores");
 		btnAtualizarValores.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -115,6 +123,8 @@ public class TelaTabelaClientes extends BorderPane {
 				
 			}
 		});
+		
+		/**Edita o cliente do banco*/
 		
 		Button btnEditarCliente = new Button("Editar Cliente");
 		btnEditarCliente.setOnAction(new EventHandler<ActionEvent>() {
@@ -130,6 +140,8 @@ public class TelaTabelaClientes extends BorderPane {
 			}
 			
 		});
+		
+		/**Exclui cliente do banco*/
 		
 		Button btnExcluirCliente = new Button("Excluir Cliente");
 		btnExcluirCliente.setOnAction(new EventHandler<ActionEvent>() {

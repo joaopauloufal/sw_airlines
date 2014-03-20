@@ -1,4 +1,9 @@
 package swairlines.dao;
+/**
+ * @author João Paulo, Danilo Victor, Pedro Victor
+ * @since 2014
+ * @name VendaDAO
+ */
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,13 +12,21 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import swairlines.model.Venda;
 import swairlines.model.Voo;
 
 public class VendaDAO implements ConsultasBancoVenda {
-
+	
+	/**
+	 * insereVenda, insere venda no banco
+	 * @param Venda
+	 * @return boolean
+	 * @throws SQLException
+	 */
 	@Override
 	public boolean insereVenda(Venda venda) {
 		try {
@@ -23,12 +36,22 @@ public class VendaDAO implements ConsultasBancoVenda {
 				return true;
 			}
 			
+		}catch(MySQLIntegrityConstraintViolationException e){
+			Logger.getLogger(VendaDAO.class.getName()).log(Level.SEVERE, null, e);
+			
 			
 		} catch (SQLException ex) {
 			Logger.getLogger(VendaDAO.class.getName()).log(Level.SEVERE, null, ex);
-		}		
+		}
 		return false;
 	}
+	
+	/**
+	 * exlui venda no banco
+	 * @param Venda
+	 * @return boolean
+	 * @throws SQLException
+	 */
 
 	@Override
 	public boolean excluiVenda(Venda venda) {
@@ -47,6 +70,13 @@ public class VendaDAO implements ConsultasBancoVenda {
 		}
 		return false;
 	}
+	
+	/**
+	 * altera venda no banco
+	 * @param Venda
+	 * @return boolean
+	 * @throws SQLException
+	 */
 
 	@Override
 	public boolean alteraVenda(Venda venda) {
@@ -63,6 +93,11 @@ public class VendaDAO implements ConsultasBancoVenda {
 		return false;
 	}
 
+	/**
+	 * busca vendas no banco
+	 * @return {@link ObservableList}
+	 * @throws SQLException
+	 */
 	@Override
 	public ObservableList<Venda> buscaVendas() {
 		ObservableList<Venda> vendas;

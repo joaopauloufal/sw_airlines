@@ -1,5 +1,11 @@
 package swairlines.model;
 
+/**
+ * @author João Paulo, Danilo Victor, Pedro Victor
+ * @since 2014
+ * @name Voo
+ */
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,13 +27,13 @@ public class Voo {
 	private double valor;
 	private String aeronaveNumero;
 	
-	public Voo() {
+	public Voo(){
 		
 	}
 	
 
 	public Voo(String aeronaveNumero, String origem, String destino, String rota, String horaPartida,
-			String horaChegada, String dataPartida, String dataChegada, String tipoVoo, double valor) {	
+			String horaChegada, String dataPartida, String dataChegada, String tipoVoo, double valor){	
 			
 		this.origem = origem;
 		this.destino = destino;

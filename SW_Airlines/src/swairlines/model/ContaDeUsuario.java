@@ -1,4 +1,10 @@
 package swairlines.model;
+
+/**
+ * @author João Paulo, Danilo Victor, Pedro Victor
+ * @since 2014
+ * @name ContaDeUsuario
+ */
 import swairlines.dao.ContaDeUsuarioDAO;
 
 public class ContaDeUsuario {

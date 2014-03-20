@@ -1,5 +1,11 @@
 package swairlines.dao;
 
+/**
+ * @author João Paulo, Danilo Victor, Pedro Victor
+ * @since 2014
+ * @name ContaDeUsuarioDAO
+ */
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,6 +18,14 @@ import javafx.collections.ObservableList;
 import swairlines.model.ContaDeUsuario;
 
 public class ContaDeUsuarioDAO implements ConsultasBancoContaDeUsuario {
+	
+	/**
+	 * insereContaDeUsuario, insere conta no banco
+	 * @param ContaDeUsuario
+	 * @return boolean
+	 * @throws SQLException
+	 */
+	
 	
 	@Override
 	public boolean insereContaDeUsuario(ContaDeUsuario c1) {
@@ -28,6 +42,14 @@ public class ContaDeUsuarioDAO implements ConsultasBancoContaDeUsuario {
 		return false;
 	}
 	
+	/**
+	 * exclui conta no banco
+	 * @param ContaDeUsuario
+	 * @return boolean
+	 * @throws SQLException
+	 */
+	
+	
 	@Override
 	public boolean excluiContaDeUsuario(ContaDeUsuario c1) {
 		try {
@@ -42,6 +64,12 @@ public class ContaDeUsuarioDAO implements ConsultasBancoContaDeUsuario {
 		}
 		return false;
 	}
+	/**
+	 * altera conta no banco
+	 * @param ContaDeUsuario
+	 * @return boolean
+	 * @throws SQLException
+	 */
 	
 	@Override
 	public boolean alteraContaDeUsuario(ContaDeUsuario c1) {
@@ -56,6 +84,11 @@ public class ContaDeUsuarioDAO implements ConsultasBancoContaDeUsuario {
 		return false;
 		
 	}
+	/**
+	 * busca contas no banco
+	 * @return {@link ObservableList}
+	 * @throws SQLException
+	 */
 	
 	@Override
 	public ObservableList<ContaDeUsuario> buscaContasDeUsuario() {

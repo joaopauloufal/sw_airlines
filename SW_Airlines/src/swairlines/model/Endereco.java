@@ -1,5 +1,10 @@
 package swairlines.model;
 
+/**
+ * @author João Paulo, Danilo Victor, Pedro Victor
+ * @since 2014
+ * @name Endereco
+ */
 public class Endereco {
 	
 	private String rua;

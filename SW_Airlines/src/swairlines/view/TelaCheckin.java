@@ -1,5 +1,11 @@
 package swairlines.view;
 
+/**
+ * @author João Paulo, Danilo Victor, Pedro Victor
+ * @since 2014
+ * @name TelaCheckin
+ */
+
 import javax.swing.JOptionPane;
 
 import swairlines.dao.BagagemDAO;
@@ -34,9 +40,8 @@ public class TelaCheckin extends Stage {
 	private Label lblNomeClienteValor;
 	private TextField txtPesoBagagem;
 	private ComboBox<String> cpfCnpjClientes;
-	private ComboBox<Integer> cVoosIds;
+	private ComboBox<String> cVoosIds;
 	private VooDAO vooDao;
-	@SuppressWarnings("unused")
 	private Voo voo;
 	private ClienteDAO clienteDao;
 	
@@ -59,7 +64,7 @@ public class TelaCheckin extends Stage {
 		HBox hbox8 = new HBox(20);
 		VBox vbox = new VBox(20);
 		
-		ObservableList<Integer> voosIds;
+		ObservableList<String> voosIds;
 		voosIds = FXCollections.observableArrayList();
 		ObservableList<String> clientesIds;
 		clientesIds = FXCollections.observableArrayList();
@@ -69,7 +74,7 @@ public class TelaCheckin extends Stage {
 		hbox1.getChildren().addAll(lblCpfClientes, cpfCnpjClientes);
 		
 		Label lblVoosIds = new Label("Voo Nº:");
-		cVoosIds = new ComboBox<Integer>();
+		cVoosIds = new ComboBox<String>();
 		hbox2.getChildren().addAll(lblVoosIds, cVoosIds);
 		
 		Label lblNomeCliente = new Label("Nome Cliente:");
@@ -89,13 +94,19 @@ public class TelaCheckin extends Stage {
 		txtPesoBagagem.setPrefColumnCount(5);
 		hbox6.getChildren().addAll(lblPesoBagagem, txtPesoBagagem);
 		
+		/** Realiza o Check-in*/
+		
 		Button btnSalvarBagagem = new Button("Finalizar");
 		btnSalvarBagagem.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent arg0) {
+				if (lblValorOrigemVoo.getText().isEmpty() || lblNomeClienteValor.getText().isEmpty() || txtPesoBagagem.getText().isEmpty()){
+					JOptionPane.showMessageDialog(null, "Selecione um cliente e/ou um Voo",
+							"Atenção!",JOptionPane.ERROR_MESSAGE);				
+				}else{
 				BagagemDAO bDao = new BagagemDAO();
-				Bagagem bagagem = new Bagagem(cpfCnpjClientes.getValue(), lblNomeClienteValor.getText(), cVoosIds.getValue(), lblValorOrigemVoo.getText(), lblValorDestinoVoo.getText(), Double.parseDouble(txtPesoBagagem.getText()));
+				Bagagem bagagem = new Bagagem(cpfCnpjClientes.getValue(), lblNomeClienteValor.getText(), Integer.parseInt(cVoosIds.getValue()), lblValorOrigemVoo.getText(), lblValorDestinoVoo.getText(), Double.parseDouble(txtPesoBagagem.getText()));
 				if (Double.parseDouble(txtPesoBagagem.getText()) > 70) {
 					JOptionPane.showMessageDialog(null, "Você execedeu o limite máximo de peso da bagagem. (Limite - 70 Kg).", "Limite de Peso Bagagem Excedido", JOptionPane.ERROR_MESSAGE);
 				} else {					
@@ -103,20 +114,20 @@ public class TelaCheckin extends Stage {
 						double pesoUltrapassado = Double.parseDouble(txtPesoBagagem.getText()) - 15;
 						double taxa = pesoUltrapassado * 0.5;
 						bagagem.setTaxa(taxa);
-						if (bDao.insereBagagem(bagagem)) {
+						if (bDao.insereBagagem(bagagem) && vooDao.inserirPassageiro(voo)) {
 							JOptionPane.showMessageDialog(null, "Check-in feito com aumento aumento de " + taxa + "% do valor da venda.", "Check-in com ultrapassagem de Peso Permitido", JOptionPane.INFORMATION_MESSAGE);
 						} else {
-							JOptionPane.showMessageDialog(null, "Erro ao fazer Check-in", "Erro", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Passageiro já realizou a verificaçao para este voo.", "Erro", JOptionPane.ERROR_MESSAGE);
 						}
 					} else {
-						if (bDao.insereBagagem(bagagem)) {
+						if (bDao.insereBagagem(bagagem) && vooDao.inserirPassageiro(voo)) {
 							JOptionPane.showMessageDialog(null, "Check-in feito.", "Check-in", JOptionPane.INFORMATION_MESSAGE);
 						} else {
-							JOptionPane.showMessageDialog(null, "Erro ao fazer Check-in", "Erro", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Passageiro já realizou a verificaçao para este voo.", "Erro", JOptionPane.ERROR_MESSAGE);
 						}
 					}
+			}
 				}
-				
 			}
 			
 		});
@@ -143,7 +154,7 @@ public class TelaCheckin extends Stage {
 		vooDao = new VooDAO();		
 		for (Voo v : vooDao.buscaVoos()) {
 			voo = v;
-			voosIds.add(v.getId());
+			voosIds.add(v.getId() +"");
 		}
 		
 		cVoosIds.getItems().addAll(voosIds);
@@ -165,7 +176,7 @@ public class TelaCheckin extends Stage {
 			public void handle(Event event) {
 				
 				if (cVoosIds.getSelectionModel().getSelectedIndex() != -1) {
-					Voo v = vooDao.buscaVooPorId(cVoosIds.getValue());
+					Voo v = vooDao.buscaVooPorId(Integer.parseInt(cVoosIds.getValue()));
 					lblValorOrigemVoo.setText(v.getOrigem());
 					lblValorDestinoVoo.setText(v.getDestino());
 				}

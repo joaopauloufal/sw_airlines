@@ -1,5 +1,9 @@
 package swairlines.view;
-
+/**
+ * @author João Paulo, Danilo Victor, Pedro Victor
+ * @since 2014
+ * @name TelaVenda
+ */
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -104,6 +108,8 @@ public class TelaVenda extends Stage {
 		listClientes = new ComboBox<String>();
 		hbox1.getChildren().addAll(lblCpfClientes, listClientes);
 		
+		/**Calcula valor do preço*/
+		
 		btnCalcular = new Button("Calcular");
 		btnCalcular.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -111,9 +117,10 @@ public class TelaVenda extends Stage {
 			public void handle(ActionEvent event) {
 				try {
 					float resultado = Float.parseFloat(lblValorVooPreco.getText()) / Integer.parseInt(txtParcela.getText());
-					if (Float.isInfinite(resultado)) {
+					if (Float.isInfinite(resultado)|| resultado < 0) {
 						JOptionPane.showMessageDialog(null, "Número de Parcelas não pode ser 0.", "Erro ao calcular.", JOptionPane.WARNING_MESSAGE);
-					} else {
+					}
+					else {
 						lblValorParcela.setText(String.valueOf(resultado));
 					}
 					
@@ -139,7 +146,7 @@ public class TelaVenda extends Stage {
 		
 		vooDao = new VooDAO();
 		
-		for (Voo v : vooDao.buscaVoos()) {
+		for (Voo v : vooDao.buscarVooNaoIniciados()) {
 			voo = v;
 			voos.add(v.getId()+"");
 		}
@@ -247,32 +254,36 @@ public class TelaVenda extends Stage {
 		btnCalcular.setVisible(false);
 		hbox2.getChildren().addAll(lblParcela, lblValorParcela, btnCalcular);
 		
-				
+		/**Cadastra compra*/
 		Button btnComprar = new Button("Finalizar Compra");
 		btnComprar.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
 			public void handle(ActionEvent event) {
 				VendaDAO vendaDao = new VendaDAO();
-				VooDAO vooDao = new VooDAO();
-				
+				if(lblDestinoVooValor.getText().isEmpty()||lblNomeClienteValor.getText().isEmpty()){
+					JOptionPane.showMessageDialog(null, "Selecione um cliente e/ou um Voo",
+							"Atenção!",JOptionPane.ERROR_MESSAGE);
+				}
+				else{
 				if (buttonGroup.getSelectedToggle().equals(aVista)) {
-					Venda venda = new Venda("À Vista", Integer.parseInt(listVoos.getValue()), lblOrigemVooValor.getText(), lblDestinoVooValor.getText(), Double.parseDouble(lblValorVooPreco.getText()), lblNomeClienteValor.getText(), listClientes.getValue(), lblCartaoCredClienteValor.getText());		
-					if (vendaDao.insereVenda(venda) && vooDao.inserirPassageiro(voo)) {
-						JOptionPane.showMessageDialog(null, "A vista - Venda realizada com sucesso!");						
-						hide();
-					} else {
-						JOptionPane.showMessageDialog(null, "Erro na compra, quantidade máxima de passageiros (100) ultrapassada. Tente escolher outro voo", "Limite de passageiros excedido.", JOptionPane.ERROR_MESSAGE);
-						hide();
-					}				
-					
+						Venda venda = new Venda("À Vista", Integer.parseInt(listVoos.getValue()), lblOrigemVooValor.getText(), lblDestinoVooValor.getText(), Double.parseDouble(lblValorVooPreco.getText()), lblNomeClienteValor.getText(), listClientes.getValue(), lblCartaoCredClienteValor.getText());		
+						if (vendaDao.insereVenda(venda)) {
+							JOptionPane.showMessageDialog(null, "A vista - Venda realizada com sucesso!");						
+							hide();
+						} else {
+							JOptionPane.showMessageDialog(null, "Passageiro já cadastrado", "Impossivel inserir passageiro.", JOptionPane.ERROR_MESSAGE);
+							hide();
+						}				
+
 				} else if (buttonGroup.getSelectedToggle().equals(cartao)){
 					try {
 						Venda venda = new Venda("Cartão", Integer.parseInt(listVoos.getValue()), lblOrigemVooValor.getText(), lblDestinoVooValor.getText(), lblNomeClienteValor.getText(), listClientes.getValue(), Integer.parseInt(txtParcela.getText()), Double.parseDouble(lblValorParcela.getText()), Double.parseDouble(lblValorVooPreco.getText()), lblCartaoCredClienteValor.getText());
 						if (lblValorParcela.getText().equals("")) {
 							JOptionPane.showMessageDialog(null, "Faltou calcular as parcelas.", "Cálculo de parcelas", JOptionPane.WARNING_MESSAGE);
-						} else {
-							if (vendaDao.insereVenda(venda) && vooDao.inserirPassageiro(voo)) {
+						}
+						else {
+							if (vendaDao.insereVenda(venda) ) {
 								JOptionPane.showMessageDialog(null, "No cartão - Venda realizada com sucesso!");								
 								hide();
 							} else {
@@ -287,7 +298,7 @@ public class TelaVenda extends Stage {
 					}
 						
 				}
-				
+				}
 			}
 		});
 		

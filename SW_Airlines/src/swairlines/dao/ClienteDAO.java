@@ -1,5 +1,10 @@
 package swairlines.dao;
 
+/**
+ * @author João Paulo, Danilo Victor, Pedro Victor
+ * @since 2014
+ * @name ClienteDAO
+ */
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +19,11 @@ import swairlines.model.Endereco;
 
 public class ClienteDAO implements ConsultasBancoCliente {
 	
+	/**
+	 * insereCliente, insere um cliente no banco
+	 * @param Cliente
+	 * @return boolean
+	 */
 	@Override
 	public boolean insereCliente(Cliente cliente) {
 		try {
@@ -23,15 +33,18 @@ public class ClienteDAO implements ConsultasBancoCliente {
 					+ cliente.getEndereco().getRua() + "','" + cliente.getEndereco().getCidade() + "','" + cliente.getEndereco().getBairro() + "','" + cliente.getEndereco().getNumero() + "','" + cliente.getEndereco().getEstado() + "');")) {
 				return true;
 			}
-				
-			
-			
+					
 		} catch (SQLException ex) {
 			Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
 			
 		}
 		return false;
 	}
+	/**
+	 * exclui um cliente no banco
+	 * @param Cliente
+	 * @return boolean
+	 */
 	
 	@Override
 	public boolean excluiCliente(Cliente cliente) {
@@ -50,6 +63,12 @@ public class ClienteDAO implements ConsultasBancoCliente {
 		return false;
 	}
 	
+	/**
+	 * altera um cliente no banco
+	 * @param Cliente
+	 * @return boolean
+	 */
+	
 	@Override
 	public boolean alteraCliente(Cliente cliente) {
 		try {
@@ -66,6 +85,11 @@ public class ClienteDAO implements ConsultasBancoCliente {
 		return false;
 		
 	}
+	
+	/**
+	 * busca por Clientes
+	 * @return {@link ObservableList}
+	 */
 	
 	@Override
 	public ObservableList<Cliente> buscaClientes() {
@@ -110,6 +134,13 @@ public class ClienteDAO implements ConsultasBancoCliente {
 			return null;
 		}
 	}
+	
+	/**
+	 * busca Clientes por Cpf
+	 * @param String
+	 * @return Cliente
+	 */
+	
 	public Cliente buscaClientePorCpf(String cpf) {
 		ConexaoDAO cbd = new ConexaoDAO();
 		Cliente cliente = new Cliente();

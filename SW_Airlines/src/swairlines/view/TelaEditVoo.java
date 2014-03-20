@@ -1,6 +1,13 @@
 package swairlines.view;
 
+/**
+ * @author João Paulo, Danilo Victor, Pedro Victor
+ * @since 2014
+ * @name TelaEditVoo
+ */
+
 import java.text.ParseException;
+
 import javax.swing.JOptionPane;
 
 import javafx.event.ActionEvent;
@@ -118,6 +125,7 @@ public class TelaEditVoo extends Stage {
 		txtValor.setText(v1.getValor() + "");
 		hbox11.getChildren().addAll(lblValor, txtValor);
 		
+		/**Atualiza os dados*/
 		
 		Button btnAtualizar = new Button("Atualizar");
 		btnAtualizar.setOnAction(new EventHandler<ActionEvent>() {
@@ -125,15 +133,22 @@ public class TelaEditVoo extends Stage {
 			@Override
 			public void handle(ActionEvent event) {
 				
-				String  padrao  =  ("(0[1-9]|[12][0-9]|3[01])[-  /.](0[1-9]|[0-9]|1[012])[-  /.]((19|20)\\d\\d)");
+				if(txtAeronave.getText().isEmpty() ||txtOrigem.getText().isEmpty()||txtDestino.getText().isEmpty()||
+						txtRota.getText().isEmpty()|| txtHoraPartida.getText().isEmpty()|| txtHoraChegada.getText().isEmpty()||
+						txtDataPartida.getText().isEmpty()|| txtDataChegada.getText().isEmpty()|| listTipoVoo.getValue().isEmpty()||
+						txtValor.getText().isEmpty()){
+					JOptionPane.showMessageDialog(null, "Algum campo está nulo!","Campo Nulo!",JOptionPane.ERROR_MESSAGE);
+				}
+				else{
+					String  padraoData  =  ("(0[1-9]|[12][0-9]|3[01])[-  /.](0[1-9]|[0-9]|1[012])[-  /.]((19|20)\\d\\d)");
+					String  padraoHora  =  ("(0[0-9]|1[0-9]|2[0-3])[-  :.]([0-5][0-9])");
 
-				if ((txtDataPartida.getText().matches(padrao) == false) && (txtDataChegada.getText().matches(padrao) == false)) {
-					System.out.println("invalido");
-					JOptionPane.showMessageDialog(null, "Error, formato da data deve ser 00/00/0000", "Error, formato da data", JOptionPane.ERROR_MESSAGE);					
-					
-				} else {
+					if ((txtDataPartida.getText().matches(padraoData) == false) && (txtDataChegada.getText().matches(padraoData) == false) && (txtHoraChegada.getText().matches(padraoHora) == false) && (txtHoraPartida.getText().matches(padraoHora) == false) ) {
+						System.out.println("invalido");
+						JOptionPane.showMessageDialog(null, "Error, formato da data deve ser 00/00/0000 e o da hora deve ser 00:00", "Error, formato da data ou da hora inválido", JOptionPane.ERROR_MESSAGE);
+					}
+				 else {
 					System.out.println("valido");
-					
 					Voo voo = new Voo(txtAeronave.getText(), txtOrigem.getText(), txtDestino.getText(), txtRota.getText(), txtHoraPartida.getText(), txtHoraChegada.getText(), txtDataPartida.getText(), txtDataChegada.getText(), listTipoVoo.getValue(), Double.parseDouble(txtValor.getText()));
 					voo.setId(Integer.parseInt(lblValorId.getText()));
 					VooDAO vooDao = new VooDAO();
@@ -155,7 +170,7 @@ public class TelaEditVoo extends Stage {
 						hide();
 					}
 				}
-				
+				}
 
 				
 			}

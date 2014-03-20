@@ -1,5 +1,12 @@
 package swairlines;
 
+/**
+ * @author João Paulo, Danilo Victor, Pedro Victor
+ * @since 2014
+ * @name Main
+ */
+
+
 import swairlines.view.TelaLogin;
 import javafx.application.Application;
 import javafx.scene.Parent;
@@ -11,6 +18,13 @@ public class Main extends Application {
 	
 	private static Scene SCENE;
 	
+	/**
+	 * alterarTela, Recebe um Parent e altera o Scene.
+	 * @param Parent root
+	 * @return void
+	 * 
+	 */
+	
 	public static void alterarTela(Parent root) {
 		SCENE.setRoot(root);
 	}
@@ -21,6 +35,7 @@ public class Main extends Application {
 			Main.SCENE = new Scene(new TelaLogin(), 1024, 700, Color.SILVER);
 			primaryStage.setScene(Main.SCENE);
 			primaryStage.setTitle("SW Airlines 1.4");
+			//SCENE.getStylesheets().add("swairlines/stylo.css");
 			primaryStage.show();
 			
 		} catch (Exception e) {

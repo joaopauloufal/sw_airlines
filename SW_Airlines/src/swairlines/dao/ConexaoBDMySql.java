@@ -1,5 +1,11 @@
 package swairlines.dao;
 
+/**
+ * @author João Paulo, Danilo Victor, Pedro Victor
+ * @since 2014
+ * @name ConexaoBDMySql
+ */
+
 import java.sql.Connection;
 import java.sql.SQLException;
 

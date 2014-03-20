@@ -1,5 +1,10 @@
 package swairlines.view;
 
+/**
+ * @author João Paulo, Danilo Victor, Pedro Victor
+ * @since 2014
+ * @name TelaEditVenda
+ */
 import javax.swing.JOptionPane;
 
 import swairlines.dao.VendaDAO;
@@ -150,7 +155,7 @@ public class TelaEditVenda extends Stage {
 			aVista.setSelected(true);
 		}		
 		
-		
+		/**Calcula o valor*/
 		btnCalcular.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -174,6 +179,8 @@ public class TelaEditVenda extends Stage {
 			}
 			
 		});
+		
+		/**Atualiza os dados*/
 		
 		Button btnAtualizarVenda = new Button("Atualizar Venda");
 		btnAtualizarVenda.setOnAction(new EventHandler<ActionEvent>() {

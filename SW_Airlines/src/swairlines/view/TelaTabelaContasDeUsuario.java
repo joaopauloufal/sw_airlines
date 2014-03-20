@@ -1,5 +1,11 @@
 package swairlines.view;
 
+/**
+ * @author João Paulo, Danilo Victor, Pedro Victor
+ * @since 2014
+ * @name TelaTabelaContasDeUsuario
+ */
+
 import javax.swing.JOptionPane;
 
 import swairlines.Main;
@@ -54,6 +60,8 @@ public class TelaTabelaContasDeUsuario extends BorderPane {
 		tipoContaColuna.setCellValueFactory(new PropertyValueFactory<ContaDeUsuario, String>("tipoConta"));
 		tipoContaColuna.setMinWidth(205);
 		
+		/**Edita conta do banco*/
+		
 		Button btnEditarConta = new Button("Editar Conta");
 		btnEditarConta.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -68,6 +76,7 @@ public class TelaTabelaContasDeUsuario extends BorderPane {
 			}
 		});
 		
+		/** Atualiza dados*/
 		Button btnAtualizarValores = new Button("Atualizar Valores");
 		btnAtualizarValores.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -78,6 +87,8 @@ public class TelaTabelaContasDeUsuario extends BorderPane {
 			}
 			
 		});
+		
+		/**Exclui conta do banco */
 		
 		Button btnExcuirConta = new Button("Excluir Conta");
 		btnExcuirConta.setOnAction(new EventHandler<ActionEvent>() {

@@ -1,5 +1,9 @@
 package swairlines.view;
-
+/**
+ * @author João Paulo, Danilo Victor, Pedro Victor
+ * @since 2014
+ * @name TelaTabelaFuncionarios
+ */
 import javax.swing.JOptionPane;
 
 import swairlines.Main;
@@ -82,6 +86,8 @@ public class TelaTabelaFuncionarios extends BorderPane {
 		enderecoColuna.setCellValueFactory(new PropertyValueFactory<Funcionario, Endereco>("endereco"));
 		enderecoColuna.setMinWidth(140);
 		
+		/**Atualiza dados*/
+		
 		Button btnAtualizarValores = new Button("Atualizar Valores");
 		btnAtualizarValores.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -92,6 +98,8 @@ public class TelaTabelaFuncionarios extends BorderPane {
 			}
 			
 		});
+		
+		/**Edita funcionário*/
 		Button btnEditarFuncionario = new Button("Editar Funcionário");
 		btnEditarFuncionario.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -107,6 +115,7 @@ public class TelaTabelaFuncionarios extends BorderPane {
 			}
 		});
 		
+		/** Excluir funcionario*/
 		Button btnExcluirFuncionario = new Button("Excluir Funcionário");
 		btnExcluirFuncionario.setOnAction(new EventHandler<ActionEvent>() {
 

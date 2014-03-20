@@ -1,5 +1,10 @@
 package swairlines.dao;
 
+/**
+ * @author João Paulo, Danilo Victor, Pedro Victor
+ * @since 2014
+ * @name ConexaoDAO
+ */
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -15,6 +20,11 @@ public class ConexaoDAO implements ConexaoBDMySql {
 	private String sql;
 	private Statement stm;
 	
+	/**
+	 * Construtor ConexaoDAO, conecta com o banco
+	 * @param 
+	 * @return 
+	 */
 	public ConexaoDAO() {
 		
 		try {
@@ -24,6 +34,12 @@ public class ConexaoDAO implements ConexaoBDMySql {
 		} 
 		
 	}	
+	
+	/**
+	 * abreConexao, abre conexão com o banco
+	 * @return Connection
+	 * @throws SQLException
+	 */
 	
 	@Override
 	public Connection abreConexao() throws SQLException {
@@ -37,12 +53,21 @@ public class ConexaoDAO implements ConexaoBDMySql {
             return null;
         } 
     }
-
+	/**
+	 * desconecta conexão com o banco
+	 * @return Connection
+	 * @throws SQLException
+	 */
 	@Override
 	public void desconectar() throws SQLException{
 		c.close();
 	}
-	
+	/**
+	 * executa conexão com o banco
+	 * @param String
+	 * @return Connection
+	 * @throws SQLException
+	 */
 	@Override
 	public boolean executar(String sql) throws SQLException {
 		try {
@@ -187,6 +212,12 @@ public class ConexaoDAO implements ConexaoBDMySql {
 		executar(sql);
 		
 	}
+	
+	/**
+	 * cria tabela de Vendas
+	 * @return Connection
+	 * @throws SQLException
+	 */
 	
 	private void criarTabelaVendas() throws SQLException {
 		sql = "CREATE TABLE IF NOT EXISTS sw_airlines.vendas("

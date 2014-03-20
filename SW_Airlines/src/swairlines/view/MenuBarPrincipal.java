@@ -1,15 +1,22 @@
 package swairlines.view;
 
-import javax.swing.JOptionPane;
+/**
+ * @author João Paulo, Danilo Victor, Pedro Victor
+ * @since 2014
+ * @name MenuBarPrincipal
+ */
 
-import swairlines.Main;
-import swairlines.model.ContaDeUsuario;
-import swairlines.model.Funcionario;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+
+import javax.swing.JOptionPane;
+
+import swairlines.Main;
+import swairlines.model.ContaDeUsuario;
+import swairlines.model.Funcionario;
 
 public class MenuBarPrincipal extends MenuBar {
 	
@@ -213,10 +220,18 @@ public class MenuBarPrincipal extends MenuBar {
 		menuListar.getItems().addAll(itemListarContasDeUsuario, itemListarClientes, itemListarFuncionarios, listarVendas, listarBagagens);
 		
 		MenuItem itemAjuda = new MenuItem("Sobre SW Airlines...");
+		itemAjuda.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				JOptionPane.showMessageDialog(null, "Versão 1.4", "Sw Airlines", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
 		menuAjuda.getItems().addAll(itemAjuda);
 		
 		getMenus().addAll(menuSistema, menuCadastro, menuListar, menuCompra, menuVoo, menuAjuda);
 		
+		/**Verifica se a conta de usuário é operador e gerente, para assim alterar a visualização da janela*/
 		if (f.getConta().getTipoConta().equals(ContaDeUsuario.TIPO_CONTA_OPERADOR)) {
 			itemCadastrarFuncionario.setVisible(false);
 			itemCadastrarVoo.setVisible(false);

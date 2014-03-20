@@ -1,5 +1,11 @@
 package swairlines.model;
 
+/**
+ * @author João Paulo, Danilo Victor, Pedro Victor
+ * @since 2014
+ * @name Gerente
+ */
+
 public class Gerente extends Funcionario {
 	
 	public static final String TIPO_CONTA = "Administrador";

@@ -1,5 +1,11 @@
 package swairlines.model;
 
+/**
+ * @author João Paulo, Danilo Victor, Pedro Victor
+ * @since 2014
+ * @name Venda
+ */
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 

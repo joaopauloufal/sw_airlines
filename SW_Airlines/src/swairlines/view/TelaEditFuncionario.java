@@ -1,5 +1,11 @@
 package swairlines.view;
 
+/**
+ * @author João Paulo, Danilo Victor, Pedro Victor
+ * @since 2014
+ * @name TelaEditFuncionario
+ */
+
 import javax.swing.JOptionPane;
 
 import swairlines.dao.FuncionarioDAO;
@@ -156,6 +162,8 @@ public class TelaEditFuncionario extends Stage {
 		txtEstado.setPrefColumnCount(25);
 		hbox15.getChildren().addAll(lblEstado, txtEstado);
 		
+		/**Atualiza os dados*/
+		
 		Button btnAtualizar = new Button("Atualizar");
 		btnAtualizar.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -164,6 +172,12 @@ public class TelaEditFuncionario extends Stage {
 				
 				String  padrao  =  ("(0[1-9]|[12][0-9]|3[01])[-  /.](0[1-9]|[0-9]|1[012])[-  /.]((19|20)\\d\\d)");
 
+				if(txtRua.getText().isEmpty()||txtCidade.getText().isEmpty()||txtBairro.getText().isEmpty()||txtNumero.getText().isEmpty()||txtEstado.getText().isEmpty()||
+						txtNome.getText().isEmpty()|| listSexo.getValue().isEmpty()|| txtRg.getText().isEmpty()|| txtDataDeNascimento.getText().isEmpty()|| 
+						txtTelefoneCelular.getText().isEmpty()||listCargo.getValue().isEmpty()||txtTelefoneResidencial.getText().isEmpty()||txtNacionalidade.getText().isEmpty()||listEstadoCivil.getValue().isEmpty()){
+					JOptionPane.showMessageDialog(null, "Campo(s) vazio(s)!","Alerta!",JOptionPane.ERROR_MESSAGE);
+				}
+				else{
 				if (txtDataDeNascimento.getText().matches(padrao) == false) {
 					System.out.println("invalido");
 					JOptionPane.showMessageDialog(null, "Error, formato da data deve ser 00/00/0000", "Error, formato da data", JOptionPane.ERROR_MESSAGE);					
@@ -183,7 +197,7 @@ public class TelaEditFuncionario extends Stage {
 					
 				}
 				
-				
+				}
 
 			}
 		});

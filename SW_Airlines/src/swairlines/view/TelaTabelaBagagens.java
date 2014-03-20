@@ -1,5 +1,11 @@
 package swairlines.view;
 
+/**
+ * @author João Paulo, Danilo Victor, Pedro Victor
+ * @since 2014
+ * @name Bagagem
+ */
+
 import javax.swing.JOptionPane;
 
 import swairlines.Main;
@@ -65,6 +71,8 @@ public class TelaTabelaBagagens extends BorderPane {
 		tableView.getColumns().addAll(cpfClienteColuna, nomeClienteColuna, idVooColuna, origemColuna, destinoColuna, pesoBagagemColuna);
 		tableView.setFocusTraversable(false);
 		
+		/**Atualiza os dados*/
+		
 		Button btnAtualizar = new Button("Atualizar Valores");
 		btnAtualizar.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -74,6 +82,8 @@ public class TelaTabelaBagagens extends BorderPane {
 				
 			}
 		});
+		
+		/**exclui do banco*/
 		Button btnExcluirBagagem = new Button("Excluir Bagagem");
 		btnExcluirBagagem.setOnAction(new EventHandler<ActionEvent>() {
 

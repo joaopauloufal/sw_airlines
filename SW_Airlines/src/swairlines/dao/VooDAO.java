@@ -1,5 +1,11 @@
 package swairlines.dao;
 
+/**
+ * @author João Paulo, Danilo Victor, Pedro Victor
+ * @since 2014
+ * @name VooDAO
+ */
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,8 +19,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import swairlines.model.Voo;
 
-public class VooDAO implements ConsultasBancoVoo {	
+public class VooDAO implements ConsultasBancoVoo {
 	
+	/**
+	 * insereVoo, insere voo no banco
+	 * @param Voo
+	 * @return boolean
+	 * @throws SQLException
+	 */
 	@Override
 	public boolean insereVoo(Voo v1) {
 		try {
@@ -32,6 +44,12 @@ public class VooDAO implements ConsultasBancoVoo {
 		return false;
 		
 	}
+	/**
+	 * exlui voo no banco
+	 * @param Voo
+	 * @return boolean
+	 * @throws SQLException
+	 */
 	
 	@Override
 	public boolean excluiVoo(Voo v1) {
@@ -50,6 +68,13 @@ public class VooDAO implements ConsultasBancoVoo {
 		return false;
 	}
 	
+	/**
+	 * altera voo no banco
+	 * @param Voo
+	 * @return boolean
+	 * @throws SQLException
+	 */
+	
 	@Override
 	public boolean alteraVoo(Voo v1) {
 		try {
@@ -66,6 +91,13 @@ public class VooDAO implements ConsultasBancoVoo {
 		}
 		return false;
 	}
+	
+	/**
+	 * insere passageiro no banco
+	 * @param Voo
+	 * @return boolean
+	 * @throws SQLException
+	 */
 	
 	@Override
 	public boolean inserirPassageiro(Voo v1) {
@@ -85,6 +117,11 @@ public class VooDAO implements ConsultasBancoVoo {
 		}
 		return false;
 	}
+	/**
+	 * busca voos no banco
+	 * @return {@link ObservableList}
+	 * @throws SQLException
+	 */
 	
 	@Override
 	public ObservableList<Voo> buscaVoos() {
@@ -142,6 +179,13 @@ public class VooDAO implements ConsultasBancoVoo {
 		
 	}
 	
+	/**
+	 * busca por voo no banco por id
+	 * @param int
+	 * @return Voo
+	 * @throws SQLException
+	 */
+	
 	@Override
 	public Voo buscaVooPorId(int id) {		
 		Voo v1 = new Voo();	
@@ -195,6 +239,29 @@ public class VooDAO implements ConsultasBancoVoo {
 		
 	}
 	
+	/**
+	 * busca voo não iniciados
+	 * @return {@link ObservableList}
+	 * @throws SQLException
+	 */
+	public ObservableList<Voo> buscarVooNaoIniciados(){
+		ObservableList<Voo> todosVoos;
+		todosVoos = FXCollections.observableArrayList();
+		
+		for(Voo v: buscaVoos()){
+			if(v.getStatus().equals("Não iniciado")){
+				todosVoos.add(v);
+			}
+		}
+		return todosVoos;
+	}
+	
+	/**
+	 * cancela voo
+	 * @param Voo
+	 * @return boolean
+	 * @throws SQLException
+	 */
 	@Override
 	public boolean cancelarVoo(Voo voo) {
 		ConexaoDAO conexaoDao = new ConexaoDAO();
@@ -210,6 +277,12 @@ public class VooDAO implements ConsultasBancoVoo {
 		return false;
 	}
 	
+	/**
+	 * atrasa voo
+	 * @param Voo
+	 * @return boolean
+	 * @throws SQLException
+	 */
 	@Override
 	public boolean atrasarVoo(Voo voo) {
 		ConexaoDAO conDao = new ConexaoDAO();
@@ -223,6 +296,12 @@ public class VooDAO implements ConsultasBancoVoo {
 		return false;
 	}
 
+	/**
+	 * remove passageiro no banco
+	 * @param Voo
+	 * @return boolean
+	 * @throws SQLException
+	 */
 	@Override
 	public boolean removerPassageiro(Voo voo) {
 		try {

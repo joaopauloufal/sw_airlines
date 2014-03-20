@@ -1,5 +1,11 @@
 package swairlines.dao;
 
+/**
+ * @author João Paulo, Danilo Victor, Pedro Victor
+ * @since 2014
+ * @name BagagemDAO
+ */
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +20,11 @@ import swairlines.model.Venda;
 
 public class BagagemDAO implements ConsultasBancoBagagem {
 
+	/**
+	 * iinsere uma bagagem no banco
+	 * @param Bagagem
+	 * @return boolean
+	 */
 	@Override
 	public boolean insereBagagem(Bagagem bagagem) {
 		try {
@@ -33,6 +44,12 @@ public class BagagemDAO implements ConsultasBancoBagagem {
 		}
 		return false;
 	}
+	
+	/**
+	 * remove uma bagagem no banco
+	 * @param Bagagem
+	 * @return boolean
+	 */
 
 	@Override
 	public boolean removeBagagem(Bagagem bagagem) {
@@ -47,6 +64,11 @@ public class BagagemDAO implements ConsultasBancoBagagem {
 		return false;
 	}
 
+	/**
+	 * alterar uma bagagem no banco
+	 * @param Bagagem
+	 * @return boolean
+	 */
 	@Override
 	public boolean alteraBagagem(Bagagem bagagem) {
 		try {
@@ -60,6 +82,10 @@ public class BagagemDAO implements ConsultasBancoBagagem {
 		return false;
 	}
 
+	/**
+	 * busca uma bagagem no banco
+	 * @return {@link ObservableList}
+	 */
 	@Override
 	public ObservableList<Bagagem> buscaBagagens() {
 		ObservableList<Bagagem> bagagens;
@@ -91,6 +117,12 @@ public class BagagemDAO implements ConsultasBancoBagagem {
 		}
 		
 	}
+	
+	/**
+	 * busca bagagens por cpf do cliente
+	 * @param String
+	 * @return {@link ObservableList}
+	 */
 
 	@Override
 	public ObservableList<Bagagem> buscaBagagensPorCpfCliente(String cpfCnpCliente) {
@@ -122,7 +154,11 @@ public class BagagemDAO implements ConsultasBancoBagagem {
 			return null;
 		}
 	}
-	
+	/**
+	 * retona valor do voo
+	 * @param String
+	 * @return Double
+	 */
 	private Double retornaValorVooPorid(String cpf) {
 		ConexaoDAO conDao = new ConexaoDAO();
 		Connection con;
