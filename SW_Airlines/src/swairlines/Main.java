@@ -34,7 +34,7 @@ public class Main extends Application {
 		try {
 			Main.SCENE = new Scene(new TelaLogin(), 1024, 700,Color.SILVER);
 			primaryStage.setScene(Main.SCENE);
-			primaryStage.setTitle("SW Airlines 1.5");
+			primaryStage.setTitle("SW Airlines 1.6");
 			primaryStage.show();
 			
 		} catch (Exception e) {
