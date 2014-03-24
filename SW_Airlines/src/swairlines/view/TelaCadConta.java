@@ -55,7 +55,7 @@ public class TelaCadConta extends Stage {
 		HBox hbox6 = new HBox(20);
 		VBox vbox1 = new VBox(15);
 		
-		Scene scene = new Scene(gPane, 450, 270, Color.SILVER);
+		Scene scene = new Scene(gPane, 450, 290, Color.SILVER);
 		setScene(scene);
 		
 		Label lblTipoConta = new Label("Tipo de Conta:");

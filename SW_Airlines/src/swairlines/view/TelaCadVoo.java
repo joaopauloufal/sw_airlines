@@ -60,7 +60,7 @@ public class TelaCadVoo extends Stage{
 		HBox hbox11 = new HBox(20);
 		VBox vbox1 = new VBox(20);		
 		
-		Scene scene = new Scene(gPane, 620, 520, Color.SILVER);
+		Scene scene = new Scene(gPane, 620, 540, Color.SILVER);
 		setScene(scene);
 		
 		Label lblAeronave = new Label("Aeronave Nº:");

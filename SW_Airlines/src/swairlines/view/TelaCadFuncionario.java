@@ -74,7 +74,7 @@ public class TelaCadFuncionario extends Stage {
 		VBox vbox1 = new VBox(15);
 		
 		
-		Scene scene = new Scene(gPane, 600, 670, Color.SILVER);
+		Scene scene = new Scene(gPane, 600, 690, Color.SILVER);
 		setScene(scene);
 		
 		

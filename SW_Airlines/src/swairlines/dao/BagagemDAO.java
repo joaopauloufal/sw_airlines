@@ -38,7 +38,7 @@ public class BagagemDAO implements ConsultasBancoBagagem {
 				}
 				return true;
 			}
-		} catch (SQLException ex) {
+		}  catch (SQLException ex) {
 			Logger.getLogger(BagagemDAO.class.getName()).log(Level.SEVERE, null, ex);
 
 		}

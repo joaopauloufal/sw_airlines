@@ -47,7 +47,7 @@ public class TelaLogin extends BorderPane {
 			public void handle(ActionEvent event) {					
 				ContaDeUsuario conta = new ContaDeUsuario(txtUsuario.getText(), txtSenha.getText());
 				if (conta.autenticar(conta)) {
-					Main.alterarTela(new TelaPrincipal(conta.getFuncionario()));
+					Main.alterarTela(new TelaInicial(conta.getFuncionario()));
 				} else {
 					JOptionPane.showMessageDialog(null, "Usuário Inexistente.", "Erro de Autenticação", JOptionPane.ERROR_MESSAGE);
 				}

@@ -180,5 +180,54 @@ public class ClienteDAO implements ConsultasBancoCliente {
 			return null;
 		}
 	}
+	
+	/**
+	 * busca todos os clientes que possuem vendas
+	 * @author João Paulo
+	 * @return {@link ObservableList<Clliente>}
+	 */
+	public ObservableList<Cliente> buscaClientesComVenda() {
+		
+		ObservableList<Cliente> clientes;
+		clientes = FXCollections.observableArrayList();
+		ConexaoDAO cbd = new ConexaoDAO();
+		try {			
+			Connection con = cbd.abreConexao();
+			PreparedStatement stm = con.prepareStatement("SELECT * FROM sw_airlines.cliente, sw_airlines.vendas WHERE cpfcnpj = cpf_cliente;");
+			ResultSet rs = stm.executeQuery();
+			
+			while (rs.next()) {
+				Cliente cliente = new Cliente();
+				Endereco endereco = new Endereco();
+				cliente.setRg(rs.getString("rg"));
+				cliente.setCpfCnpj(rs.getString("cpfcnpj"));
+				cliente.setNome(rs.getString("nome"));
+				cliente.setSexo(rs.getString("sexo"));
+				cliente.setPassaporteNumero(rs.getString("passaporte_numero"));
+				cliente.setDataDeNascimento(rs.getString("data_de_nascimento"));
+				cliente.setEstadoCivil(rs.getString("estado_civil"));
+				cliente.setNacionalidade(rs.getString("nacionalidade"));
+				cliente.setTelefoneCelular(rs.getString("telefone_celular"));
+				cliente.setTelefoneResidencial(rs.getString("telefone_residencial"));
+				cliente.setCartaoDeCredito(rs.getString("cartao_de_credito"));
+				endereco.setRua(rs.getString("rua"));
+				endereco.setCidade(rs.getString("cidade"));
+				endereco.setBairro(rs.getString("bairro"));
+				endereco.setNumero(rs.getString("numero"));
+				endereco.setEstado(rs.getString("estado"));
+				cliente.setEndereco(endereco);
+				clientes.add(cliente);
+			}
+			
+			rs.close();
+			stm.close();
+			con.close();
+			return clientes;
+		} catch (SQLException e) {
+			Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, e);
+			return null;
+		}
+		
+	}
 
 }

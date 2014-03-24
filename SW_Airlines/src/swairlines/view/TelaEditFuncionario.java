@@ -70,7 +70,7 @@ public class TelaEditFuncionario extends Stage {
 		HBox hbox14 = new HBox(20);
 		HBox hbox15 = new HBox(20);
 		HBox hbox16 = new HBox(20);
-		VBox vbox1 = new VBox(15);
+		VBox vbox1 = new VBox(10);
 		
 		
 		Scene scene = new Scene(gPane, 600, 670, Color.SILVER);

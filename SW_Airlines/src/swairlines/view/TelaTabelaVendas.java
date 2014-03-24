@@ -68,7 +68,7 @@ public class TelaTabelaVendas extends BorderPane {
 		tipoVendaColuna.setCellValueFactory(new PropertyValueFactory<Venda, String>("tipoVenda"));
 		tipoVendaColuna.setMinWidth(140);
 		
-		TableColumn<Venda, Double> valorVooColuna = new TableColumn<>("Preço Voo");
+		TableColumn<Venda, Double> valorVooColuna = new TableColumn<>("Preço Voo R$");
 		valorVooColuna.setCellValueFactory(new PropertyValueFactory<Venda, Double>("valorVoo"));
 		valorVooColuna.setMinWidth(140);
 		

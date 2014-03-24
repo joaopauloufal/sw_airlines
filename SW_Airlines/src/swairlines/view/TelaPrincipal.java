@@ -17,12 +17,7 @@ public class TelaPrincipal extends BorderPane {
 		MenuBarPrincipal menuBarPrincipal = new MenuBarPrincipal(f);
 		menuTopo.getChildren().add(menuBarPrincipal);				
 		setTop(menuTopo);
-//		
-//		VBox boximage = new VBox();
-//		Image image = new Image("./images/aviao.png");
-//		Label titulo = new Label("SW Airlines");
-//		titulo.setFont(new Font(30));
-//		final ImageView imageview = new ImageView(image);
+		
 		
 	}
 

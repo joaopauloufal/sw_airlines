@@ -49,7 +49,7 @@ public class MenuBarPrincipal extends MenuBar {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				int resposta = JOptionPane.showConfirmDialog(null, "Você deseja realmente fazer Logout?", "Confirmação de Logout", JOptionPane.WARNING_MESSAGE, JOptionPane.WARNING_MESSAGE);
+				int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente fazer Logout?", "Confirmação de Logout", JOptionPane.WARNING_MESSAGE, JOptionPane.WARNING_MESSAGE);
 				if (resposta == JOptionPane.YES_OPTION) {
 					Main.alterarTela(new TelaLogin());
 				}
@@ -62,7 +62,7 @@ public class MenuBarPrincipal extends MenuBar {
 
 			@Override
 			public void handle(ActionEvent event) {
-				Main.alterarTela(new TelaPrincipal(f));
+				Main.alterarTela(new TelaInicial(f));
 				
 			}
 			
@@ -224,7 +224,7 @@ public class MenuBarPrincipal extends MenuBar {
 
 			@Override
 			public void handle(ActionEvent event) {
-				JOptionPane.showMessageDialog(null, "Versão 1.5", "Sw Airlines", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Versão 1.5", "SW Airlines", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		menuAjuda.getItems().addAll(itemAjuda);

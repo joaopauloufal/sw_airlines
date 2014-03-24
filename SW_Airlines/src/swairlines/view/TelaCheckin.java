@@ -145,7 +145,7 @@ public class TelaCheckin extends Stage {
 		hbox8.setAlignment(Pos.CENTER);
 		
 		clienteDao = new ClienteDAO();
-		for (Cliente c : clienteDao.buscaClientes()) {
+		for (Cliente c : clienteDao.buscaClientesComVenda()) {
 			clientesIds.add(c.getCpfCnpj());
 		}
 		
