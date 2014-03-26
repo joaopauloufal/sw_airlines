@@ -139,6 +139,16 @@ public abstract class Funcionario {
 	public void setConta(ContaDeUsuario conta) {
 		this.conta = conta;
 	}
+
+	@Override
+	public String toString() {
+		return "Funcionario [nome=" + nome + ", sexo=" + sexo + ", cpf=" + cpf
+				+ ", rg=" + rg + ", dataDeNascimento=" + dataDeNascimento
+				+ ", telefoneCelular=" + telefoneCelular
+				+ ", telefoneResidencial=" + telefoneResidencial
+				+ ", nacionalidade=" + nacionalidade + ", estadoCivil="
+				+ estadoCivil + ", cargo=" + cargo + "]";
+	}
 		
 
 }

@@ -143,6 +143,21 @@ public class Cliente {
 	public void setCartaoDeCredito(String cartaoDeCredito) {
 		this.cartaoDeCredito = cartaoDeCredito;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Cliente [nome=" + nome + ", cpfCnpj=" + cpfCnpj + ", sexo="
+				+ sexo + ", rg=" + rg + ", dataDeNascimento="
+				+ dataDeNascimento + ", estadoCivil=" + estadoCivil
+				+ ", nacionalidade=" + nacionalidade + ", telefoneCelular="
+				+ telefoneCelular + ", telefoneResidencial="
+				+ telefoneResidencial + ", cartaoDeCredito=" + cartaoDeCredito
+				+ ", passaporteNumero=" + passaporteNumero + ", endereco="
+				+ endereco + "]";
+	}
+	
+	
 	
 	
 

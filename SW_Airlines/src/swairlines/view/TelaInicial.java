@@ -19,7 +19,7 @@ public class TelaInicial extends BorderPane {
 		setTop(menuTopo);
 		
 		VBox boximage = new VBox();
-		Image image = new Image("./images/aviao.png");
+		Image image = new Image("swairlines/images/aviao.png");
 		Label titulo = new Label("SW Airlines");
 		titulo.setFont(new Font(30));
 		final ImageView imageview = new ImageView(image);
