@@ -35,7 +35,7 @@ public class TelaEditContaDeUsuario extends Stage {
 	private ComboBox<String> listTipoConta;
 	private Label lblCpfValor;
 	
-	public TelaEditContaDeUsuario(ContaDeUsuario conta) {		
+	public TelaEditContaDeUsuario(ContaDeUsuario conta){		
 		
 		GridPane gPane = new GridPane();
 		gPane.setPadding(new Insets(10, 10, 10, 10));

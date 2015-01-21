@@ -96,6 +96,7 @@ public class TelaCadConta extends Stage {
 			public void handle(ActionEvent event) {
 				if(txtUsuario.getText().isEmpty()||txtSenha.getText().isEmpty()||listTipoConta.getValue().isEmpty()||
 						listCpfFuncionarios.getValue().isEmpty()||txtSenhaConfirmacao.getText().isEmpty()){
+					
 					JOptionPane.showMessageDialog(null, "Campo(s) vazio(s)!","Alerta!",JOptionPane.ERROR_MESSAGE);	
 				}
 				else{

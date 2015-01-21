@@ -41,11 +41,11 @@ public class ContaDeUsuario {
         return this.senha.equalsIgnoreCase(senha);  
     }
 
-	public String getCpfFuncionario() {
+	public String getCpfFuncionario(){		
 		return cpfFuncionario;
 	}
 
-	public void setCpfFuncionario(String cpfFuncionario) {
+	public void setCpfFuncionario(String cpfFuncionario){
 		this.cpfFuncionario = cpfFuncionario;
 	}
 
@@ -57,7 +57,8 @@ public class ContaDeUsuario {
 		this.tipoConta = tipoConta;
 	}
 
-	public String getLogin() {
+	public String getLogin(){
+		
 		return login;
 	}
 	
@@ -81,7 +82,7 @@ public class ContaDeUsuario {
 		this.funcionario = funcionario;
 	}
 
-	public boolean autenticar(ContaDeUsuario c1) {
+	public boolean autenticar(ContaDeUsuario c1){
 		ContaDeUsuarioDAO contaDao = new ContaDeUsuarioDAO();
 		for (ContaDeUsuario temp : contaDao.buscaContasDeUsuario()) {
 			if (temp.getLogin().equals(c1.getLogin()) && temp.getSenha().equals(c1.getSenha())) {

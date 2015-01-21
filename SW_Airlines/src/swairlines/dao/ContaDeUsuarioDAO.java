@@ -12,10 +12,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import swairlines.model.ContaDeUsuario;
+import swairlines.model.FormatoCampoInvalidoException;
 
 public class ContaDeUsuarioDAO implements ConsultasBancoContaDeUsuario {
 	
@@ -38,7 +38,7 @@ public class ContaDeUsuarioDAO implements ConsultasBancoContaDeUsuario {
 		} catch (SQLException ex) {
 			Logger.getLogger(ContaDeUsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
 			
-		}
+		} 
 		return false;
 	}
 	
@@ -68,11 +68,12 @@ public class ContaDeUsuarioDAO implements ConsultasBancoContaDeUsuario {
 	 * altera conta no banco
 	 * @param ContaDeUsuario
 	 * @return boolean
+	 * @throws FormatoCampoInvalidoException 
 	 * @throws SQLException
 	 */
 	
 	@Override
-	public boolean alteraContaDeUsuario(ContaDeUsuario c1) {
+	public boolean alteraContaDeUsuario(ContaDeUsuario c1){
 		try {
 			ConexaoDAO cbd = new ConexaoDAO();
 			if(cbd.executar("UPDATE sw_airlines.usuario SET senha='" + c1.getSenha() + "', login='" + c1.getLogin() + "' WHERE cpf_func='" + c1.getCpfFuncionario() +"';")) {
@@ -80,18 +81,19 @@ public class ContaDeUsuarioDAO implements ConsultasBancoContaDeUsuario {
 			}
 		} catch (SQLException ex) {
 			Logger.getLogger(ContaDeUsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-		}
+		} 
 		return false;
 		
 	}
 	/**
 	 * busca contas no banco
 	 * @return {@link ObservableList}
+	 * @throws FormatoCampoInvalidoException 
 	 * @throws SQLException
 	 */
 	
 	@Override
-	public ObservableList<ContaDeUsuario> buscaContasDeUsuario() {
+	public ObservableList<ContaDeUsuario> buscaContasDeUsuario(){
 		ObservableList<ContaDeUsuario> usuarios;
 		usuarios = FXCollections.observableArrayList();
 		ConexaoDAO cbd = new ConexaoDAO();
@@ -120,8 +122,9 @@ public class ContaDeUsuarioDAO implements ConsultasBancoContaDeUsuario {
 
 		} catch (SQLException ex) {
 			Logger.getLogger(ContaDeUsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-			return null;
+			
 		} 
+		return null;
 	}
 	
 	

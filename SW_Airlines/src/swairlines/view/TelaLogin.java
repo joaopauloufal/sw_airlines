@@ -7,6 +7,10 @@ package swairlines.view;
 
 import javax.swing.JOptionPane;
 
+import org.controlsfx.control.action.Action;
+import org.controlsfx.dialog.Dialog;
+import org.controlsfx.dialog.Dialogs;
+
 import swairlines.Main;
 import swairlines.model.ContaDeUsuario;
 import javafx.event.ActionEvent;
@@ -20,6 +24,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+@SuppressWarnings("deprecation")
 public class TelaLogin extends BorderPane {
 	
 	private TextField txtUsuario;
@@ -60,10 +65,18 @@ public class TelaLogin extends BorderPane {
 
 			@Override
 			public void handle(ActionEvent event) {
-				int resposta = JOptionPane.showConfirmDialog(null, "Deseja realmente sair do sistema?", "Confirmação de Saida", JOptionPane.WARNING_MESSAGE, JOptionPane.WARNING_MESSAGE);
-				if (resposta == JOptionPane.YES_OPTION) {
+				Action resposta = Dialogs.create()
+				.title("Confirmação")
+				.masthead("Confirmação de Saída")
+				.message("Deseja realmente sair do sistema?")
+				.styleClass(Dialog.STYLE_CLASS_NATIVE)
+				
+				.showConfirm();
+				
+				if (resposta == Dialog.ACTION_YES){
 					System.exit(0);
-				}
+				} 
+				
 				
 			}
 			
