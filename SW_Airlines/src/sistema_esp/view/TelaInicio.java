@@ -9,9 +9,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import sistema_esp.Main;
+import sistema_esp.controller.TelaInicioController;
 
 public class TelaInicio extends BorderPane {
 	private Main mainInstance;
+	private TelaInicioController controller;
 	
 	private Label lblEscolhaBanco;
 	private ComboBox<String> cbEscolhaBanco;
@@ -19,16 +21,17 @@ public class TelaInicio extends BorderPane {
 	private Button btAvancar;
 	
 	public TelaInicio(Main main) {
-		setInstance(main);
+		setMainInstance(main);
+		setController(new TelaInicioController(this));
 		configuraTela();
 		eventos();
 	}
 	
 	private void eventos() {
-		btAvancar.setOnAction(new EventHandler<ActionEvent>() {
+		getBtAvancar().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				System.out.println("Avançando para a próxima página");
+				controller.actionBtAvancar();
 			}
 		});
 	}
@@ -39,23 +42,47 @@ public class TelaInicio extends BorderPane {
 		lblEscolhaBanco = new Label("Escolha o banco de dados");
 		cbEscolhaBanco = new ComboBox<String>();
 		
-		btAvancar = new Button("Avançar");
+		setBtAvancar(new Button("Avançar"));
 		
 		vboxPrincipal.getChildren().addAll(
 				lblEscolhaBanco,
 				cbEscolhaBanco,
-				btAvancar
+				getBtAvancar()
 				);
 		vboxPrincipal.setAlignment(Pos.CENTER);
 		
 		setCenter(vboxPrincipal);
 	}
 
-	public Main getInstance() {
+	public Main getMainInstance() {
 		return mainInstance;
 	}
 
-	public void setInstance(Main instance) {
+	public void setMainInstance(Main instance) {
 		this.mainInstance = instance;
+	}
+
+	public ComboBox<String> getCbEscolhaBanco() {
+		return cbEscolhaBanco;
+	}
+
+	public void setCbEscolhaBanco(ComboBox<String> cbEscolhaBanco) {
+		this.cbEscolhaBanco = cbEscolhaBanco;
+	}
+
+	public TelaInicioController getController() {
+		return controller;
+	}
+
+	public void setController(TelaInicioController controller) {
+		this.controller = controller;
+	}
+
+	public Button getBtAvancar() {
+		return btAvancar;
+	}
+
+	public void setBtAvancar(Button btAvancar) {
+		this.btAvancar = btAvancar;
 	}
 }
