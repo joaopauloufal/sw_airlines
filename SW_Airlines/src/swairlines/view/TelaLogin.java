@@ -56,7 +56,7 @@ public class TelaLogin extends BorderPane {
 				} else {
 					JOptionPane.showMessageDialog(null, "Usuário Inexistente.", "Erro de Autenticação", JOptionPane.ERROR_MESSAGE);
 				}
-			}			
+			}
 			
 		});
 		

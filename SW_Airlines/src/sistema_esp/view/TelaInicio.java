@@ -2,6 +2,8 @@ package sistema_esp.view;
 
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -45,19 +47,17 @@ public class TelaInicio extends BorderPane {
 		try {
 			cbEscolhaBanco = new ComboBox<String>(controller.retornaBancosDeDados());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, "Erro ao buscar bancos de dados", "Não foi possível buscar a lista de bancos de dados, verifique a conexão com o servidor MySQL ", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
 		
 		setBtAvancar(new Button("Avançar"));
-		
 		vboxPrincipal.getChildren().addAll(
 				lblEscolhaBanco,
 				cbEscolhaBanco,
 				getBtAvancar()
 				);
 		vboxPrincipal.setAlignment(Pos.CENTER);
-		
 		setCenter(vboxPrincipal);
 	}
 

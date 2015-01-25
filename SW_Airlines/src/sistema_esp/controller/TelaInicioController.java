@@ -3,6 +3,7 @@ package sistema_esp.controller;
 import java.sql.SQLException;
 
 import javafx.collections.ObservableList;
+import sistema_esp.dao.ConexaoDAO;
 import sistema_esp.dao.ListaBancosDAO;
 import sistema_esp.view.TelaInicio;
 
@@ -23,11 +24,14 @@ public class TelaInicioController {
 	}
 
 	public void actionBtAvancar() {
-		System.out.println("Ação do botão avançar");
+		String cb = view.getCbEscolhaBanco().getSelectionModel().getSelectedItem();
+		
+		ConexaoDAO.bancoDeTrabalho = cb;
+		System.out.println(ConexaoDAO.bancoDeTrabalho);
 	}
 	
 	public ObservableList<String> retornaBancosDeDados () throws SQLException{
-		ListaBancosDAO listaDAO = new ListaBancosDAO(); 
+		ListaBancosDAO listaDAO = new ListaBancosDAO();
 		return listaDAO.consultaBanco();
 	}
 }
