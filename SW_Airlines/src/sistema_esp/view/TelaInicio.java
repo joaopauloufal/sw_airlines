@@ -1,5 +1,7 @@
 package sistema_esp.view;
 
+import java.sql.SQLException;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -40,7 +42,12 @@ public class TelaInicio extends BorderPane {
 		VBox vboxPrincipal = new VBox(10);
 		
 		lblEscolhaBanco = new Label("Escolha o banco de dados");
-		cbEscolhaBanco = new ComboBox<String>();
+		try {
+			cbEscolhaBanco = new ComboBox<String>(controller.retornaBancosDeDados());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		setBtAvancar(new Button("Avançar"));
 		

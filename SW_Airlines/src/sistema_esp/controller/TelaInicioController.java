@@ -1,5 +1,9 @@
 package sistema_esp.controller;
 
+import java.sql.SQLException;
+
+import javafx.collections.ObservableList;
+import sistema_esp.dao.ListaBancosDAO;
 import sistema_esp.view.TelaInicio;
 
 public class TelaInicioController {
@@ -20,5 +24,10 @@ public class TelaInicioController {
 
 	public void actionBtAvancar() {
 		System.out.println("Ação do botão avançar");
+	}
+	
+	public ObservableList<String> retornaBancosDeDados () throws SQLException{
+		ListaBancosDAO listaDAO = new ListaBancosDAO(); 
+		return listaDAO.consultaBanco();
 	}
 }
