@@ -29,6 +29,6 @@ public class Conclusao extends Premissa {
 	@Override
 	public String toString() {
 		
-		return " -> "+this.getVariavel().toString();
+		return "#->#"+this.getVariavel().toString();
 	}
 }

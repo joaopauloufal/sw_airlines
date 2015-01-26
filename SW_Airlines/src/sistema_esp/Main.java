@@ -1,6 +1,8 @@
 package sistema_esp;
 
 import sistema_esp.model.Conclusao;
+import sistema_esp.model.MemoriaDeFatos;
+import sistema_esp.model.MotorDeInferencia;
 import sistema_esp.model.Premissa;
 import sistema_esp.model.Regra;
 import sistema_esp.model.Variavel;
@@ -24,7 +26,7 @@ public class Main {
 		
 		
 	
-		String[] regras = regra.toString().split(" ");
+		String[] regras = regra.toString().split("#");
 		Conclusao c = new Conclusao(conclusaoV);
 		
 		Regra r = new Regra(c);

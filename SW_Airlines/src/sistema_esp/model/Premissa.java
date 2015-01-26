@@ -17,7 +17,7 @@ public class Premissa {
 		
 	}
 	
-	public boolean isValorLogico() {
+	public boolean getValorLogico() {
 		return valorLogico;
 	}
 
@@ -41,7 +41,7 @@ public class Premissa {
 	@Override
 	public String toString() {
 		if (this.simbolo != null){
-			return variavel +" "+ simbolo;
+			return variavel +"#"+ simbolo;
 		}
 		
 		return variavel.toString();
