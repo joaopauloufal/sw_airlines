@@ -47,20 +47,14 @@ public class MotorDeInferencia {
 		return false;
 	}
 	
-	private boolean avaliarOperadoresLogicos(Premissa fato, Premissa fato2){
-		if (fato.getSimbolo().equals("^")){
-			return fato.getValorLogico() && fato2.getValorLogico();
-			
-		}
-		
-		if (fato.getSimbolo().equals("|")){
-			return fato.getValorLogico() || fato2.getValorLogico();
-			
-		}
-		
-		return false;
-		
-	}
+//	private boolean avaliarOperadoresLogicos(Regra regra){
+//		for (Premissa p : regra.getPremissas()){
+//			if (p.getSimbolo().equals("^")){
+//				
+//			}
+//		}
+//		
+//	}
 	
 	private boolean temConclusaoNaBaseDeRegras(Premissa conclusao){
 		for (int i = 0; i < baseDeRegras.size(); i++){
@@ -71,20 +65,22 @@ public class MotorDeInferencia {
 		return false;
 	}
 	
-	private Premissa retornaPremissaNaBaseDeRegras(Premissa conclusao){
+	private Regra retornaConclusaoNaBaseDeRegras(Regra regra){
 		for (int i = 0; i < baseDeRegras.size(); i++){
-			if (conclusao.getVariavel().getValor().equals(baseDeRegras.get(i).getConclusao().getVariavel().getValor())){
-				return baseDeRegras.get(i).getPremissas().get(i);
+			if (regra.getConclusao().getVariavel().getValor().equals(baseDeRegras.get(i).getConclusao().getVariavel().getValor())){
+				return baseDeRegras.get(i);
 			}
 		}
 		return null;
 	}
 	
 	public void inferir(Regra regra){
-		if (temFatoNaMemoriaDeFatos(regra.getConclusao())){
-			buscarFatoNaMemoriaDeFatos(regra.getConclusao());
+		if (temFatoNaMemoriaDeFatos((regra.getConclusao()))){
+			regra.getConclusao().setValorLogico(regra.getConclusao().getValorLogico());
 		} else {
-			
+			if (temConclusaoNaBaseDeRegras(regra.getConclusao())){
+				inferir(retornaConclusaoNaBaseDeRegras(regra));
+			}
 		}
 		
 	}
