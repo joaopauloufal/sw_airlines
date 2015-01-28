@@ -1,5 +1,7 @@
 package sistema_esp;
 
+import java.util.ArrayList;
+
 import sistema_esp.model.ArvoreBinaria;
 import sistema_esp.model.Conclusao;
 import sistema_esp.model.MemoriaDeFatos;
@@ -17,12 +19,12 @@ public class Main {
 		Variavel conclusaoV = new Variavel("EUA");
 		
 		Premissa premissa1 = new Premissa(tempo);
-		premissa1.setSimbolo("");
+		premissa1.setSimbolo("^");
 		Premissa premissa2 = new Premissa(clima);
 		premissa2.setSimbolo("");
 		
 		Conclusao conclusao = new Conclusao(conclusaoV);
-		conclusao.setSimbolo("^");
+		conclusao.setSimbolo("->");
 		
 		Regra regra = new Regra(conclusao);
 		regra.adicionarPremissa(premissa1);
@@ -60,13 +62,18 @@ public class Main {
 //		
 //		System.out.println(r);
 		premissa1.setValorLogico(true);
-		premissa2.setValorLogico(false);
-		ArvoreBinaria a = new ArvoreBinaria(conclusao);
-		a.inserirEsquerda(a.getRaiz(), premissa1);
-		a.inserirDireita(a.getRaiz(), premissa2);
+		premissa2.setValorLogico(true);
+		MemoriaDeFatos mem = new MemoriaDeFatos();
+		ArrayList<Regra> regras = new ArrayList<Regra>();
+		regras.add(regra);
+		mem.adicionarFato(premissa1);
+		mem.adicionarFato(premissa2);
+		MotorDeInferencia m = new MotorDeInferencia(mem, regra.getConclusao());
+		m.setBaseDeRegras(regras);
+		m.inferir(regra);
 //		a.percorrerEmOrdem(a.getRaiz());
-		System.out.println(a.avaliarOperadoresLogicos(a.getRaiz()));
-
+//		System.out.println(a.avaliarOperadoresLogicos(a.getRaiz()));
+//
 		
 		
 		

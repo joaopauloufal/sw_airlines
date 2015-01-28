@@ -30,13 +30,13 @@ public class ArvoreBinaria {
 	}
 	
 	public void inserirElemento(No no, Premissa item){
-		if (item.getVariavel().getValor().length() < no.getItem().getVariavel().getValor().length()){
+		if (no.getItem().getSimbolo().length() < item.getVariavel().getValor().length()){
 			if (no.esquerda != null){
 				inserirElemento(no.esquerda, item);
 			} else {
 				no.esquerda = new No(item);
 			}
-		} else if (item.getVariavel().getValor().length() > no.getItem().getVariavel().getValor().length()){
+		} else if (item.getVariavel().getValor().length() > no.getItem().getSimbolo().length()){
 			if (no.direita != null){
 				inserirElemento(no.direita, item);
 			} else {
@@ -79,6 +79,10 @@ public class ArvoreBinaria {
 			valorLogicoDir = no.direita.getItem().getValorLogico();
 			if (no.getItem().getSimbolo().equals("^")){
 				return valorLogicoEsq && valorLogicoDir;
+			}
+			
+			if (no.getItem().getSimbolo().equals("|")){
+				return valorLogicoEsq || valorLogicoDir;
 			}
 			
 			
