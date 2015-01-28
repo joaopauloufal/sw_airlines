@@ -5,6 +5,7 @@ public class ArvoreBinaria {
 	private No raiz;
 	private boolean valorLogicoEsq;
 	private boolean valorLogicoDir;
+	private boolean valorLogicoRaiz;
 	
 	public ArvoreBinaria(Premissa item) {
 		this.raiz = new No(item);
@@ -42,34 +43,47 @@ public class ArvoreBinaria {
 				no.direita = new No(item);
 			}
 			
-		} 
+		}
+		
+		
+	}
+	
+	public void inserirEsquerda(No no, Premissa item){
+		if (no.esquerda != null){
+			inserirEsquerda(no.esquerda, item);
+		} else {
+			no.esquerda = new No(item);
+		}
+	}
+	
+	public void inserirDireita(No no, Premissa item){
+		if (no.direita != null){
+			inserirDireita(no.esquerda, item);
+		} else {
+			no.direita = new No(item);
+		}
 	}
 	
 	public void percorrerEmOrdem(No no){
 		if (no != null){
-			percorrerEmOrdem(no.esquerda);
 			System.out.println(no.getItem().getVariavel().getValor());
 			System.out.println(no.getItem().getSimbolo());
+			percorrerEmOrdem(no.esquerda);
 			percorrerEmOrdem(no.direita);
 		}
 	}
 	
-	public boolean inferir(No no){
-		if (no != null){
+	public boolean avaliarOperadoresLogicos(No no){
+		if (no.esquerda != null && no.direita != null){
+			valorLogicoEsq = no.esquerda.getItem().getValorLogico();
+			valorLogicoDir = no.direita.getItem().getValorLogico();
 			if (no.getItem().getSimbolo().equals("^")){
-				inferir(no.esquerda);
-				valorLogicoEsq = no.getItem().getValorLogico();				
-			} else {
-				inferir(no.direita);
-				valorLogicoDir = no.getItem().getValorLogico();
+				return valorLogicoEsq && valorLogicoDir;
 			}
 			
 			
-		
-			
 		}
-		
-		return valorLogicoEsq && valorLogicoDir;
+		return false;
 	}
 	
 	

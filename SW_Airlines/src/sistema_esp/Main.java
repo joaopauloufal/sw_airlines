@@ -17,12 +17,12 @@ public class Main {
 		Variavel conclusaoV = new Variavel("EUA");
 		
 		Premissa premissa1 = new Premissa(tempo);
-		premissa1.setSimbolo("^");
+		premissa1.setSimbolo("");
 		Premissa premissa2 = new Premissa(clima);
 		premissa2.setSimbolo("");
 		
 		Conclusao conclusao = new Conclusao(conclusaoV);
-		conclusao.setSimbolo("->");
+		conclusao.setSimbolo("^");
 		
 		Regra regra = new Regra(conclusao);
 		regra.adicionarPremissa(premissa1);
@@ -60,12 +60,12 @@ public class Main {
 //		
 //		System.out.println(r);
 		premissa1.setValorLogico(true);
-		premissa2.setValorLogico(true);
-		ArvoreBinaria a = new ArvoreBinaria(premissa1);
-		a.inserirElemento(a.getRaiz(), premissa1);
-		a.inserirElemento(a.getRaiz(), premissa2);
-		a.percorrerEmOrdem(a.getRaiz());
-//		System.out.println(a.inferir(a.getRaiz()));
+		premissa2.setValorLogico(false);
+		ArvoreBinaria a = new ArvoreBinaria(conclusao);
+		a.inserirEsquerda(a.getRaiz(), premissa1);
+		a.inserirDireita(a.getRaiz(), premissa2);
+//		a.percorrerEmOrdem(a.getRaiz());
+		System.out.println(a.avaliarOperadoresLogicos(a.getRaiz()));
 
 		
 		
