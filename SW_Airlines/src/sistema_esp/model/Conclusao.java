@@ -7,7 +7,7 @@ public class Conclusao extends Premissa {
 	private double fatorDeCerteza;
 
 	public Conclusao() {
-		
+		this.setSimbolo("");
 	}
 	
 	public Conclusao(double fatorDeCerteza){
