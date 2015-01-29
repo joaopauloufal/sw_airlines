@@ -5,7 +5,6 @@ public class ArvoreBinaria {
 	private No raiz;
 	private boolean valorLogicoEsq;
 	private boolean valorLogicoDir;
-	private boolean valorLogicoRaiz;
 	
 	public ArvoreBinaria(Premissa item) {
 		this.raiz = new No(item);
@@ -58,7 +57,7 @@ public class ArvoreBinaria {
 	
 	public void inserirDireita(No no, Premissa item){
 		if (no.direita != null){
-			inserirDireita(no.esquerda, item);
+			inserirDireita(no.direita, item);
 		} else {
 			no.direita = new No(item);
 		}
