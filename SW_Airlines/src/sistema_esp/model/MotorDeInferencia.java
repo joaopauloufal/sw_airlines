@@ -101,20 +101,28 @@ public class MotorDeInferencia {
 					for (int i = 0; i < r.getPremissas().size(); i++){
 						if (r.getPremissas().get(i).getSimbolo().equals("^")){
 							valorLogicoFatoAtual = inferir(r.getPremissas().get(i)) && r.getPremissas().get(i).getValorLogico();
+							
 							fato.setValorLogico(valorLogicoFatoAtual);
-							this.memoriaDeFatos.adicionarFato(fato);
+							if (!temFatoNaMemoriaDeFatos(fato)){
+								this.memoriaDeFatos.adicionarFato(fato);
+							}
+							
 							
 						}
 						if (r.getPremissas().get(i).getSimbolo().equals("|")){
 							valorLogicoFatoAtual = inferir(r.getPremissas().get(i)) || r.getPremissas().get(i).getValorLogico();
 							fato.setValorLogico(valorLogicoFatoAtual);
-							this.memoriaDeFatos.adicionarFato(fato);
+							if (!temFatoNaMemoriaDeFatos(fato)){
+								this.memoriaDeFatos.adicionarFato(fato);
+							}
 							
 						}
 						if (r.getPremissas().get(i).getSimbolo().equals("")){
 							valorLogicoFatoAtual = inferir(r.getPremissas().get(i));
 							this.setValorLogicoFatoAtual(valorLogicoFatoAtual);
-							this.memoriaDeFatos.adicionarFato(fato);
+							if (!temFatoNaMemoriaDeFatos(fato)){
+								this.memoriaDeFatos.adicionarFato(fato);
+							}
 							
 						}
 						
@@ -124,7 +132,9 @@ public class MotorDeInferencia {
 				} else {
 					valorLogicoFatoAtual = inferir(r.getPremissas().get(0));
 					this.setValorLogicoFatoAtual(valorLogicoFatoAtual);
-					this.memoriaDeFatos.adicionarFato(fato);
+					if (!temFatoNaMemoriaDeFatos(fato)){
+						this.memoriaDeFatos.adicionarFato(fato);
+					}
 					
 				}
 				
@@ -132,7 +142,9 @@ public class MotorDeInferencia {
 			} else {
 				valorLogicoFatoAtual = perguntarNaInterface(fato);
 				fato.setValorLogico(valorLogicoFatoAtual);
-				this.memoriaDeFatos.adicionarFato(fato);
+				if (!temFatoNaMemoriaDeFatos(fato)){
+					this.memoriaDeFatos.adicionarFato(fato);
+				}
 				
 			}
 			

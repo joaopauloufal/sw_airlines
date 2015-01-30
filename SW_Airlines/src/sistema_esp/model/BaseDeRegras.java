@@ -21,6 +21,13 @@ public class BaseDeRegras {
 	public void adicionarRegra(Regra regra){
 		this.regras.add(regra);
 	}
+
+	@Override
+	public String toString() {
+		return "BaseDeRegras [regras=" + regras + "]";
+	}
+	
+	
 	
 	
 

@@ -18,9 +18,18 @@ public class MemoriaDeFatos {
 		this.listaDeFatos = listaDeFatos;
 	}
 	
+	
 	public void adicionarFato(Premissa premisa){
 		this.listaDeFatos.add(premisa);
 	}
+	
+
+	@Override
+	public String toString() {
+		return "MemoriaDeFatos [listaDeFatos=" + listaDeFatos + "]";
+	}
+	
+	
 	
 	
 

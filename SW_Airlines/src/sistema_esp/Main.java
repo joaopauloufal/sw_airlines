@@ -100,16 +100,16 @@ public class Main {
 */
 	
 		MemoriaDeFatos mem = new MemoriaDeFatos();
-		mem.adicionarFato(cH);
 		BaseDeRegras base = new BaseDeRegras();
 		base.adicionarRegra(r1);
 		base.adicionarRegra(r2);
 		base.adicionarRegra(r3);
 		base.adicionarRegra(r4);
 		base.adicionarRegra(r5);
-		base.adicionarRegra(r7);
 		MotorDeInferencia m = new MotorDeInferencia(mem, base);
-		System.out.println(m.inferir(cD));
+		System.out.println(m.inferir(cE));
+		System.out.println(m.getMemoriaDeFatos());
+		System.out.println(m.getBaseDeRegras());
 		
 		
 		
