@@ -102,6 +102,7 @@ public class ConexaoDAO implements ConexaoBDMySql {
 	private void criarTabelaRegras() throws SQLException {
 		sql = "CREATE TABLE IF NOT EXISTS sist_esp.regras("
 				+ " id INT NOT NULL AUTO_INCREMENT,"
+				+ " nome VARCHAR(120) NOT NULL,"
 				+ " premissas VARCHAR(120) NOT NULL,"
 				+ " conclusao VARCHAR(120) NOT NULL,"
 				+ " PRIMARY KEY(id)) "

@@ -7,19 +7,29 @@ import sistema_esp.model.Premissa;
 
 public class Regra {
 	
+	private String nome;
 	private ArrayList<Premissa> premissas;
 	private Conclusao conclusao;
 	private int Id;
 
-	public Regra(Conclusao conclusao) {
+	public Regra(String nome, Conclusao conclusao) {
 		this.premissas = new ArrayList<Premissa>();
 		this.conclusao = conclusao;
+		this.nome = nome;
 	}
 	
 	public Regra(){
 		this.premissas = new ArrayList<Premissa>();
 	}
 	
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
 	public int getId() {
 		return Id;
 	}
