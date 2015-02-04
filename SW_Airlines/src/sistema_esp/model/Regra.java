@@ -9,7 +9,8 @@ public class Regra {
 	
 	private ArrayList<Premissa> premissas;
 	private Conclusao conclusao;
-	
+	private int Id;
+
 	public Regra(Conclusao conclusao) {
 		this.premissas = new ArrayList<Premissa>();
 		this.conclusao = conclusao;
@@ -17,6 +18,14 @@ public class Regra {
 	
 	public Regra(){
 		this.premissas = new ArrayList<Premissa>();
+	}
+	
+	public int getId() {
+		return Id;
+	}
+
+	public void setId(int id) {
+		Id = id;
 	}
 
 	public ArrayList<Premissa> getPremissas() {
@@ -43,8 +52,13 @@ public class Regra {
 	public String toString() {
 		return premissas.toString().replace("[", "").
 				replace("]", "").
-				replace(",", "")
-				+ conclusao.toString();
+				replace(" ", "").
+				replace(",", "");
+				
+				
 	}
+	
+	
+	
 
 }

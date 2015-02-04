@@ -7,6 +7,7 @@ public class MotorDeInferencia {
 	private MemoriaDeFatos memoriaDeFatos;
 	private BaseDeRegras baseDeRegras;
 	private boolean valorLogicoFatoAtual;
+	private double fatorDeConfiancaTotal;
 	
 	public MotorDeInferencia(MemoriaDeFatos memoriaDeFatos, BaseDeRegras baseDeRegras) {
 		this.memoriaDeFatos = memoriaDeFatos;
@@ -18,6 +19,14 @@ public class MotorDeInferencia {
 		
 	}
 	
+
+	public double getFatorDeConfiancaTotal() {
+		return fatorDeConfiancaTotal;
+	}
+
+	public void setFatorDeConfiancaTotal(double fatorDeConfiancaTotal) {
+		this.fatorDeConfiancaTotal = fatorDeConfiancaTotal;
+	}
 
 	public boolean isValorLogicoFatoAtual() {
 		return valorLogicoFatoAtual;
@@ -101,6 +110,7 @@ public class MotorDeInferencia {
 					for (int i = 0; i < r.getPremissas().size(); i++){
 						if (r.getPremissas().get(i).getSimbolo().equals("^")){
 							valorLogicoFatoAtual = inferir(r.getPremissas().get(i)) && r.getPremissas().get(i).getValorLogico();
+							// TODO Estabelecer um grau de confiança.
 							
 							fato.setValorLogico(valorLogicoFatoAtual);
 							if (!temFatoNaMemoriaDeFatos(fato)){
@@ -149,6 +159,7 @@ public class MotorDeInferencia {
 			}
 			
 		}
+		System.out.println(fatorDeConfiancaTotal);
 		return valorLogicoFatoAtual;
 		
 				

@@ -7,6 +7,7 @@ public class Premissa {
 	private Variavel variavel;
 	private String simbolo;
 	private boolean valorLogico;
+	private double fatorCerteza;
 	
 	public Premissa() {
 		
@@ -17,6 +18,14 @@ public class Premissa {
 		
 	}
 	
+	public double getFatorCerteza() {
+		return fatorCerteza;
+	}
+
+	public void setFatorCerteza(double fatorCerteza) {
+		this.fatorCerteza = fatorCerteza;
+	}
+
 	public boolean getValorLogico() {
 		return valorLogico;
 	}
