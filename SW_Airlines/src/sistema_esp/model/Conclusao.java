@@ -6,7 +6,7 @@ public class Conclusao extends Premissa {
 	
 
 	public Conclusao() {
-		this.setSimbolo("");
+		
 	}
 
 	public Conclusao(Variavel variavel) {

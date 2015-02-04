@@ -159,7 +159,6 @@ public class MotorDeInferencia {
 			}
 			
 		}
-		System.out.println(fatorDeConfiancaTotal);
 		return valorLogicoFatoAtual;
 		
 				
