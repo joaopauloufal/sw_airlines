@@ -25,7 +25,9 @@ public class Main extends Application {
 		this.scene = scene;
 	}
 	
-	
+	public static void main(String[] args) {
+		launch(args);
+	}
 
 	
 

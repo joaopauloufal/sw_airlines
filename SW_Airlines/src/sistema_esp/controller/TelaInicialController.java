@@ -2,10 +2,10 @@ package sistema_esp.controller;
 
 import sistema_esp.view.TelaInicial;
 
-public class TelainicialControler {
+public class TelaInicialController {
 	 private TelaInicial view;
 	 
-	 public TelainicialControler(TelaInicial view) {
+	 public TelaInicialController(TelaInicial view) {
 		setView(view);
 	}
 
