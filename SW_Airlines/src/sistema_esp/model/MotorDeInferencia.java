@@ -1,5 +1,6 @@
 package sistema_esp.model;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MotorDeInferencia {
@@ -99,8 +100,9 @@ public class MotorDeInferencia {
 		return valorLogico;
 	}
 	
+	
+	
 	public boolean inferir(Premissa fato){
-		
 		if (temFatoNaMemoriaDeFatos(fato)){
 			boolean temp = buscarFatoNaMemoriaDeFatos(fato).getValorLogico();
 			fato.setValorLogico(temp);
@@ -111,51 +113,63 @@ public class MotorDeInferencia {
 				if (r.getPremissas().size() > 1){
 					for (int i = 0; i < r.getPremissas().size(); i++){
 						if (r.getPremissas().get(i).getSimbolo().equals("^")){
-							valorLogicoFatoAnterior = inferir(r.getPremissas().get(i));
+							if (i > 0){
+								valorLogicoFatoAnterior = valorLogicoFinal;
+							} else {
+								valorLogicoFatoAnterior = inferir(r.getPremissas().get(i));
+							}
+							
 							i++;
 							valorLogicoFatoAtual = inferir(r.getPremissas().get(i));
 							valorLogicoFinal = valorLogicoFatoAnterior && valorLogicoFatoAtual;
-							fato.setValorLogico(valorLogicoFinal);
+							r.getPremissas().get(i).setValorLogico(valorLogicoFatoAtual);
 							if (!temFatoNaMemoriaDeFatos(r.getPremissas().get(i))){
 								this.memoriaDeFatos.adicionarFato(r.getPremissas().get(i));
 							}
 						}
 						if (r.getPremissas().get(i).getSimbolo().equals("|")){
-							valorLogicoFatoAnterior = inferir(r.getPremissas().get(i));
+							if (i > 0){
+								valorLogicoFatoAnterior = valorLogicoFinal;
+							} else {
+								valorLogicoFatoAnterior = inferir(r.getPremissas().get(i));
+							}
 							i++;
 							valorLogicoFatoAtual = inferir(r.getPremissas().get(i));
 							valorLogicoFinal = valorLogicoFatoAnterior || valorLogicoFatoAtual;
-							fato.setValorLogico(valorLogicoFatoAtual);
+							r.getPremissas().get(i).setValorLogico(valorLogicoFatoAtual);
 							if (!temFatoNaMemoriaDeFatos(r.getPremissas().get(i))){
 								this.memoriaDeFatos.adicionarFato(r.getPremissas().get(i));
 							}
 						}
 						if (r.getPremissas().get(i).getSimbolo().equals("")){
-							boolean temp = inferir(r.getPremissas().get(i));
-							this.setValorLogicoFatoAtual(temp);
+							valorLogicoFatoAtual = inferir(r.getPremissas().get(i));
+							this.setValorLogicoFatoAtual(valorLogicoFatoAtual);
 							if (!temFatoNaMemoriaDeFatos(r.getPremissas().get(i))){
 								this.memoriaDeFatos.adicionarFato(r.getPremissas().get(i));
 							}
 						}
 					}
-				} else {
-					boolean temp = inferir(r.getPremissas().get(0));
-					this.setValorLogicoFatoAtual(temp);
-					if (!temFatoNaMemoriaDeFatos(r.getPremissas().get(0))){
-						this.memoriaDeFatos.adicionarFato(r.getPremissas().get(0));
+					fato.setValorLogico(valorLogicoFinal);
+					if (!temFatoNaMemoriaDeFatos(fato)){
+						this.memoriaDeFatos.adicionarFato(fato);
 					}
-				}
 		} else {
-			boolean temp = perguntarNaInterface(fato);
-			fato.setValorLogico(temp);
-			if (!temFatoNaMemoriaDeFatos(fato)){
-				this.memoriaDeFatos.adicionarFato(fato);
+			boolean temp = inferir(r.getPremissas().get(0));
+			r.getPremissas().get(0).setValorLogico(temp);
+			if (!temFatoNaMemoriaDeFatos(r.getPremissas().get(0))){
+				this.memoriaDeFatos.adicionarFato(r.getPremissas().get(0));
 			}
 		}
-	}
-	return valorLogicoFinal;
-				
-		
+			} else {
+				boolean temp = perguntarNaInterface(fato);
+				fato.setValorLogico(temp);
+				if (!temFatoNaMemoriaDeFatos(fato)){
+					this.memoriaDeFatos.adicionarFato(fato);
+				}
+				return temp;
+			}
+		}
+			return valorLogicoFinal;
 	}
 	
 	
