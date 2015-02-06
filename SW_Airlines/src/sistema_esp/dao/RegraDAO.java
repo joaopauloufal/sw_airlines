@@ -16,7 +16,7 @@ public class RegraDAO {
 	public void insereRegra(Regra regra){
 		try {
 		ConexaoDAO cbd = new ConexaoDAO();
-		cbd.executar("INSERT INTO sist_esp.regras (nome, premissas, conclusao) " + "VALUES('" + regra.getNome() +"','"+ regra + "','" + regra.getConclusao() + "');");
+		cbd.executar("INSERT INTO sist_esp.regras (nome, premissas, conclusao, fator_de_confianca) " + "VALUES('" + regra.getNome() +"','"+ regra + "','" + regra.getConclusao() + "','"+ regra.getFatorDeConfianca() +"');");
 		} catch (SQLException e){
 			e.printStackTrace();
 		}
@@ -34,7 +34,7 @@ public class RegraDAO {
 	public void alteraRegra(Regra regra){
 		try {
 			ConexaoDAO cbd = new ConexaoDAO();
-			cbd.executar("UPDATE sist_esp.regras set nome='" + regra.getNome() + "', premissas='" + regra.getPremissas() + "', conclusao='" + regra.getConclusao() + "' WHERE id= '" + regra.getId() +"';");
+			cbd.executar("UPDATE sist_esp.regras set nome='" + regra.getNome() + "', premissas='" + regra.getPremissas() + "', conclusao='" + regra.getConclusao() + "', fator_de_confianca='" + regra.getFatorDeConfianca() + "' WHERE id= '" + regra.getId() +"';");
 		} catch (SQLException e){
 			e.printStackTrace();
 		}
@@ -74,6 +74,7 @@ public class RegraDAO {
 				Variavel conclusaoV = new Variavel(rs.getString("conclusao"));
 				Conclusao conclusao = new Conclusao(conclusaoV);
 				regra.setConclusao(conclusao);
+				regra.setFatorDeConfianca(rs.getDouble("fator_de_confianca"));
 				regras.add(regra);
 		
 			}

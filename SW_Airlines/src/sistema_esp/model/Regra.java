@@ -10,18 +10,28 @@ public class Regra {
 	private String nome;
 	private ArrayList<Premissa> premissas;
 	private Conclusao conclusao;
+	private double fatorDeConfianca;
 	private int Id;
 
-	public Regra(String nome, Conclusao conclusao) {
+	public Regra(String nome, Conclusao conclusao, double fatorDeConfianca) {
 		this.premissas = new ArrayList<Premissa>();
 		this.conclusao = conclusao;
 		this.nome = nome;
+		this.setFatorDeConfianca(fatorDeConfianca);
 	}
 	
 	public Regra(){
 		this.premissas = new ArrayList<Premissa>();
 	}
 	
+	public double getFatorDeConfianca() {
+		return fatorDeConfianca;
+	}
+
+	public void setFatorDeConfianca(double fatorDeConfianca) {
+		this.fatorDeConfianca = fatorDeConfianca/100;
+	}
+
 	public String getNome() {
 		return nome;
 	}

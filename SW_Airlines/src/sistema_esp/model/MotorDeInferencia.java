@@ -1,6 +1,5 @@
 package sistema_esp.model;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MotorDeInferencia {
@@ -97,6 +96,9 @@ public class MotorDeInferencia {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Qual é o valor de " + p.getVariavel() + "? ");
 		valorLogico = sc.nextBoolean();
+		System.out.println("Fator de Certeza: ");
+		double fatorCerteza = sc.nextDouble();
+		p.setFatorCerteza(fatorCerteza);
 		return valorLogico;
 	}
 	

@@ -26,7 +26,7 @@ public class Teste {
 	Conclusao conclusao = new Conclusao(conclusaoV);
 	conclusao.setSimbolo("");
 	
-	Regra regra = new Regra("EUA",conclusao);
+	Regra regra = new Regra("EUA",conclusao, 100);
 	regra.adicionarPremissa(premissa1);
 	regra.adicionarPremissa(premissa2);
 	regra.adicionarPremissa(premissa3);
