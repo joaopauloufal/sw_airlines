@@ -12,18 +12,24 @@ public class Teste {
 	public static void main(String[] args) {
 	Variavel tempo = new Variavel("Frio");
 	Variavel clima = new Variavel("Temperado");
+	Variavel clima2 = new Variavel("Tropical");
 	Variavel conclusaoV = new Variavel("EUA");
 	
 	Premissa premissa1 = new Premissa(tempo);
 	premissa1.setSimbolo("^");
-	Premissa premissa2 = new Premissa(clima);
-	premissa2.setSimbolo("");
+	Premissa premissa2 = new Premissa(clima2);
+	premissa2.setSimbolo("|");
+	Premissa premissa3 = new Premissa(clima);
+	premissa3.setSimbolo("");
+	
 	
 	Conclusao conclusao = new Conclusao(conclusaoV);
+	conclusao.setSimbolo("");
 	
 	Regra regra = new Regra("EUA",conclusao);
 	regra.adicionarPremissa(premissa1);
 	regra.adicionarPremissa(premissa2);
+	regra.adicionarPremissa(premissa3);
 	
 	/*
 	for (int i = 0; i < regras.length-2; i++){
