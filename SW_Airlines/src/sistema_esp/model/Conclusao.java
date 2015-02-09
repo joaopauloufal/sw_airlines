@@ -6,11 +6,12 @@ public class Conclusao extends Premissa {
 	
 
 	public Conclusao() {
-		
+		this.isConclusao = true;
 	}
 
 	public Conclusao(Variavel variavel) {
 		this.setVariavel(variavel);
+		this.isConclusao = true;
 	}
 	
 	@Override

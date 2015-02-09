@@ -47,9 +47,11 @@ public class Teste {
 	MemoriaDeFatos mem = new MemoriaDeFatos();
 	BaseDeRegras base = new BaseDeRegras();
 	base.adicionarRegra(regra);
+	base.adicionarRegra(r2);
 	m.setMemoriaDeFatos(mem);
 	m.setBaseDeRegras(base);
 	System.out.println(m.inferir(conclusao));
+	System.out.println(m.inferir(conclusao2));
 	System.out.println(mem.toString());
 	System.out.println(base.toString());
 	

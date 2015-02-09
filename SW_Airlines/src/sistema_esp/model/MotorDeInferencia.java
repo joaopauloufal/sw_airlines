@@ -110,9 +110,15 @@ public class MotorDeInferencia {
 		if (temFatoNaMemoriaDeFatos(fato)){
 			boolean temp = buscarFatoNaMemoriaDeFatos(fato).getValorLogico();
 			if (fato.getEstaNegada()){
+				if (fato.isConclusao){
+					System.out.println("é conclusão.");
+				}
 				fato.setValorLogico(!temp);
 				return !temp;
 			} else {
+				if (fato.isConclusao){
+					System.out.println("é conclusão.");
+				}
 				fato.setValorLogico(temp);
 				return temp;
 			}
@@ -128,14 +134,22 @@ public class MotorDeInferencia {
 								fatorCertezaFatoAnterior = fatorDeConfiancaTotal;
 								// Revisar isso depois.
 								if (valorLogicoFatoAnterior == false && fatorCertezaFatoAnterior > 0.5){
-									return false;
+									valorLogicoFinal = false;
+									fato.setValorLogico(valorLogicoFinal);
+									fato.setFatorCerteza(fatorCertezaFatoAnterior);
+									this.memoriaDeFatos.adicionarFato(fato);
+									return valorLogicoFinal;
 								}
 							} else {
 								valorLogicoFatoAnterior = inferir(r.getPremissas().get(i));
 								fatorCertezaFatoAnterior = r.getPremissas().get(i).getFatorCerteza() / 100;
 								// Revisar isso depois.
 								if (valorLogicoFatoAnterior == false && fatorCertezaFatoAnterior > 0.5 && r.getPremissas().size() == 2){
-									return false;
+									valorLogicoFinal = false;
+									fato.setValorLogico(valorLogicoFinal);
+									fato.setFatorCerteza(fatorCertezaFatoAnterior);
+									this.memoriaDeFatos.adicionarFato(fato);
+									return valorLogicoFinal;
 								}
 								
 							}
@@ -164,14 +178,22 @@ public class MotorDeInferencia {
 								fatorCertezaFatoAnterior = fatorDeConfiancaTotal;
 								// Revisar isso depois.
 								if (valorLogicoFatoAnterior == true && fatorCertezaFatoAnterior > 0.5){
-									return true;
+									valorLogicoFinal = true;
+									fato.setValorLogico(valorLogicoFinal);
+									fato.setFatorCerteza(fatorCertezaFatoAnterior);
+									this.memoriaDeFatos.adicionarFato(fato);
+									return valorLogicoFinal;
 								}
 							} else {
 								valorLogicoFatoAnterior = inferir(r.getPremissas().get(i));
 								fatorCertezaFatoAnterior = r.getPremissas().get(i).getFatorCerteza()/100;
 								// Revisar isso depois.
 								if (valorLogicoFatoAnterior == true && fatorCertezaFatoAnterior > 0.5){
-									return true;
+									valorLogicoFinal = true;
+									fato.setValorLogico(valorLogicoFinal);
+									fato.setFatorCerteza(fatorCertezaFatoAnterior);
+									this.memoriaDeFatos.adicionarFato(fato);
+									return valorLogicoFinal;
 								}
 								
 							}
