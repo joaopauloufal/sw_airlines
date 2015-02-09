@@ -58,18 +58,29 @@ public class RegraDAO {
 				Premissa premissa = null;
 				if (premissaArray.length > 1){
 					for (int i = 0; i < premissaArray.length; i++){
-						if (!premissaArray[i].equals("^") || !premissaArray[i].equals("|")){
+						if (!premissaArray[i].equals("^") || !premissaArray[i].equals("|") || !premissaArray[i].equals("~")){
 							Variavel variavel = new Variavel(premissaArray[i]);
 							premissa = new Premissa(variavel);
 							regra.adicionarPremissa(premissa);
 						} else {
+							if (premissaArray[i].equals("~")){
+								premissa.setEstaNegada(true);
+							}
 							premissa.setSimbolo(premissaArray[i]);
 						}
+						
 					}
 				} else {
-					Variavel variavel = new Variavel(rs.getString("premissas"));
-					premissa = new Premissa(variavel);
-					regra.adicionarPremissa(premissa);
+					for (int i = 0; i < premissaArray.length; i++){
+						if (!premissaArray[i].equals("~")){
+							Variavel variavel = new Variavel(rs.getString("premissas"));
+							premissa = new Premissa(variavel);
+							regra.adicionarPremissa(premissa);
+						} else {
+							premissa.setEstaNegada(true);
+						}
+					}
+					
 				}
 				Variavel conclusaoV = new Variavel(rs.getString("conclusao"));
 				Conclusao conclusao = new Conclusao(conclusaoV);

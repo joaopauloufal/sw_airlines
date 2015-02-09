@@ -9,6 +9,9 @@ public class MotorDeInferencia {
 	private boolean valorLogicoFatoAnterior;
 	private boolean valorLogicoFatoAtual;
 	private boolean valorLogicoFinal;
+	private double fatorCertezaFatoAnterior;
+	private double fatorDeCertezaFatoAtual;
+	private double grauDeCertezaFinal;
 	private double fatorDeConfiancaTotal;
 	
 	public MotorDeInferencia(MemoriaDeFatos memoriaDeFatos, BaseDeRegras baseDeRegras) {
@@ -57,7 +60,7 @@ public class MotorDeInferencia {
 	private Premissa buscarFatoNaMemoriaDeFatos(Premissa fato){
 		for (Premissa fatoTemp : memoriaDeFatos.getListaDeFatos()){
 			if (fato.getVariavel().getValor().equals(fatoTemp.getVariavel().getValor())){
-				return fato;
+				return fatoTemp;
 			}
 		}
 		return null;
@@ -107,8 +110,14 @@ public class MotorDeInferencia {
 	public boolean inferir(Premissa fato){
 		if (temFatoNaMemoriaDeFatos(fato)){
 			boolean temp = buscarFatoNaMemoriaDeFatos(fato).getValorLogico();
-			fato.setValorLogico(temp);
-			return temp;
+			if (fato.getEstaNegada()){
+				fato.setValorLogico(!temp);
+				return !temp;
+			} else {
+				fato.setValorLogico(temp);
+				return temp;
+			}
+			
 		} else {
 			if (temConclusaoNaBaseDeRegras(fato)){
 				Regra r = buscarConclusaoNaBaseDeRegras(fato);
@@ -117,13 +126,22 @@ public class MotorDeInferencia {
 						if (r.getPremissas().get(i).getSimbolo().equals("^")){
 							if (i > 0){
 								valorLogicoFatoAnterior = valorLogicoFinal;
+								fatorCertezaFatoAnterior = grauDeCertezaFinal;
 							} else {
 								valorLogicoFatoAnterior = inferir(r.getPremissas().get(i));
+								fatorCertezaFatoAnterior = r.getPremissas().get(i).getFatorCerteza() / 100;
 							}
 							
 							i++;
 							valorLogicoFatoAtual = inferir(r.getPremissas().get(i));
+							fatorDeCertezaFatoAtual = r.getPremissas().get(i).getFatorCerteza() / 100;
 							valorLogicoFinal = valorLogicoFatoAnterior && valorLogicoFatoAtual;
+							if (fatorCertezaFatoAnterior < 1 || fatorDeCertezaFatoAtual < 1){
+								fatorDeConfiancaTotal = fatorCertezaFatoAnterior * fatorDeCertezaFatoAtual * fato.getFatorCerteza();
+							} else {
+								fatorDeConfiancaTotal = fato.getFatorCerteza();
+							}
+							
 							r.getPremissas().get(i).setValorLogico(valorLogicoFatoAtual);
 							if (!temFatoNaMemoriaDeFatos(r.getPremissas().get(i))){
 								this.memoriaDeFatos.adicionarFato(r.getPremissas().get(i));
@@ -132,12 +150,21 @@ public class MotorDeInferencia {
 						if (r.getPremissas().get(i).getSimbolo().equals("|")){
 							if (i > 0){
 								valorLogicoFatoAnterior = valorLogicoFinal;
+								fatorCertezaFatoAnterior = grauDeCertezaFinal;
 							} else {
 								valorLogicoFatoAnterior = inferir(r.getPremissas().get(i));
+								fatorCertezaFatoAnterior = r.getPremissas().get(i).getFatorCerteza();
 							}
 							i++;
 							valorLogicoFatoAtual = inferir(r.getPremissas().get(i));
+							fatorDeCertezaFatoAtual = r.getPremissas().get(i).getFatorCerteza();
 							valorLogicoFinal = valorLogicoFatoAnterior || valorLogicoFatoAtual;
+							if (fatorCertezaFatoAnterior < 1 || fatorDeCertezaFatoAtual < 1){
+								fatorDeConfiancaTotal = (fatorCertezaFatoAnterior + fatorDeCertezaFatoAtual - fatorCertezaFatoAnterior * fatorDeCertezaFatoAtual) * fato.getFatorCerteza();
+							} else {
+								fatorDeConfiancaTotal = fato.getFatorCerteza();
+							}
+							
 							r.getPremissas().get(i).setValorLogico(valorLogicoFatoAtual);
 							if (!temFatoNaMemoriaDeFatos(r.getPremissas().get(i))){
 								this.memoriaDeFatos.adicionarFato(r.getPremissas().get(i));
@@ -145,33 +172,56 @@ public class MotorDeInferencia {
 						}
 						if (r.getPremissas().get(i).getSimbolo().equals("")){
 							valorLogicoFatoAtual = inferir(r.getPremissas().get(i));
-							this.setValorLogicoFatoAtual(valorLogicoFatoAtual);
+							r.getPremissas().get(i).setValorLogico(valorLogicoFatoAtual);
 							if (!temFatoNaMemoriaDeFatos(r.getPremissas().get(i))){
 								this.memoriaDeFatos.adicionarFato(r.getPremissas().get(i));
 							}
 						}
 					}
-					fato.setValorLogico(valorLogicoFinal);
+					
+				} else {			
+					boolean temp = inferir(r.getPremissas().get(0));
+					r.getPremissas().get(0).setValorLogico(temp);
+					if (!temFatoNaMemoriaDeFatos(r.getPremissas().get(0))){
+						this.memoriaDeFatos.adicionarFato(r.getPremissas().get(0));
+					}
+			
+				}
+			} else {
+				boolean temp = perguntarNaInterface(fato);
+				if (fato.getEstaNegada()){
+					fato.setValorLogico(!temp);
 					if (!temFatoNaMemoriaDeFatos(fato)){
 						this.memoriaDeFatos.adicionarFato(fato);
 					}
-		} else {
-			boolean temp = inferir(r.getPremissas().get(0));
-			r.getPremissas().get(0).setValorLogico(temp);
-			if (!temFatoNaMemoriaDeFatos(r.getPremissas().get(0))){
-				this.memoriaDeFatos.adicionarFato(r.getPremissas().get(0));
+					return !temp;
+				} else {
+					fato.setValorLogico(temp);
+					if (!temFatoNaMemoriaDeFatos(fato)){
+						this.memoriaDeFatos.adicionarFato(fato);
+					}
+					return temp;
+				}				
+				
 			}
-		}
+			if (fatorDeConfiancaTotal < fato.getFatorCerteza() && fatorDeConfiancaTotal < 0.5){
+				fato.setValorLogico(!valorLogicoFinal);
+				if (!temFatoNaMemoriaDeFatos(fato)){
+					fato.setFatorCerteza(fatorDeConfiancaTotal);
+					this.memoriaDeFatos.adicionarFato(fato);
+					return !valorLogicoFinal;
+				} 
+			
 			} else {
-				boolean temp = perguntarNaInterface(fato);
-				fato.setValorLogico(temp);
+				fato.setValorLogico(valorLogicoFinal);
+				fato.setFatorCerteza(fatorDeConfiancaTotal);
 				if (!temFatoNaMemoriaDeFatos(fato)){
 					this.memoriaDeFatos.adicionarFato(fato);
-				}
-				return temp;
+					
+				} 
 			}
-		}
 			return valorLogicoFinal;
+		}
 	}
 	
 	

@@ -8,6 +8,8 @@ public class Premissa {
 	private String simbolo;
 	private boolean valorLogico;
 	private double fatorCerteza;
+	private boolean estaNegada;
+	private String simboloNegacao;
 	
 	public Premissa() {
 		
@@ -15,9 +17,26 @@ public class Premissa {
 	
 	public Premissa(Variavel variavel) {
 		this.variavel = variavel;
-		
+		this.estaNegada = false;
+		this.simboloNegacao = "";
 	}
 	
+	public String getSimboloNegacao() {
+		return simboloNegacao;
+	}
+
+	public void setSimboloNegacao(String simboloNegacao) {
+		this.simboloNegacao = simboloNegacao;
+	}
+
+	public boolean getEstaNegada() {
+		return estaNegada;
+	}
+
+	public void setEstaNegada(boolean estaNegada) {
+		this.estaNegada = estaNegada;
+	}
+
 	public double getFatorCerteza() {
 		return fatorCerteza;
 	}
@@ -50,9 +69,16 @@ public class Premissa {
 	@Override
 	public String toString() {
 		if (this.simbolo != null){
-			return variavel +"#"+ simbolo;
+			if (estaNegada == true){
+				return "~#"+variavel +"#"+ simbolo;
+			} else {
+				return variavel +"#"+ simbolo;
+			}
+			
 		}
-		
+		if (estaNegada == true){
+			return "~#"+variavel.toString();
+		}
 		return variavel.toString();
 		
 		

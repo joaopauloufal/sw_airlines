@@ -18,6 +18,7 @@ public class Regra {
 		this.conclusao = conclusao;
 		this.nome = nome;
 		this.setFatorDeConfianca(fatorDeConfianca);
+		this.conclusao.setFatorCerteza(this.fatorDeConfianca);
 	}
 	
 	public Regra(){

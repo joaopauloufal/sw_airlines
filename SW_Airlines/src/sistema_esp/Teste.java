@@ -1,5 +1,6 @@
 package sistema_esp;
 
+import sistema_esp.dao.RegraDAO;
 import sistema_esp.model.BaseDeRegras;
 import sistema_esp.model.Conclusao;
 import sistema_esp.model.MemoriaDeFatos;
@@ -18,39 +19,44 @@ public class Teste {
 	Premissa premissa1 = new Premissa(tempo);
 	premissa1.setSimbolo("^");
 	Premissa premissa2 = new Premissa(clima2);
-	premissa2.setSimbolo("|");
+	premissa2.setSimbolo("");
 	Premissa premissa3 = new Premissa(clima);
 	premissa3.setSimbolo("");
+	
+	Premissa p4 = new Premissa(clima);
+	p4.setSimbolo("|");
+	Premissa p5 = new Premissa(clima2);
 	
 	
 	Conclusao conclusao = new Conclusao(conclusaoV);
 	conclusao.setSimbolo("");
 	
-	Regra regra = new Regra("EUA",conclusao, 100);
+	Conclusao conclusao2 = new Conclusao(conclusaoV);
+	conclusao2.setSimbolo("");
+	
+	Regra regra = new Regra("EUA", conclusao, 90);
 	regra.adicionarPremissa(premissa1);
 	regra.adicionarPremissa(premissa2);
-	regra.adicionarPremissa(premissa3);
 	
-	/*
-	for (int i = 0; i < regras.length-2; i++){
-	if (!regras[i].equals("^") || !regras[i].equals("|") || !regras.equals("->")){
-	Variavel v = new Variavel(regras[i]);
-	p = new Premissa(v);
-	r.adicionarPremissa(p);
-	
-	} else {
-	p.setSimbolo(regras[i]);
-	}
-	}
-	*/
+	Regra r2 = new Regra("EUA", conclusao2, 100);
+	r2.adicionarPremissa(p4);
+	r2.adicionarPremissa(p5);
 	
 	MotorDeInferencia m = new MotorDeInferencia();
 	MemoriaDeFatos mem = new MemoriaDeFatos();
 	BaseDeRegras base = new BaseDeRegras();
 	base.adicionarRegra(regra);
+	base.adicionarRegra(r2);
 	m.setMemoriaDeFatos(mem);
 	m.setBaseDeRegras(base);
 	System.out.println(m.inferir(conclusao));
+	System.out.println(m.inferir(conclusao2));
+	System.out.println(mem.toString());
+	System.out.println(base.toString());
+	
+	//RegraDAO r = new RegraDAO();
+	//r.insereRegra(regra);
+	//System.out.println(r.retornaTodasAsRegrasDoBanco());
 	
 	}
 
