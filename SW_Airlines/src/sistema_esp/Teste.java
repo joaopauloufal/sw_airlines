@@ -17,14 +17,14 @@ public class Teste {
 	Variavel conclusaoV = new Variavel("EUA");
 	
 	Premissa premissa1 = new Premissa(tempo);
-	premissa1.setSimbolo("|");
-	Premissa premissa2 = new Premissa(clima2);
-	premissa2.setSimbolo("");
-	Premissa premissa3 = new Premissa(clima);
+	premissa1.setSimbolo("^");
+	Premissa premissa2 = new Premissa(clima);
+	premissa2.setSimbolo("|");
+	Premissa premissa3 = new Premissa(clima2);
 	premissa3.setSimbolo("");
 	
 	Premissa p4 = new Premissa(clima);
-	p4.setSimbolo("|");
+	p4.setSimbolo("^");
 	Premissa p5 = new Premissa(clima2);
 	
 	
@@ -37,6 +37,7 @@ public class Teste {
 	Regra regra = new Regra("EUA", conclusao, 90);
 	regra.adicionarPremissa(premissa1);
 	regra.adicionarPremissa(premissa2);
+	regra.adicionarPremissa(premissa3);
 	
 	Regra r2 = new Regra("EUA", conclusao2, 100);
 	r2.adicionarPremissa(p4);

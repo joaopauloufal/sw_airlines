@@ -126,11 +126,20 @@ public class MotorDeInferencia {
 							if (i > 0){
 								valorLogicoFatoAnterior = valorLogicoFinal;
 								fatorCertezaFatoAnterior = fatorDeConfiancaTotal;
+								// Revisar isso depois.
+								if (valorLogicoFatoAnterior == false && fatorCertezaFatoAnterior > 0.5){
+									return false;
+								}
 							} else {
 								valorLogicoFatoAnterior = inferir(r.getPremissas().get(i));
 								fatorCertezaFatoAnterior = r.getPremissas().get(i).getFatorCerteza() / 100;
+								// Revisar isso depois.
+								if (valorLogicoFatoAnterior == false && fatorCertezaFatoAnterior > 0.5 && r.getPremissas().size() == 2){
+									return false;
+								}
 								
 							}
+							
 							
 							i++;
 							valorLogicoFatoAtual = inferir(r.getPremissas().get(i));
@@ -153,11 +162,20 @@ public class MotorDeInferencia {
 							if (i > 0){
 								valorLogicoFatoAnterior = valorLogicoFinal;
 								fatorCertezaFatoAnterior = fatorDeConfiancaTotal;
+								// Revisar isso depois.
+								if (valorLogicoFatoAnterior == true && fatorCertezaFatoAnterior > 0.5){
+									return true;
+								}
 							} else {
 								valorLogicoFatoAnterior = inferir(r.getPremissas().get(i));
 								fatorCertezaFatoAnterior = r.getPremissas().get(i).getFatorCerteza()/100;
+								// Revisar isso depois.
+								if (valorLogicoFatoAnterior == true && fatorCertezaFatoAnterior > 0.5){
+									return true;
+								}
 								
 							}
+							
 							i++;
 							valorLogicoFatoAtual = inferir(r.getPremissas().get(i));
 							fatorDeCertezaFatoAtual = r.getPremissas().get(i).getFatorCerteza()/100;
