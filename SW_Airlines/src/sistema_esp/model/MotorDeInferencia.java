@@ -11,7 +11,6 @@ public class MotorDeInferencia {
 	private boolean valorLogicoFinal;
 	private double fatorCertezaFatoAnterior;
 	private double fatorDeCertezaFatoAtual;
-	private double grauDeCertezaFinal;
 	private double fatorDeConfiancaTotal;
 	
 	public MotorDeInferencia(MemoriaDeFatos memoriaDeFatos, BaseDeRegras baseDeRegras) {
@@ -126,10 +125,11 @@ public class MotorDeInferencia {
 						if (r.getPremissas().get(i).getSimbolo().equals("^")){
 							if (i > 0){
 								valorLogicoFatoAnterior = valorLogicoFinal;
-								fatorCertezaFatoAnterior = grauDeCertezaFinal;
+								fatorCertezaFatoAnterior = fatorDeConfiancaTotal;
 							} else {
 								valorLogicoFatoAnterior = inferir(r.getPremissas().get(i));
 								fatorCertezaFatoAnterior = r.getPremissas().get(i).getFatorCerteza() / 100;
+								
 							}
 							
 							i++;
@@ -146,21 +146,31 @@ public class MotorDeInferencia {
 							if (!temFatoNaMemoriaDeFatos(r.getPremissas().get(i))){
 								this.memoriaDeFatos.adicionarFato(r.getPremissas().get(i));
 							}
+							
+							
 						}
 						if (r.getPremissas().get(i).getSimbolo().equals("|")){
 							if (i > 0){
 								valorLogicoFatoAnterior = valorLogicoFinal;
-								fatorCertezaFatoAnterior = grauDeCertezaFinal;
+								fatorCertezaFatoAnterior = fatorDeConfiancaTotal;
 							} else {
 								valorLogicoFatoAnterior = inferir(r.getPremissas().get(i));
-								fatorCertezaFatoAnterior = r.getPremissas().get(i).getFatorCerteza();
+								fatorCertezaFatoAnterior = r.getPremissas().get(i).getFatorCerteza()/100;
+								
 							}
 							i++;
 							valorLogicoFatoAtual = inferir(r.getPremissas().get(i));
-							fatorDeCertezaFatoAtual = r.getPremissas().get(i).getFatorCerteza();
+							fatorDeCertezaFatoAtual = r.getPremissas().get(i).getFatorCerteza()/100;
 							valorLogicoFinal = valorLogicoFatoAnterior || valorLogicoFatoAtual;
+							
 							if (fatorCertezaFatoAnterior < 1 || fatorDeCertezaFatoAtual < 1){
-								fatorDeConfiancaTotal = (fatorCertezaFatoAnterior + fatorDeCertezaFatoAtual - fatorCertezaFatoAnterior * fatorDeCertezaFatoAtual) * fato.getFatorCerteza();
+								if (!valorLogicoFatoAnterior){
+									fatorDeConfiancaTotal = (fatorCertezaFatoAnterior + fatorDeCertezaFatoAtual - fatorCertezaFatoAnterior * fatorDeCertezaFatoAtual);								
+
+								} else {
+									fatorDeConfiancaTotal = fatorCertezaFatoAnterior * fato.getFatorCerteza();
+								}
+								
 							} else {
 								fatorDeConfiancaTotal = fato.getFatorCerteza();
 							}
@@ -169,6 +179,8 @@ public class MotorDeInferencia {
 							if (!temFatoNaMemoriaDeFatos(r.getPremissas().get(i))){
 								this.memoriaDeFatos.adicionarFato(r.getPremissas().get(i));
 							}
+							
+							
 						}
 						if (r.getPremissas().get(i).getSimbolo().equals("")){
 							valorLogicoFatoAtual = inferir(r.getPremissas().get(i));

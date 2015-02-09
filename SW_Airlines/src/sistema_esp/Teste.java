@@ -17,7 +17,7 @@ public class Teste {
 	Variavel conclusaoV = new Variavel("EUA");
 	
 	Premissa premissa1 = new Premissa(tempo);
-	premissa1.setSimbolo("^");
+	premissa1.setSimbolo("|");
 	Premissa premissa2 = new Premissa(clima2);
 	premissa2.setSimbolo("");
 	Premissa premissa3 = new Premissa(clima);
@@ -46,11 +46,9 @@ public class Teste {
 	MemoriaDeFatos mem = new MemoriaDeFatos();
 	BaseDeRegras base = new BaseDeRegras();
 	base.adicionarRegra(regra);
-	base.adicionarRegra(r2);
 	m.setMemoriaDeFatos(mem);
 	m.setBaseDeRegras(base);
 	System.out.println(m.inferir(conclusao));
-	System.out.println(m.inferir(conclusao2));
 	System.out.println(mem.toString());
 	System.out.println(base.toString());
 	
