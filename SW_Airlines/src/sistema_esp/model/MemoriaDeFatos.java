@@ -1,20 +1,21 @@
 package sistema_esp.model;
 
-import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class MemoriaDeFatos {
 	
-	public ArrayList<Premissa> listaDeFatos;
+	public ObservableList<Premissa> listaDeFatos;
 	
 	public MemoriaDeFatos() {
-		this.listaDeFatos = new ArrayList<Premissa>();
+		this.listaDeFatos = FXCollections.observableArrayList();
 	}
 
-	public ArrayList<Premissa> getListaDeFatos() {
+	public ObservableList<Premissa> getListaDeFatos() {
 		return listaDeFatos;
 	}
 
-	public void setListaDeFatos(ArrayList<Premissa> listaDeFatos) {
+	public void setListaDeFatos(ObservableList<Premissa> listaDeFatos) {
 		this.listaDeFatos = listaDeFatos;
 	}
 	

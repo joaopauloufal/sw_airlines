@@ -10,7 +10,6 @@ public class Premissa {
 	private double fatorCerteza;
 	private boolean estaNegada;
 	private String simboloNegacao;
-	protected boolean isConclusao;
 	
 	public Premissa() {
 		
@@ -20,15 +19,6 @@ public class Premissa {
 		this.variavel = variavel;
 		this.estaNegada = false;
 		this.simboloNegacao = "";
-		this.isConclusao = false;
-	}
-	
-	public boolean isConclusao() {
-		return isConclusao;
-	}
-
-	public void setConclusao(boolean isConclusao) {
-		this.isConclusao = isConclusao;
 	}
 
 	public String getSimboloNegacao() {

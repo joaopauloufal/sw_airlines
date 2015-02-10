@@ -1,20 +1,21 @@
 package sistema_esp.model;
 
-import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class BaseDeRegras {
 	
-	private ArrayList<Regra> regras;
+	private ObservableList<Regra> regras;
 	
 	public BaseDeRegras() {
-		this.regras = new ArrayList<Regra>();
+		this.regras = FXCollections.observableArrayList();
 	}
 
-	public ArrayList<Regra> getRegras() {
+	public ObservableList<Regra> getRegras() {
 		return regras;
 	}
 
-	public void setRegras(ArrayList<Regra> regras) {
+	public void setRegras(ObservableList<Regra> regras) {
 		this.regras = regras;
 	}
 	

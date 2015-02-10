@@ -2,27 +2,29 @@ package sistema_esp.model;
 
 import java.util.ArrayList;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import sistema_esp.model.Conclusao;
 import sistema_esp.model.Premissa;
 
 public class Regra {
 	
 	private String nome;
-	private ArrayList<Premissa> premissas;
+	private ObservableList<Premissa> premissas;
 	private Conclusao conclusao;
 	private double fatorDeConfianca;
 	private int Id;
 
 	public Regra(String nome, Conclusao conclusao, double fatorDeConfianca) {
-		this.premissas = new ArrayList<Premissa>();
+		this.premissas = FXCollections.observableArrayList();
 		this.conclusao = conclusao;
 		this.nome = nome;
-		this.setFatorDeConfianca(fatorDeConfianca);
+		this.fatorDeConfianca = fatorDeConfianca;
 		this.conclusao.setFatorCerteza(this.fatorDeConfianca);
 	}
 	
 	public Regra(){
-		this.premissas = new ArrayList<Premissa>();
+		this.premissas = FXCollections.observableArrayList();
 	}
 	
 	public double getFatorDeConfianca() {
@@ -30,7 +32,7 @@ public class Regra {
 	}
 
 	public void setFatorDeConfianca(double fatorDeConfianca) {
-		this.fatorDeConfianca = fatorDeConfianca/100;
+		this.fatorDeConfianca = fatorDeConfianca;
 	}
 
 	public String getNome() {
@@ -49,11 +51,11 @@ public class Regra {
 		Id = id;
 	}
 
-	public ArrayList<Premissa> getPremissas() {
+	public ObservableList<Premissa> getPremissas() {
 		return premissas;
 	}
 
-	public void setPremissas(ArrayList<Premissa> premissas) {
+	public void setPremissas(ObservableList<Premissa> premissas) {
 		this.premissas = premissas;
 	}
 
@@ -73,8 +75,7 @@ public class Regra {
 	public String toString() {
 		return premissas.toString().replace("[", "").
 				replace("]", "").
-				replace(" ", "").
-				replace(",", "");
+				replace(", ", "");
 				
 				
 	}

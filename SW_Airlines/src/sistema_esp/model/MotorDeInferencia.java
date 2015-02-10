@@ -110,15 +110,9 @@ public class MotorDeInferencia {
 		if (temFatoNaMemoriaDeFatos(fato)){
 			boolean temp = buscarFatoNaMemoriaDeFatos(fato).getValorLogico();
 			if (fato.getEstaNegada()){
-				if (fato.isConclusao){
-					System.out.println("é conclusão.");
-				}
 				fato.setValorLogico(!temp);
 				return !temp;
 			} else {
-				if (fato.isConclusao){
-					System.out.println("é conclusão.");
-				}
 				fato.setValorLogico(temp);
 				return temp;
 			}
@@ -162,7 +156,7 @@ public class MotorDeInferencia {
 							if (fatorCertezaFatoAnterior < 1 || fatorDeCertezaFatoAtual < 1){
 								fatorDeConfiancaTotal = fatorCertezaFatoAnterior * fatorDeCertezaFatoAtual * fato.getFatorCerteza();
 							} else {
-								fatorDeConfiancaTotal = fato.getFatorCerteza();
+								fatorDeConfiancaTotal = fato.getFatorCerteza()/100;
 							}
 							
 							r.getPremissas().get(i).setValorLogico(valorLogicoFatoAtual);
@@ -212,7 +206,7 @@ public class MotorDeInferencia {
 								}
 								
 							} else {
-								fatorDeConfiancaTotal = fato.getFatorCerteza();
+								fatorDeConfiancaTotal = fato.getFatorCerteza()/100;
 							}
 							
 							r.getPremissas().get(i).setValorLogico(valorLogicoFatoAtual);
