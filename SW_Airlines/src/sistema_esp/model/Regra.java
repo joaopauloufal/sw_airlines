@@ -1,7 +1,5 @@
 package sistema_esp.model;
 
-import java.util.ArrayList;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import sistema_esp.model.Conclusao;

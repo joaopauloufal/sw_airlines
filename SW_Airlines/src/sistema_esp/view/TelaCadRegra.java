@@ -48,13 +48,14 @@ public class TelaCadRegra extends Stage {
 		
 		dados = FXCollections.observableArrayList();
 		
-		ObservableList<String> variaveis = FXCollections.observableArrayList("Influência em Inglês","Culturas diferentes","Praia", "Frio", "Temperado", "Calor");
+		ObservableList<String> variaveis = FXCollections.observableArrayList("Culturas diferentes", "Praia", "Ambientes Frios", "Temperados", "Ambientes Quentes");
 		ObservableList<String> simbolos = FXCollections.observableArrayList("","e", "ou");
 		ObservableList<String> conclusoes = FXCollections.observableArrayList("EUA", "Brasil");
 		ObservableList<String> negacoes = FXCollections.observableArrayList("","Não");
 		ObservableList<Double> fatoresCerteza = FXCollections.observableArrayList(10.0, 20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 80.0, 90.0, 100.0);
 		
 		Button btnAdicionar = new Button("Add");
+		Button btnCancelar = new Button("Cancelar");
 		Label lblPremissa = new Label("Premissa:");
 		Label lblSe = new Label("Se:");
 		Label lblConclusao = new Label("Então:");
@@ -77,13 +78,14 @@ public class TelaCadRegra extends Stage {
 		comboBoxNegacao.getSelectionModel().selectFirst();
 		
 		Button btnCadastrar = new Button("Cadastrar");
+		Button btnLimparTodasPremissas = new Button("Limpar tudo");
 		
 		lista.setPrefSize(300, 200);
 		
 		hbox1.getChildren().addAll(lblPremissa, comboBoxNegacao,comboBox, comboBoxSimbolos, btnAdicionar);
-		hbox2.getChildren().addAll(lblSe, lista);
+		hbox2.getChildren().addAll(lblSe, lista, btnLimparTodasPremissas);
 		hbox3.getChildren().addAll(lblConclusao, comboBoxConclusao, lblFatorCerteza, comboBoxFatoresCerteza);
-		hbox4.getChildren().addAll(btnCadastrar);
+		hbox4.getChildren().addAll(btnCadastrar, btnCancelar);
 		hbox4.setAlignment(Pos.CENTER);
 		
 		btnAdicionar.setOnAction(new EventHandler<ActionEvent>() {
@@ -121,6 +123,27 @@ public class TelaCadRegra extends Stage {
 				Regra r = new Regra(txtNomeRegra.getText(), c, comboBoxFatoresCerteza.getSelectionModel().getSelectedItem());
 				r.setPremissas(dados);
 				rDao.insereRegra(r);
+				
+			}
+			
+		});
+		
+		btnCancelar.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				hide();
+				
+			}
+			
+		});
+		
+		btnLimparTodasPremissas.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				dados = FXCollections.observableArrayList();
+				lista.setItems(dados);
 				
 			}
 			

@@ -2,12 +2,12 @@ package sistema_esp.model;
 
 public class Variavel {
 	
-private String valor;
+	private String valor;
 	
 	public Variavel() {
 		
 	}
-	
+
 	public Variavel(String valor){
 		this.valor = valor;
 	}	

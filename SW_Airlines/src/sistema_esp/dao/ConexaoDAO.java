@@ -105,7 +105,7 @@ public class ConexaoDAO implements ConexaoBDMySql {
 				+ " nome VARCHAR(120) NOT NULL,"
 				+ " premissas VARCHAR(120) NOT NULL,"
 				+ " conclusao VARCHAR(120) NOT NULL,"
-				+ " fator_de_confianca DOUBLE(3, 2) NOT NULL,"
+				+ " fator_de_confianca DOUBLE(4, 1) NOT NULL,"
 				+ " PRIMARY KEY(id)) "
 				+ " ENGINE = InnoDB "
 				+ " DEFAULT CHARACTER SET = utf8;";

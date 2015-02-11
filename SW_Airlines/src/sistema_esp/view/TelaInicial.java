@@ -11,7 +11,7 @@ import javafx.scene.text.Font;
 
 public class TelaInicial extends BorderPane {
 	
-	public TelaInicial(Main main) {
+	public TelaInicial() {
 		VBox menuTopo = new VBox(30);				
 		MenuBarPrincipal menuBarPrincipal = new MenuBarPrincipal();
 		menuTopo.getChildren().add(menuBarPrincipal);				
@@ -23,7 +23,7 @@ public class TelaInicial extends BorderPane {
 		titulo.setFont(new Font(30));
 		final ImageView imageview = new ImageView(image);
 		
-        boximage.getChildren().addAll(imageview,titulo);
+        //boximage.getChildren().addAll(imageview,titulo);
         boximage.setAlignment(Pos.CENTER);
         setCenter(boximage);
 	}

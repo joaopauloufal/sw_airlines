@@ -17,9 +17,9 @@ public class Teste {
 	Variavel conclusaoV = new Variavel("EUA");
 	
 	Premissa premissa1 = new Premissa(tempo);
-	premissa1.setSimbolo("^");
+	premissa1.setSimbolo("|");
 	Premissa premissa2 = new Premissa(clima);
-	premissa2.setSimbolo("|");
+	premissa2.setSimbolo("^");
 	Premissa premissa3 = new Premissa(clima2);
 	premissa3.setSimbolo("");
 	
