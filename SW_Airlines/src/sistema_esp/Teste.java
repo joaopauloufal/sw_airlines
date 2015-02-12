@@ -17,9 +17,9 @@ public class Teste {
 	Variavel conclusaoV = new Variavel("EUA");
 	
 	Premissa premissa1 = new Premissa(tempo);
-	premissa1.setSimbolo("|");
+	premissa1.setSimbolo("^");
 	Premissa premissa2 = new Premissa(clima);
-	premissa2.setSimbolo("^");
+	premissa2.setSimbolo("");
 	Premissa premissa3 = new Premissa(clima2);
 	premissa3.setSimbolo("");
 	
@@ -34,10 +34,12 @@ public class Teste {
 	Conclusao conclusao2 = new Conclusao(conclusaoV);
 	conclusao2.setSimbolo("");
 	
-	Regra regra = new Regra("EUA", conclusao, 90);
-	regra.adicionarPremissa(premissa1);
-	regra.adicionarPremissa(premissa2);
-	regra.adicionarPremissa(premissa3);
+	RegraDAO r = new RegraDAO();
+	Regra regra = r.retornaTodasAsRegrasDoBanco().get(0);
+	System.out.println(r.retornaTodasAsRegrasDoBanco().get(0).getPremissas());
+	//regra.adicionarPremissa(premissa1);
+	//regra.adicionarPremissa(premissa2);
+	//regra.adicionarPremissa(premissa3);
 	
 	Regra r2 = new Regra("EUA", conclusao2, 100);
 	r2.adicionarPremissa(p4);
@@ -49,13 +51,12 @@ public class Teste {
 	base.adicionarRegra(regra);
 	m.setMemoriaDeFatos(mem);
 	m.setBaseDeRegras(base);
-	System.out.println(m.inferir(conclusao));
+	System.out.println(m.inferir(regra.getConclusao()));
 	System.out.println(mem.toString());
 	System.out.println(base.toString());
 	
-	//RegraDAO r = new RegraDAO();
+	
 	//r.insereRegra(regra);
-	//System.out.println(r.retornaTodasAsRegrasDoBanco());
 	
 	}
 

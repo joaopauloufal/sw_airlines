@@ -40,8 +40,11 @@ public class MenuBarPrincipal extends MenuBar {
 			
 		});
 		
+		
+		
 		menuCadastro.getItems().addAll(itemCadastrarRegra);
 		menuListar.getItems().addAll(itemListarRegras);
+		
 		
 		getMenus().addAll(menuSistema, menuCadastro, menuListar, menuAjuda);
 	}

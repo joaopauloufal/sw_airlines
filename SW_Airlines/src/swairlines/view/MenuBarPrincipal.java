@@ -6,6 +6,8 @@ package swairlines.view;
  * @name MenuBarPrincipal
  */
 
+import java.text.DecimalFormat;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Menu;
@@ -14,10 +16,19 @@ import javafx.scene.control.MenuItem;
 
 import javax.swing.JOptionPane;
 
+import org.controlsfx.dialog.Dialog;
+import org.controlsfx.dialog.Dialogs;
+
+import sistema_esp.dao.RegraDAO;
+import sistema_esp.model.BaseDeRegras;
+import sistema_esp.model.Conclusao;
+import sistema_esp.model.MemoriaDeFatos;
+import sistema_esp.model.MotorDeInferencia;
 import swairlines.Main;
 import swairlines.model.ContaDeUsuario;
 import swairlines.model.Funcionario;
 
+@SuppressWarnings("deprecation")
 public class MenuBarPrincipal extends MenuBar {
 	
 	public MenuBarPrincipal(final Funcionario f) {
@@ -146,6 +157,51 @@ public class MenuBarPrincipal extends MenuBar {
 		
 		});
 		
+		MenuItem menuRealizarCompraGuiada = new MenuItem("Comprar Passagem guiada...");
+		menuRealizarCompraGuiada.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				RegraDAO rDao = new RegraDAO();
+				BaseDeRegras base = new BaseDeRegras();
+				base.setRegras(rDao.retornaTodasAsRegrasDoBanco());
+				MemoriaDeFatos mem = new MemoriaDeFatos();
+				MotorDeInferencia motor = new MotorDeInferencia();
+				motor.setMemoriaDeFatos(mem);
+				motor.setBaseDeRegras(base);
+				for (int i = 0; i < base.getRegras().size(); i++){
+					Conclusao c = rDao.retornaTodasAsRegrasDoBanco().get(i).getConclusao();
+					
+					if(motor.inferir(c)){
+						DecimalFormat df = new DecimalFormat("0.0");
+						Dialogs.create()
+						.title("Passagem Guiada")
+						.masthead("Informação")
+						.message("Você vai para o " + c.getVariavel()+"! \n" +"Grau de Confiança: " + df.format(c.getFatorCerteza()*100)+"%")
+						.styleClass(Dialog.STYLE_CLASS_NATIVE)
+						.showInformation();
+						break;
+			
+					} else {
+						if (i == base.getRegras().size()-1){
+						Dialogs.create()
+						.title("Passagem Guiada")
+						.masthead("Informação")
+						.message("Não consegui encontrar um destino.")
+						.styleClass(Dialog.STYLE_CLASS_NATIVE)
+						.showInformation();
+						break;
+						}
+					}
+				}
+				
+				System.out.println(base.toString());
+				System.out.println(mem.toString());
+				
+			}
+			
+		});
+		
 		MenuItem menuRealizarCheckin = new MenuItem("Realizar Check-in...");
 		menuRealizarCheckin.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -157,7 +213,7 @@ public class MenuBarPrincipal extends MenuBar {
 			}
 			
 		});
-		menuCompra.getItems().addAll(menuRealizarCompra, menuRealizarCheckin);			
+		menuCompra.getItems().addAll(menuRealizarCompra, menuRealizarCompraGuiada, menuRealizarCheckin);			
 		
 		menuVoo.getItems().addAll(itemChecarDisponibilidade);
 		

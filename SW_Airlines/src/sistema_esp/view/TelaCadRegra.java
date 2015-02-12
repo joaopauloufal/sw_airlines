@@ -52,7 +52,7 @@ public class TelaCadRegra extends Stage {
 		ObservableList<String> simbolos = FXCollections.observableArrayList("","e", "ou");
 		ObservableList<String> conclusoes = FXCollections.observableArrayList("EUA", "Brasil");
 		ObservableList<String> negacoes = FXCollections.observableArrayList("","Não");
-		ObservableList<Double> fatoresCerteza = FXCollections.observableArrayList(10.0, 20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 80.0, 90.0, 100.0);
+		ObservableList<Float> fatoresCerteza = FXCollections.observableArrayList(10.0f, 20.0f, 30.0f, 40.0f, 50.0f, 60.0f, 70.0f, 80.0f, 90.0f, 100.0f);
 		
 		Button btnAdicionar = new Button("Add");
 		Button btnCancelar = new Button("Cancelar");
@@ -60,7 +60,7 @@ public class TelaCadRegra extends Stage {
 		Label lblSe = new Label("Se:");
 		Label lblConclusao = new Label("Então:");
 		Label lblFatorCerteza = new Label("Fator de Certeza (%):");
-		final ComboBox<Double> comboBoxFatoresCerteza = new ComboBox<Double>(fatoresCerteza);
+		final ComboBox<Float> comboBoxFatoresCerteza = new ComboBox<Float>(fatoresCerteza);
 		
 		Label lblNomeRegra = new Label("Nome da Regra:");
 		txtNomeRegra = new TextField();

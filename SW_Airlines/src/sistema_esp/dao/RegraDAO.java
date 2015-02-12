@@ -58,7 +58,7 @@ public class RegraDAO {
 				Premissa premissa = null;
 				if (premissaArray.length > 1){
 					for (int i = 0; i < premissaArray.length; i++){
-						if (!premissaArray[i].equals("^") || !premissaArray[i].equals("|") || !premissaArray[i].equals("~")){
+						if (!premissaArray[i].equals("^") && !premissaArray[i].equals("|") && !premissaArray[i].equals("~")){
 							Variavel variavel = new Variavel(premissaArray[i]);
 							premissa = new Premissa(variavel);
 							regra.adicionarPremissa(premissa);
@@ -84,8 +84,9 @@ public class RegraDAO {
 				}
 				Variavel conclusaoV = new Variavel(rs.getString("conclusao"));
 				Conclusao conclusao = new Conclusao(conclusaoV);
+				conclusao.setFatorCerteza(rs.getFloat("fator_de_confianca"));
 				regra.setConclusao(conclusao);
-				regra.setFatorDeConfianca(rs.getDouble("fator_de_confianca"));
+				regra.setFatorDeConfianca(rs.getFloat("fator_de_confianca"));
 				regras.add(regra);
 		
 			}

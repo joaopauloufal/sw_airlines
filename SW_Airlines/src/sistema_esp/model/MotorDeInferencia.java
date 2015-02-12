@@ -1,17 +1,18 @@
 package sistema_esp.model;
 
-import java.util.Scanner;
+import sistema_esp.controller.TelaPerguntaController;
+import sistema_esp.view.TelaPergunta;
 
-public class MotorDeInferencia {
+public class MotorDeInferencia implements Interativo{
 	
 	private MemoriaDeFatos memoriaDeFatos;
 	private BaseDeRegras baseDeRegras;
 	private boolean valorLogicoFatoAnterior;
 	private boolean valorLogicoFatoAtual;
 	private boolean valorLogicoFinal;
-	private double fatorCertezaFatoAnterior;
-	private double fatorDeCertezaFatoAtual;
-	private double fatorDeConfiancaTotal;
+	private float fatorCertezaFatoAnterior;
+	private float fatorDeCertezaFatoAtual;
+	private float fatorDeConfiancaTotal;
 	
 	public MotorDeInferencia(MemoriaDeFatos memoriaDeFatos, BaseDeRegras baseDeRegras) {
 		this.memoriaDeFatos = memoriaDeFatos;
@@ -24,11 +25,11 @@ public class MotorDeInferencia {
 	}
 	
 
-	public double getFatorDeConfiancaTotal() {
+	public float getFatorDeConfiancaTotal() {
 		return fatorDeConfiancaTotal;
 	}
 
-	public void setFatorDeConfiancaTotal(double fatorDeConfiancaTotal) {
+	public void setFatorDeConfiancaTotal(float fatorDeConfiancaTotal) {
 		this.fatorDeConfiancaTotal = fatorDeConfiancaTotal;
 	}
 
@@ -93,20 +94,26 @@ public class MotorDeInferencia {
 		return null;
 	}
 	
-	private boolean perguntarNaInterface(Premissa p){
-		boolean valorLogico = p.getValorLogico();		
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Qual é o valor de " + p.getVariavel() + "? ");
-		valorLogico = sc.nextBoolean();
-		System.out.println("Fator de Certeza: ");
-		double fatorCerteza = sc.nextDouble();
-		p.setFatorCerteza(fatorCerteza);
+	public boolean perguntarNaInterface(Premissa p){
+		
+		TelaPergunta telaP = new TelaPergunta(p);
+		
+		TelaPerguntaController telaController = new TelaPerguntaController(telaP);
+		telaController.getView();
+		
+		if (telaP.isCancelaConsulta()){			
+			throw new NullPointerException("Consulta Cancelada.");
+			
+		}		
+		p.setFatorCerteza(telaP.getFatorDeCertezaFato());	
+		boolean valorLogico = telaP.isValorLogicoFato();
 		return valorLogico;
 	}
 	
 	
 	
 	public boolean inferir(Premissa fato){
+		
 		if (temFatoNaMemoriaDeFatos(fato)){
 			boolean temp = buscarFatoNaMemoriaDeFatos(fato).getValorLogico();
 			if (fato.getEstaNegada()){
@@ -136,7 +143,7 @@ public class MotorDeInferencia {
 								}
 							} else {
 								valorLogicoFatoAnterior = inferir(r.getPremissas().get(i));
-								fatorCertezaFatoAnterior = r.getPremissas().get(i).getFatorCerteza() / 100;
+								fatorCertezaFatoAnterior = r.getPremissas().get(i).getFatorCerteza()/100;
 								// Revisar isso depois.
 								if (valorLogicoFatoAnterior == false && fatorCertezaFatoAnterior > 0.5 && r.getPremissas().size() == 2){
 									valorLogicoFinal = false;
@@ -151,10 +158,10 @@ public class MotorDeInferencia {
 							
 							i++;
 							valorLogicoFatoAtual = inferir(r.getPremissas().get(i));
-							fatorDeCertezaFatoAtual = r.getPremissas().get(i).getFatorCerteza() / 100;
+							fatorDeCertezaFatoAtual = r.getPremissas().get(i).getFatorCerteza()/100;
 							valorLogicoFinal = valorLogicoFatoAnterior && valorLogicoFatoAtual;
 							if (fatorCertezaFatoAnterior < 1 || fatorDeCertezaFatoAtual < 1){
-								fatorDeConfiancaTotal = fatorCertezaFatoAnterior * fatorDeCertezaFatoAtual * fato.getFatorCerteza();
+								fatorDeConfiancaTotal = fatorCertezaFatoAnterior * fatorDeCertezaFatoAtual * fato.getFatorCerteza()/100;
 							} else {
 								fatorDeConfiancaTotal = fato.getFatorCerteza()/100;
 							}
@@ -202,7 +209,7 @@ public class MotorDeInferencia {
 									fatorDeConfiancaTotal = (fatorCertezaFatoAnterior + fatorDeCertezaFatoAtual - fatorCertezaFatoAnterior * fatorDeCertezaFatoAtual);								
 
 								} else {
-									fatorDeConfiancaTotal = fatorCertezaFatoAnterior * fato.getFatorCerteza();
+									fatorDeConfiancaTotal = fatorCertezaFatoAnterior * fato.getFatorCerteza()/100;
 								}
 								
 							} else {
@@ -250,7 +257,7 @@ public class MotorDeInferencia {
 				}				
 				
 			}
-			if (fatorDeConfiancaTotal < fato.getFatorCerteza() && fatorDeConfiancaTotal < 0.5){
+			if (fatorDeConfiancaTotal < fato.getFatorCerteza()/100 && fatorDeConfiancaTotal < 0.5 && valorLogicoFinal == true){
 				fato.setValorLogico(!valorLogicoFinal);
 				if (!temFatoNaMemoriaDeFatos(fato)){
 					fato.setFatorCerteza(fatorDeConfiancaTotal);
@@ -268,7 +275,9 @@ public class MotorDeInferencia {
 			}
 			return valorLogicoFinal;
 		}
+		
 	}
+	
 	
 	
 }

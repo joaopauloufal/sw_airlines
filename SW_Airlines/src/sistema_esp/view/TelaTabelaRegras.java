@@ -46,8 +46,8 @@ public class TelaTabelaRegras extends BorderPane {
 		conclusaoColuna.setCellValueFactory(new PropertyValueFactory<Regra, Conclusao>("conclusao"));
 		conclusaoColuna.setMinWidth(60);
 		
-		TableColumn<Regra, Double> fatorConfiancaColuna = new TableColumn<>("Fator de Confiança (%)");
-		fatorConfiancaColuna.setCellValueFactory(new PropertyValueFactory<Regra, Double>("fatorDeConfianca"));
+		TableColumn<Regra, Float> fatorConfiancaColuna = new TableColumn<>("Fator de Confiança (%)");
+		fatorConfiancaColuna.setCellValueFactory(new PropertyValueFactory<Regra, Float>("fatorDeConfianca"));
 		fatorConfiancaColuna.setMinWidth(410);
 		
 		tableView.getColumns().addAll(nomeColuna, premissasColuna, conclusaoColuna, fatorConfiancaColuna);

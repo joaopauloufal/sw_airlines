@@ -10,10 +10,10 @@ public class Regra {
 	private String nome;
 	private ObservableList<Premissa> premissas;
 	private Conclusao conclusao;
-	private double fatorDeConfianca;
+	private float fatorDeConfianca;
 	private int Id;
 
-	public Regra(String nome, Conclusao conclusao, double fatorDeConfianca) {
+	public Regra(String nome, Conclusao conclusao, float fatorDeConfianca) {
 		this.premissas = FXCollections.observableArrayList();
 		this.conclusao = conclusao;
 		this.nome = nome;
@@ -25,11 +25,11 @@ public class Regra {
 		this.premissas = FXCollections.observableArrayList();
 	}
 	
-	public double getFatorDeConfianca() {
+	public float getFatorDeConfianca() {
 		return fatorDeConfianca;
 	}
 
-	public void setFatorDeConfianca(double fatorDeConfianca) {
+	public void setFatorDeConfianca(float fatorDeConfianca) {
 		this.fatorDeConfianca = fatorDeConfianca;
 	}
 
