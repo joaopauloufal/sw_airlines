@@ -34,7 +34,7 @@ public class RegraDAO {
 	public void alteraRegra(Regra regra){
 		try {
 			ConexaoDAO cbd = new ConexaoDAO();
-			cbd.executar("UPDATE sist_esp.regras set nome='" + regra.getNome() + "', premissas='" + regra.getPremissas() + "', conclusao='" + regra.getConclusao() + "', fator_de_confianca='" + regra.getFatorDeConfianca() + "' WHERE id= '" + regra.getId() +"';");
+			cbd.executar("UPDATE sist_esp.regras set nome='" + regra.getNome() + "', premissas='" + regra + "', conclusao='" + regra.getConclusao() + "', fator_de_confianca='" + regra.getFatorDeConfianca() + "' WHERE id= '" + regra.getId() +"';");
 		} catch (SQLException e){
 			e.printStackTrace();
 		}
@@ -56,29 +56,33 @@ public class RegraDAO {
 				regra.setNome(rs.getString("nome"));
 				String[] premissaArray = rs.getString("premissas").split("#");
 				Premissa premissa = null;
-				if (premissaArray.length > 1){
+				if (premissaArray.length >= 2){
 					for (int i = 0; i < premissaArray.length; i++){
-						if (!premissaArray[i].equals("^") && !premissaArray[i].equals("|") && !premissaArray[i].equals("~")){
-							Variavel variavel = new Variavel(premissaArray[i]);
-							premissa = new Premissa(variavel);
+						if (!premissaArray[i].equals("^") && !premissaArray[i].equals("|")){
+							if (premissaArray[i].contains("~")){
+								Variavel variavel = new Variavel(premissaArray[i].replace("~", ""));
+								premissa = new Premissa(variavel);
+								premissa.setEstaNegada(true);
+							} else {
+								Variavel variavel = new Variavel(premissaArray[i]);
+								premissa = new Premissa(variavel);
+							}
 							regra.adicionarPremissa(premissa);
 						} else {
-							if (premissaArray[i].equals("~")){
-								premissa.setEstaNegada(true);
-							}
 							premissa.setSimbolo(premissaArray[i]);
 						}
 						
+						
 					}
 				} else {
-					for (int i = 0; i < premissaArray.length; i++){
-						if (!premissaArray[i].equals("~")){
+					for (int i = 0; i < premissaArray.length; i++){						
 							Variavel variavel = new Variavel(rs.getString("premissas"));
 							premissa = new Premissa(variavel);
+							if (premissaArray[i].contains("~")){
+								premissa.setEstaNegada(true);
+							}
 							regra.adicionarPremissa(premissa);
-						} else {
-							premissa.setEstaNegada(true);
-						}
+						
 					}
 					
 				}

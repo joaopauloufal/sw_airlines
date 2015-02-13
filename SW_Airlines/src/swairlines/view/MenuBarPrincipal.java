@@ -10,14 +10,13 @@ import java.text.DecimalFormat;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Alert.AlertType;
 
 import javax.swing.JOptionPane;
-
-import org.controlsfx.dialog.Dialog;
-import org.controlsfx.dialog.Dialogs;
 
 import sistema_esp.dao.RegraDAO;
 import sistema_esp.model.BaseDeRegras;
@@ -28,7 +27,6 @@ import swairlines.Main;
 import swairlines.model.ContaDeUsuario;
 import swairlines.model.Funcionario;
 
-@SuppressWarnings("deprecation")
 public class MenuBarPrincipal extends MenuBar {
 	
 	public MenuBarPrincipal(final Funcionario f) {
@@ -157,7 +155,7 @@ public class MenuBarPrincipal extends MenuBar {
 		
 		});
 		
-		MenuItem menuRealizarCompraGuiada = new MenuItem("Comprar Passagem guiada...");
+		MenuItem menuRealizarCompraGuiada = new MenuItem("Comprar Passagem Guiada...");
 		menuRealizarCompraGuiada.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -174,22 +172,20 @@ public class MenuBarPrincipal extends MenuBar {
 					
 					if(motor.inferir(c)){
 						DecimalFormat df = new DecimalFormat("0.0");
-						Dialogs.create()
-						.title("Passagem Guiada")
-						.masthead("Informação")
-						.message("Você vai para o " + c.getVariavel()+"! \n" +"Grau de Confiança: " + df.format(c.getFatorCerteza()*100)+"%")
-						.styleClass(Dialog.STYLE_CLASS_NATIVE)
-						.showInformation();
+						Alert alertConf = new Alert(AlertType.INFORMATION);
+						alertConf.setTitle("Passagem Guiada");
+						alertConf.setHeaderText("Concluido.");
+						alertConf.setContentText("Você vai para o " + c.getVariavel()+"! \n" +"Grau de Confiança: " + df.format(c.getFatorCerteza()*100)+"%.");
+						alertConf.showAndWait();
 						break;
 			
 					} else {
 						if (i == base.getRegras().size()-1){
-						Dialogs.create()
-						.title("Passagem Guiada")
-						.masthead("Informação")
-						.message("Não consegui encontrar um destino.")
-						.styleClass(Dialog.STYLE_CLASS_NATIVE)
-						.showInformation();
+						Alert alertConf = new Alert(AlertType.INFORMATION);
+						alertConf.setTitle("Passagem Guiada");
+						alertConf.setHeaderText("Concluido.");
+						alertConf.setContentText("Não consegui encontrar um destino.");
+						alertConf.showAndWait();
 						break;
 						}
 					}

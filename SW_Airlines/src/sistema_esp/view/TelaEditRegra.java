@@ -1,10 +1,5 @@
 package sistema_esp.view;
 
-import sistema_esp.dao.RegraDAO;
-import sistema_esp.model.Conclusao;
-import sistema_esp.model.Premissa;
-import sistema_esp.model.Regra;
-import sistema_esp.model.Variavel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,14 +20,19 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import sistema_esp.Main;
+import sistema_esp.dao.RegraDAO;
+import sistema_esp.model.Conclusao;
+import sistema_esp.model.Premissa;
+import sistema_esp.model.Regra;
+import sistema_esp.model.Variavel;
 
-public class TelaCadRegra extends Stage {
+public class TelaEditRegra extends Stage{
 	
 	private ObservableList<Premissa> dados;
 	private TextField txtNomeRegra;
 	
-	public TelaCadRegra() {
-		
+	public TelaEditRegra(final Regra regra) {
 		GridPane gPane = new GridPane();
 		gPane.setPadding(new Insets(10, 10, 10, 10));
 		gPane.setVgap(5);
@@ -63,10 +63,10 @@ public class TelaCadRegra extends Stage {
 		Label lblConclusao = new Label("Então:");
 		Label lblFatorCerteza = new Label("Fator de Certeza (%):");
 		final ComboBox<Float> comboBoxFatoresCerteza = new ComboBox<Float>(fatoresCerteza);
-		comboBoxFatoresCerteza.getSelectionModel().selectLast();
+		comboBoxFatoresCerteza.getSelectionModel().select(regra.getFatorDeConfianca());
 		
 		Label lblNomeRegra = new Label("Nome da Regra:");
-		txtNomeRegra = new TextField();
+		txtNomeRegra = new TextField(regra.getNome());
 		txtNomeRegra.setPrefColumnCount(20);
 		hbox0.getChildren().addAll(lblNomeRegra, txtNomeRegra);
 		
@@ -74,13 +74,14 @@ public class TelaCadRegra extends Stage {
 		comboBox.getSelectionModel().selectFirst();
 		final ComboBox<String> comboBoxSimbolos = new ComboBox<String>(simbolos);
 		comboBoxSimbolos.getSelectionModel().selectFirst();
-		final ListView<Premissa> lista = new ListView<Premissa>();
+		final ListView<Premissa> lista = new ListView<Premissa>(regra.getPremissas());
+		
 		final ComboBox<String> comboBoxConclusao = new ComboBox<String>(conclusoes);
-		comboBoxConclusao.getSelectionModel().selectFirst();
+		comboBoxConclusao.getSelectionModel().select(regra.getConclusao().getVariavel().getValor());
 		final ComboBox<String> comboBoxNegacao = new ComboBox<String>(negacoes);
 		comboBoxNegacao.getSelectionModel().selectFirst();
 		
-		Button btnCadastrar = new Button("Cadastrar");
+		Button btnAtualizar = new Button("Atualizar");
 		Button btnLimparTodasPremissas = new Button("Limpar tudo");
 		
 		lista.setPrefSize(300, 200);
@@ -88,7 +89,7 @@ public class TelaCadRegra extends Stage {
 		hbox1.getChildren().addAll(lblPremissa, comboBoxNegacao,comboBox, comboBoxSimbolos, btnAdicionar);
 		hbox2.getChildren().addAll(lblSe, lista, btnLimparTodasPremissas);
 		hbox3.getChildren().addAll(lblConclusao, comboBoxConclusao, lblFatorCerteza, comboBoxFatoresCerteza);
-		hbox4.getChildren().addAll(btnCadastrar, btnCancelar);
+		hbox4.getChildren().addAll(btnAtualizar, btnCancelar);
 		hbox4.setAlignment(Pos.CENTER);
 		
 		btnAdicionar.setOnAction(new EventHandler<ActionEvent>() {
@@ -116,7 +117,7 @@ public class TelaCadRegra extends Stage {
 			
 		});
 		
-		btnCadastrar.setOnAction(new EventHandler<ActionEvent>() {
+		btnAtualizar.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent arg0) {
@@ -125,12 +126,14 @@ public class TelaCadRegra extends Stage {
 				Conclusao c = new Conclusao(vConc);
 				Regra r = new Regra(txtNomeRegra.getText(), c, comboBoxFatoresCerteza.getSelectionModel().getSelectedItem());
 				r.setPremissas(dados);
-				rDao.insereRegra(r);
+				r.setId(regra.getId());
+				rDao.alteraRegra(r);
 				Alert alertConf = new Alert(AlertType.INFORMATION);
-				alertConf.setTitle("Cadastro de Regra");
+				alertConf.setTitle("Atualização de Regra");
 				alertConf.setHeaderText("Sucesso.");
-				alertConf.setContentText("Regra Cadastrada com sucesso!");
+				alertConf.setContentText("Regra Atualizada com sucesso!");
 				alertConf.showAndWait();
+				Main.alterarTela(new TelaTabelaRegras());
 				hide();
 				
 			}
@@ -168,6 +171,7 @@ public class TelaCadRegra extends Stage {
 		gPane.getChildren().add(vbox1);
 		initModality(Modality.APPLICATION_MODAL);
 		show();
+		
 		
 	}
 

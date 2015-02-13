@@ -69,16 +69,16 @@ public class Premissa {
 
 	@Override
 	public String toString() {
-		if (!this.simbolo.equals("")){
+		if (this.simbolo != null && !this.simbolo.equals("")){
 			if (estaNegada == true){
-				return "~#"+variavel +"#"+ simbolo+"#";
+				return "~"+variavel +"#"+ simbolo+"#";
 			} else {
 				return variavel +"#"+ simbolo+"#";
 			}
 			
 		} else {
 			if (estaNegada == true){
-				return "~#"+variavel.toString();
+				return "~"+variavel.toString();
 			}
 			return variavel.toString();
 		}

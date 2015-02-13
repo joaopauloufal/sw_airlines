@@ -2,8 +2,6 @@ package sistema_esp.view;
 
 import sistema_esp.Main;
 import sistema_esp.controller.TelaCadRegraController;
-import sistema_esp.controller.TelaInicialController;
-import sistema_esp.controller.TelaTabelaRegrasController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Menu;
@@ -40,9 +38,21 @@ public class MenuBarPrincipal extends MenuBar {
 			
 		});
 		
+		MenuItem itemInicio = new MenuItem("Inicio");
+		itemInicio.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				Main.alterarTela(new TelaInicial());
+				
+			}
+			
+		});
+		
 		
 		
 		menuCadastro.getItems().addAll(itemCadastrarRegra);
+		menuSistema.getItems().addAll(itemInicio);
 		menuListar.getItems().addAll(itemListarRegras);
 		
 		

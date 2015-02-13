@@ -233,8 +233,9 @@ public class MotorDeInferencia implements Interativo{
 					}
 					
 				} else {			
-					boolean temp = inferir(r.getPremissas().get(0));
-					r.getPremissas().get(0).setValorLogico(temp);
+					valorLogicoFinal = inferir(r.getPremissas().get(0));
+					r.getPremissas().get(0).setValorLogico(valorLogicoFinal);
+					fatorDeConfiancaTotal = r.getPremissas().get(0).getFatorCerteza()/100 * fato.getFatorCerteza()/100;
 					if (!temFatoNaMemoriaDeFatos(r.getPremissas().get(0))){
 						this.memoriaDeFatos.adicionarFato(r.getPremissas().get(0));
 					}
