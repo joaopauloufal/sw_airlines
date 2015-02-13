@@ -60,6 +60,8 @@ public class TelaCadRegra extends Stage {
 		Button btnCancelar = new Button("Cancelar");
 		Label lblPremissa = new Label("Premissa:");
 		Label lblSe = new Label("Se:");
+		
+		
 		Label lblConclusao = new Label("Então:");
 		Label lblFatorCerteza = new Label("Fator de Certeza (%):");
 		final ComboBox<Float> comboBoxFatoresCerteza = new ComboBox<Float>(fatoresCerteza);

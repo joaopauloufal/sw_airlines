@@ -155,7 +155,7 @@ public class MenuBarPrincipal extends MenuBar {
 		
 		});
 		
-		MenuItem menuRealizarCompraGuiada = new MenuItem("Comprar Passagem Guiada...");
+		MenuItem menuRealizarCompraGuiada = new MenuItem("Realizar Compra Passagem Guiada...");
 		menuRealizarCompraGuiada.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
