@@ -11,6 +11,7 @@ import swairlines.view.TelaLogin;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -35,6 +36,8 @@ public class Main extends Application {
 			Main.SCENE = new Scene(new TelaLogin(), 1024, 700,Color.SILVER);
 			primaryStage.setScene(Main.SCENE);
 			primaryStage.setTitle("SW Airlines 1.6");
+			Image applicationIcon = new Image(getClass().getResourceAsStream("images/sw_airlines_icon.png"));
+			primaryStage.getIcons().add(applicationIcon);
 			primaryStage.show();
 			
 		} catch (Exception e) {

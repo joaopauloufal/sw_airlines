@@ -154,8 +154,7 @@ public class MotorDeInferencia implements Interativo{
 								}
 								
 							}
-							
-							
+														
 							i++;
 							valorLogicoFatoAtual = inferir(r.getPremissas().get(i));
 							fatorDeCertezaFatoAtual = r.getPremissas().get(i).getFatorCerteza()/100;
@@ -175,8 +174,7 @@ public class MotorDeInferencia implements Interativo{
 							if (!temFatoNaMemoriaDeFatos(r.getPremissas().get(i))){
 								this.memoriaDeFatos.adicionarFato(r.getPremissas().get(i));
 							}
-							
-							
+														
 						}
 						if (r.getPremissas().get(i).getSimbolo().equals("|")){
 							if (i > 0){
@@ -190,6 +188,7 @@ public class MotorDeInferencia implements Interativo{
 									this.memoriaDeFatos.adicionarFato(fato);
 									return valorLogicoFinal;
 								}
+								
 							} else {
 								valorLogicoFatoAnterior = inferir(r.getPremissas().get(i));
 								fatorCertezaFatoAnterior = r.getPremissas().get(i).getFatorCerteza()/100;
@@ -205,6 +204,7 @@ public class MotorDeInferencia implements Interativo{
 							}
 							
 							i++;
+							
 							valorLogicoFatoAtual = inferir(r.getPremissas().get(i));
 							
 							fatorDeCertezaFatoAtual = r.getPremissas().get(i).getFatorCerteza()/100;
@@ -215,17 +215,17 @@ public class MotorDeInferencia implements Interativo{
 								this.memoriaDeFatos.adicionarFato(fato);
 								return valorLogicoFinal;
 							} else {
-							valorLogicoFinal = valorLogicoFatoAnterior || valorLogicoFatoAtual;
-							
-							if (fatorCertezaFatoAnterior < 0.5 && fatorDeCertezaFatoAtual < 0.5){
-									fatorDeConfiancaTotal = (fatorCertezaFatoAnterior + fatorDeCertezaFatoAtual - fatorCertezaFatoAnterior * fatorDeCertezaFatoAtual);								
+								valorLogicoFinal = valorLogicoFatoAnterior || valorLogicoFatoAtual;
 								
-							}
-							
-							r.getPremissas().get(i).setValorLogico(valorLogicoFatoAtual);
-							if (!temFatoNaMemoriaDeFatos(r.getPremissas().get(i))){
-								this.memoriaDeFatos.adicionarFato(r.getPremissas().get(i));
-							}
+								if (fatorCertezaFatoAnterior < 0.5 && fatorDeCertezaFatoAtual < 0.5){
+										fatorDeConfiancaTotal = (fatorCertezaFatoAnterior + fatorDeCertezaFatoAtual - fatorCertezaFatoAnterior * fatorDeCertezaFatoAtual);								
+									
+								}
+								
+								r.getPremissas().get(i).setValorLogico(valorLogicoFatoAtual);
+								if (!temFatoNaMemoriaDeFatos(r.getPremissas().get(i))){
+									this.memoriaDeFatos.adicionarFato(r.getPremissas().get(i));
+								}
 							}
 							
 							
@@ -272,14 +272,7 @@ public class MotorDeInferencia implements Interativo{
 					this.memoriaDeFatos.adicionarFato(fato);
 					return !valorLogicoFinal;
 				} 
-			
-			} else if (fatorDeConfiancaTotal > 0.5 && valorLogicoFinal == false){
-				fato.setValorLogico(!valorLogicoFinal);
-				if (!temFatoNaMemoriaDeFatos(fato)){
-					fato.setFatorCerteza(fatorDeConfiancaTotal);
-					this.memoriaDeFatos.adicionarFato(fato);
-					return !valorLogicoFinal;
-				}
+			 
 			} else {
 				fato.setValorLogico(valorLogicoFinal);
 				fato.setFatorCerteza(fatorDeConfiancaTotal * fato.getFatorCerteza()/100);

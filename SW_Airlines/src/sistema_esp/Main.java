@@ -4,6 +4,7 @@ import sistema_esp.view.TelaInicial;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -19,19 +20,13 @@ public class Main extends Application {
 		scene = new Scene(new TelaInicial(), 800, 600, Color.SILVER);
 		primaryStage.setScene(getScene());
 		primaryStage.setTitle("SW Airlines - Sistema Especialista");
+		Image applicationIcon = new Image(getClass().getResourceAsStream("images/sist_esp_icon.jpg"));
+		primaryStage.getIcons().add(applicationIcon);
 		primaryStage.show();
-	}
-	
-	
-	
-	
+	}	
 
 	public Scene getScene() {
 		return scene;
-	}
-
-	public void setScene(Scene scene) {
-		this.scene = scene;
 	}
 	
 	public static void main(String[] args) {
