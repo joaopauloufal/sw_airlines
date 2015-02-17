@@ -4,7 +4,10 @@ import sistema_esp.dao.RegraDAO;
 import sistema_esp.model.Conclusao;
 import sistema_esp.model.Premissa;
 import sistema_esp.model.Regra;
+import sistema_esp.model.SemVoosCadastradosException;
 import sistema_esp.model.Variavel;
+import swairlines.dao.VooDAO;
+import swairlines.model.Voo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -29,9 +32,10 @@ import javafx.stage.Stage;
 public class TelaCadRegra extends Stage {
 	
 	private ObservableList<Premissa> dados;
+	private ObservableList<String> conclusoes;
 	private TextField txtNomeRegra;
 	
-	public TelaCadRegra() {
+	public TelaCadRegra() throws SemVoosCadastradosException {
 		
 		GridPane gPane = new GridPane();
 		gPane.setPadding(new Insets(10, 10, 10, 10));
@@ -50,9 +54,18 @@ public class TelaCadRegra extends Stage {
 		
 		dados = FXCollections.observableArrayList();
 		
-		ObservableList<String> variaveis = FXCollections.observableArrayList("Culturas diferentes", "Praia", "Ambientes Frios", "Temperados", "Ambientes Quentes");
+		ObservableList<String> variaveis = FXCollections.observableArrayList("Culturas diferentes", "Praias", "Florestas", "Climas Temperados", "Climas Tropicais", "Ambientes Frios", "Ambientes Quentes");
 		ObservableList<String> simbolos = FXCollections.observableArrayList("","e", "ou");
-		ObservableList<String> conclusoes = FXCollections.observableArrayList("EUA", "Brasil");
+		conclusoes = FXCollections.observableArrayList();
+		VooDAO vd = new VooDAO();
+		if (!vd.buscaVoos().isEmpty()){
+			for (Voo v : vd.buscaVoos()){
+				conclusoes.add(v.getDestino());
+			}
+		} else {
+			throw new SemVoosCadastradosException("Não há voos cadastrados!");
+		}
+		
 		ObservableList<String> negacoes = FXCollections.observableArrayList("","Não");
 		ObservableList<Float> fatoresCerteza = FXCollections.observableArrayList(10.0f, 20.0f, 30.0f, 40.0f, 50.0f, 60.0f, 70.0f, 80.0f, 90.0f, 100.0f);
 		
@@ -172,5 +185,15 @@ public class TelaCadRegra extends Stage {
 		show();
 		
 	}
+
+	public ObservableList<String> getConclusoes() {
+		return conclusoes;
+	}
+
+	public void setConclusoes(ObservableList<String> conclusoes) {
+		this.conclusoes = conclusoes;
+	}
+	
+	
 
 }

@@ -1,6 +1,11 @@
 package sistema_esp.view;
 
+import java.text.DecimalFormat;
+import java.util.Optional;
+
 import sistema_esp.model.Premissa;
+import swairlines.dao.VooDAO;
+import swairlines.model.Voo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -8,11 +13,14 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -25,9 +33,6 @@ public class TelaPergunta extends Stage {
 	private boolean valorLogicoFato;
 	private float fatorDeCertezaFato;
 	private boolean cancelaConsulta;
-	
-	
-
 	
 
 	public TelaPergunta() {
@@ -100,8 +105,17 @@ public class TelaPergunta extends Stage {
 
 			@Override
 			public void handle(ActionEvent event) {
-				cancelaConsulta = true;
-				hide();
+				Alert alertConf = new Alert(AlertType.CONFIRMATION);
+				alertConf.setTitle("Venda Passagem Guiada");
+				alertConf.setHeaderText("Confirmação de Cancelamento.");
+				alertConf.setContentText("Você tem certeza de que quer cancelar a compra de passagem guiada?");
+				
+				Optional<ButtonType> resposta = alertConf.showAndWait();
+				
+				if (resposta.get() == ButtonType.OK){
+					cancelaConsulta = true;
+					hide();
+				}
 				
 			}
 			
@@ -120,7 +134,7 @@ public class TelaPergunta extends Stage {
 		
 		gPane.getChildren().add(vbox);
 		initModality(Modality.APPLICATION_MODAL);
-		setTitle("Passagem Guiada");
+		setTitle("Venda Passagem Guiada");
 		showAndWait();
 		
 		

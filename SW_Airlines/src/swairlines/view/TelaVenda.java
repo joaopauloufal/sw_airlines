@@ -42,6 +42,9 @@ public class TelaVenda extends Stage {
 	private ComboBox<String> listClientes;
 	private VooDAO vooDao;
 	private Voo voo;
+	
+
+
 	private ClienteDAO clienteDao;
 	private Label lblNomeCliente;
 	private Label lblNomeClienteValor;
@@ -326,5 +329,38 @@ public class TelaVenda extends Stage {
 		initModality(Modality.APPLICATION_MODAL);
 		show();
 		
+	}
+	
+	public ComboBox<String> getListVoos() {
+		return listVoos;
+	}
+
+
+	public void setListVoos(ComboBox<String> listVoos) {
+		this.listVoos = listVoos;
+	}
+
+	public Label getLblOrigemVooValor() {
+		return lblOrigemVooValor;
+	}
+
+	public void setLblOrigemVooValor(Label lblOrigemVooValor) {
+		this.lblOrigemVooValor = lblOrigemVooValor;
+	}
+
+	public Label getLblDestinoVooValor() {
+		return lblDestinoVooValor;
+	}
+
+	public void setLblDestinoVooValor(Label lblDestinoVooValor) {
+		this.lblDestinoVooValor = lblDestinoVooValor;
+	}
+
+	public Label getLblValorVooPreco() {
+		return lblValorVooPreco;
+	}
+
+	public void setLblValorVooPreco(Label lblValorVooPreco) {
+		this.lblValorVooPreco = lblValorVooPreco;
 	}
 }

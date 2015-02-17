@@ -7,10 +7,12 @@ package swairlines.view;
  */
 
 import java.text.DecimalFormat;
+import java.util.Optional;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -24,8 +26,10 @@ import sistema_esp.model.Conclusao;
 import sistema_esp.model.MemoriaDeFatos;
 import sistema_esp.model.MotorDeInferencia;
 import swairlines.Main;
+import swairlines.dao.VooDAO;
 import swairlines.model.ContaDeUsuario;
 import swairlines.model.Funcionario;
+import swairlines.model.Voo;
 
 public class MenuBarPrincipal extends MenuBar {
 	
@@ -171,18 +175,37 @@ public class MenuBarPrincipal extends MenuBar {
 					Conclusao c = rDao.retornaTodasAsRegrasDoBanco().get(i).getConclusao();
 					
 					if(motor.inferir(c)){
+						
+						Alert alertConf = new Alert(AlertType.CONFIRMATION);
 						DecimalFormat df = new DecimalFormat("0.0");
-						Alert alertConf = new Alert(AlertType.INFORMATION);
-						alertConf.setTitle("Passagem Guiada");
-						alertConf.setHeaderText("Concluido.");
-						alertConf.setContentText("Você vai para o " + c.getVariavel()+"! \n" +"Grau de Confiança: " + df.format(c.getFatorCerteza()*100)+"%.");
-						alertConf.showAndWait();
+						alertConf.setTitle("Venda Passagem Guiada");
+						alertConf.setHeaderText("Concluido!");
+						alertConf.setContentText("Seu destino é ir para o/a " + c.getVariavel().getValor() + ".\nGrau de Confiança: " + df.format(c.getFatorCerteza()*100)+"%.\n" +"Você gostaria de comprar a passagem?");
+						
+						Optional<ButtonType> resposta = alertConf.showAndWait();
+						
+						if (resposta.get() == ButtonType.OK){
+							VooDAO vd = new VooDAO();
+							Voo vooDestino = new Voo();
+							for (Voo v : vd.buscaVoos()){
+								if (v.getDestino().equals(c.getVariavel().getValor())){
+									vooDestino = v;
+								}
+							}
+							TelaVenda telaVenda = new TelaVenda();
+							telaVenda.setTitle("Venda de Passagens");
+							telaVenda.getListVoos().getSelectionModel().select(String.valueOf((vooDestino.getId())));
+							telaVenda.getLblOrigemVooValor().setText(vooDestino.getOrigem());
+							telaVenda.getLblDestinoVooValor().setText(vooDestino.getDestino());
+							telaVenda.getLblValorVooPreco().setText(String.valueOf(vooDestino.getValor()));
+							
+						}
 						break;
 			
 					} else {
 						if (i == base.getRegras().size()-1){
 						Alert alertConf = new Alert(AlertType.INFORMATION);
-						alertConf.setTitle("Passagem Guiada");
+						alertConf.setTitle("Venda Passagem Guiada");
 						alertConf.setHeaderText("Concluido.");
 						alertConf.setContentText("Não consegui encontrar um destino.");
 						alertConf.showAndWait();
