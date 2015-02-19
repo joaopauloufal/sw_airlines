@@ -2,6 +2,7 @@ package sistema_esp.view;
 
 import sistema_esp.dao.RegraDAO;
 import sistema_esp.model.Conclusao;
+import sistema_esp.model.ExpressaoMalFormatadaException;
 import sistema_esp.model.Premissa;
 import sistema_esp.model.Regra;
 import sistema_esp.model.SemVoosCadastradosException;
@@ -125,8 +126,22 @@ public class TelaCadRegra extends Stage {
 				if (comboBoxNegacao.getSelectionModel().getSelectedItem().equals("Não")){
 					p.setEstaNegada(true);
 				}
-				dados.add(p);
-				lista.setItems(dados);
+				
+				if (dados.size() >= 1 && dados.get(0).getSimbolo().equals("")){
+					try {
+						throw new ExpressaoMalFormatadaException("Expressão mal formatada!");
+					} catch (ExpressaoMalFormatadaException e) {
+						Alert alertConf = new Alert(AlertType.ERROR);
+						alertConf.setTitle("Expressão Mal Formatada");
+						alertConf.setHeaderText("Erro.");
+						alertConf.setContentText(e.getMessage());
+						alertConf.showAndWait();
+					}
+				} else {
+					dados.add(p);
+					lista.setItems(dados);
+				}
+				
 			}
 			
 		});

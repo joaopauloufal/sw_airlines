@@ -1,11 +1,8 @@
 package sistema_esp.view;
 
-import java.text.DecimalFormat;
 import java.util.Optional;
 
 import sistema_esp.model.Premissa;
-import swairlines.dao.VooDAO;
-import swairlines.model.Voo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -46,7 +43,7 @@ public class TelaPergunta extends Stage {
 		gPane.setVgap(5);
 		gPane.setHgap(5);
 		
-		Scene scene = new Scene(gPane, 600, 500, Color.SILVER);
+		Scene scene = new Scene(gPane, 500, 300, Color.SILVER);
 		setScene(scene);
 		
 		VBox vbox = new VBox(20);
