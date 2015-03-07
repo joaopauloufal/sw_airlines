@@ -5,18 +5,19 @@ package swairlines.view;
  * @name TelaLogin
  */
 
-import javax.swing.JOptionPane;
+import java.util.Optional;
 
-import org.controlsfx.control.action.Action;
-import org.controlsfx.dialog.Dialog;
-import org.controlsfx.dialog.Dialogs;
+import javax.swing.JOptionPane;
 
 import swairlines.Main;
 import swairlines.model.ContaDeUsuario;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -24,7 +25,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-@SuppressWarnings("deprecation")
 public class TelaLogin extends BorderPane {
 	
 	private TextField txtUsuario;
@@ -65,17 +65,16 @@ public class TelaLogin extends BorderPane {
 
 			@Override
 			public void handle(ActionEvent event) {
-				Action resposta = Dialogs.create()
-				.title("Confirmação")
-				.masthead("Confirmação de Saída")
-				.message("Deseja realmente sair do sistema?")
-				.styleClass(Dialog.STYLE_CLASS_NATIVE)
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("Confirmação");
+				alert.setHeaderText("Confirmação de Saída.");
+				alert.setContentText("Deseja realmente sair do sistema?");
 				
-				.showConfirm();
+				Optional<ButtonType> result = alert.showAndWait();
 				
-				if (resposta == Dialog.ACTION_YES){
+				if (result.get() == ButtonType.OK){
 					System.exit(0);
-				} 
+				}
 				
 				
 			}

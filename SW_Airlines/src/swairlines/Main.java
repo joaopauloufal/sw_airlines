@@ -35,7 +35,7 @@ public class Main extends Application {
 		try {
 			Main.SCENE = new Scene(new TelaLogin(), 1024, 700,Color.SILVER);
 			primaryStage.setScene(Main.SCENE);
-			primaryStage.setTitle("SW Airlines 1.6");
+			primaryStage.setTitle("SW Airlines 1.7");
 			Image applicationIcon = new Image(getClass().getResourceAsStream("images/sw_airlines_icon.png"));
 			primaryStage.getIcons().add(applicationIcon);
 			primaryStage.show();
